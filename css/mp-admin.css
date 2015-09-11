@@ -1,0 +1,203 @@
+/**
+ *  ┌──────────────────┐
+ *  │                  │
+ *  │ MULTI PUBLISHER  │
+ *  │ CARNET DU FRAC   │
+ *  │                  │
+ *  └──────────────────┘
+ */
+
+
+#multi_publisher{
+}
+
+#multi_publisher .clearafter:after{
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+#multi_publisher h2{
+    width: 300px;
+    margin-top:24px;
+    margin-bottom:40px;
+    border : solid 5px #333;
+    padding: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#multi_publisher h3{
+    /*width: 300px;*/
+    margin-top:24px;
+    margin-bottom:15px;
+    border-bottom : solid 5px #333;
+    padding: 5px;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5em;
+    display: inline-block;
+}
+
+#multi_publisher .chapterlist{
+    /*margin-top: 40px;*/
+    background:#FFF; 
+    padding: 10px;
+    border: solid 1px #DDD; 
+}
+
+#multi_publisher .chapter {
+    width:65px;
+    height:100px;
+    border:solid 5px #000;
+    box-shadow:  5px  5px 0px 0px rgba(255, 255, 255, 1),
+                10px 10px 0px 0px rgba(0, 0, 0, 1),
+                15px 15px 0px 0px rgba(255, 255, 255, 1),
+                20px 20px 0px 0px rgba(0, 0, 0, 1);
+    padding:5px;
+    text-align:center;
+    font-weight:bold;
+    font-size:10px;
+    margin: 5px 25px 25px 5px;
+    background: #000;
+    color: #FFF;
+    display: inline-block;
+    float: left;
+}
+
+#multi_publisher .chapter:hover,
+#multi_publisher .partie .chapter:hover{
+    background: #FF0;
+    cursor: move;
+    color: #000;
+}
+
+#multi_publisher .partie .chapter{
+    background: #FFF;
+    color: #000;
+}
+
+.partie{
+    display: inline-block;
+    /*float: left;*/
+    background:#FDD; 
+    height: 150px;
+    min-width: 115px;
+    box-sizing: border-box;
+    border-left: solid 1px #FDD;
+    position: relative;
+}
+
+.partie:hover{
+    cursor: move;
+}
+
+.partie .droppin{
+    position: absolute;
+    bottom:30px;
+    left: 34px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: dashed 1px #F99;
+}
+
+.partie>h4{
+    width: 114px;
+    box-sizing: border-box;  
+    text-transform: uppercase;
+    float: left;
+    /*pointer-events:none;*/
+    font-size:10px;
+    padding: 10px;
+    margin: 0; 
+    font-weight: bold;
+    line-height:1em;
+    color:#F00;
+}
+
+.partie+.partie{
+    /*border-left: dashed 1px #F99;*/
+}
+
+.sortEditionWrapper{
+    border-left: solid 1px #FDD;
+    display: inline-block;
+    float: left;
+}
+
+.sortEditionWrapper+.sortEditionWrapper{
+    border-left: dashed 1px #F99;
+}
+
+input[type=text]{
+    width: 50%;
+}
+
+button.submitdelete{
+    float: left;
+}
+
+
+
+
+.mp-container {
+    background-color: #4474FF;
+    display: inline-block;
+}
+.mp-container:after {
+    content:" ";
+    display:block;
+    clear:both;
+}
+.mp-container-wrapper {
+    float:left;
+    background-color: #45FF41;
+    min-width: 229px;
+    border-left:solid #333 1px;
+}
+.mp-container-wrapper+.mp-container-wrapper{
+    border-left:dashed #F00 1px;
+}
+.mp-container-wrapper h4 {
+    width: 114px;
+    box-sizing: border-box;  
+    text-transform: uppercase;
+    float: left;
+    /*pointer-events:none;*/
+    font-size:10px;
+    padding: 10px;
+    margin: 0; 
+    font-weight: bold;
+    line-height:1em;
+    color:#F00;
+    background:#0F0;
+}
+.mp-container .mp-container {
+    min-height: 150px;
+    float:left;
+    min-width:115px;
+    background:#0FF;
+}
+.mp-item {
+    background-color: #FFCB44;
+    float:left;
+}
+.mp-helper-item {
+}
+.mp-chapter {
+    width:65px;
+    height:100px;
+    border:solid 5px #000;
+    box-shadow: 5px 5px 0px 0px rgba(255, 255, 255, 1), 10px 10px 0px 0px rgba(0, 0, 0, 1), 15px 15px 0px 0px rgba(255, 255, 255, 1), 20px 20px 0px 0px rgba(0, 0, 0, 1);
+    padding:5px;
+    text-align:center;
+    font-weight:bold;
+    font-size:10px;
+    margin: 5px 25px 25px 5px;
+    background: #FFF;
+    color: #000;
+}

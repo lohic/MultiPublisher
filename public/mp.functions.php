@@ -18,7 +18,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	 */
 	function get_mp_header(){
 
-		if(MultiPublisher::$publicationType == "epub"){
+		if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf" ){
 
 			echo "<!DOCTYPE html>
 			<html>
@@ -39,7 +39,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	 * @return [type] [description]
 	 */
 	function get_mp_footer(){
-		if(MultiPublisher::$publicationType == "epub"){
+		if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf"){
 
 			echo "</body>
 			</html>";

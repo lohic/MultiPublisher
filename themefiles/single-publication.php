@@ -1,4 +1,4 @@
-<?php //get_header(); ?>
+<?php get_mp_header(); ?>
 
 <!-- single-publication.php -->
 
@@ -28,4 +28,4 @@
 
 <!-- fin-publication.php -->
 
-<?php //get_footer(); ?>
+<?php get_mp_footer(); ?>

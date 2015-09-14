@@ -267,17 +267,23 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             // Rien pour l’instant
             //
-            
+            //            
             if(isset($_GET['mp_publication_type'])){
 	            switch($_GET['mp_publication_type']){
 
-	                case "epub" :   MultiPublisher::$publicationType == "epub";     break;
-	                case "pdf" :    MultiPublisher::$publicationType == "pdf";      break;
-	                default :       MultiPublisher::$publicationType == "html";     break;
+	                case "epub" :
+	                	MultiPublisher::$publicationType = "epub";
+	                	break;
+	                case "pdf" :
+	                	MultiPublisher::$publicationType = "pdf";
+	                	break;
+	                default :
+	                	MultiPublisher::$publicationType = "html";
+	                break;
 
 	            }
 			} else{
-			    MultiPublisher::$publicationType == "html";
+			    MultiPublisher::$publicationType = "html";
 			}  
             
             // on ne charge les dépendances que si on est pas en admin

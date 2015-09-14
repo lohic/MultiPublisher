@@ -1,6 +1,8 @@
 <?php //get_header(); ?>
 
-<!-- single-edition.php -->
+<!-- single-publication.php -->
+
+<?php echo MultiPublisher::$publicationType; ?>
 
 <div id="content">
 <?php if(have_posts()) : ?><?php while(have_posts()) : the_post(); ?>
@@ -24,6 +26,6 @@
 <?php endif; ?>
 </div>
 
-<!-- fin-edition.php -->
+<!-- fin-publication.php -->
 
 <?php //get_footer(); ?>

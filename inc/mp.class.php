@@ -91,6 +91,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( '-1' );
 }
 
+
+use PHPePub\Core\EPub;
+use PHPePub\Core\EPubChapterSplitter;
+use PHPePub\Core\Structure\OPF\DublinCore;
+use PHPePub\Core\Logger;
+use PHPZip\Zip\File\Zip;
+
+
+
 if ( ! class_exists( 'MultiPublisher' ) ) {
     class MultiPublisher {
 
@@ -100,6 +109,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         static $pluginPath;
         static $pluginUrl;
         static $cachePath;
+
+        static $publicationType = 'html';
 
 
         //const EDITION           = 'edition';
@@ -256,6 +267,18 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             // Rien pour l’instant
             //
+            
+            if(isset($_GET['mp_publication_type'])){
+	            switch($_GET['mp_publication_type']){
+
+	                case "epub" :   MultiPublisher::$publicationType == "epub";     break;
+	                case "pdf" :    MultiPublisher::$publicationType == "pdf";      break;
+	                default :       MultiPublisher::$publicationType == "html";     break;
+
+	            }
+			} else{
+			    MultiPublisher::$publicationType == "html";
+			}  
             
             // on ne charge les dépendances que si on est pas en admin
             if(!is_admin()){
@@ -452,7 +475,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              * TEMPLATE REDIRECTION
              */
             
-            //add_action("template_redirect",  array( $this, 'my_theme_redirect' ) );
+            add_action("template_redirect",  array( $this, 'my_theme_redirect' ) );
 
 			
 
@@ -727,6 +750,14 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		            $return_template = MultiPublisher::$pluginPath . 'themefiles/' . $templatefilename;
 		        }
 		        $this->do_theme_redirect($return_template);
+            }elseif ($wp->query_vars["post_type"] == 'publication') {
+                $templatefilename = 'single-publication.php';
+                if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
+                    $return_template = TEMPLATEPATH . '/' . $templatefilename;
+                } else {
+                    $return_template = MultiPublisher::$pluginPath . 'themefiles/' . $templatefilename;
+                }
+                $this->do_theme_redirect($return_template);
 
 		    // //A Custom Taxonomy Page
 		    // } elseif ($wp->query_vars["taxonomy"] == 'product_categories') {
@@ -775,8 +806,9 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             require_once( MultiPublisher::$pluginPath . 'inc/mp.structure.php');
             require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
             require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
-            require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/Logger.php');
-            require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/EPub.php');
+            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/Logger.php');
+            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/EPub.php');
+            require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
 
 
             mp_structure::instance();
@@ -922,7 +954,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 if($publication_type == 'publication') {
 
-                    define("IS_EPUB", true);
+
+                    MultiPublisher::$publicationType = "epub";
 
 					$publication_content = apply_filters('the_content', $publication_content);
 
@@ -1040,10 +1073,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					// http://codex.wordpress.org/Function_Reference/wp_insert_attachment
 
                 }else{
-                    define("IS_EPUB", true);
+                    MultiPublisher::$publicationType = "epub";
                 }
             }else{
-                define("IS_EPUB", true);
+                MultiPublisher::$publicationType = "epub";
             }
         }
 

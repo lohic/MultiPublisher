@@ -1,0 +1,17 @@
+{
+	"name": "MultiPublisher",
+	"type": "Wordpress plugin",
+	"homepage": "https://github.com/lohic/MultiPublisher",
+	"authors": [
+		{
+			"name": "Loïc Horellou",
+			"email": "hello@loichorellou.net",
+			"homepage": "http://www.loichorellou.net",
+			"role": "Developer"
+		}
+	],
+    "require": {
+        "grandt/phpepub": ">=4.0.1",
+ 		"php": ">=5.3.0"       
+    }
+}

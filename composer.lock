@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "914659b8e3def9b582cda1dba143aee9",
-    "content-hash": "d2bcffa62d40e0a36a4432da12a7cef0",
+    "hash": "ea4389a056d99e8b8306af9b00557784",
+    "content-hash": "9468c819082b4fc565ec73ccd956cba2",
     "packages": [
         {
             "name": "grandt/binstring",
@@ -52,16 +52,16 @@
         },
         {
             "name": "grandt/phpepub",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Grandt/PHPePub.git",
-                "reference": "8d790c6dee0dbf69cd94a11c4bc46551a6e5a11f"
+                "reference": "77c64806cb1aa33a92931e18d04fba4cfb2b4ec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/8d790c6dee0dbf69cd94a11c4bc46551a6e5a11f",
-                "reference": "8d790c6dee0dbf69cd94a11c4bc46551a6e5a11f",
+                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/77c64806cb1aa33a92931e18d04fba4cfb2b4ec1",
+                "reference": "77c64806cb1aa33a92931e18d04fba4cfb2b4ec1",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
                 "e-book",
                 "epub"
             ],
-            "time": "2015-07-02 04:24:38"
+            "time": "2015-09-15 04:45:59"
         },
         {
             "name": "grandt/phpresizegif",

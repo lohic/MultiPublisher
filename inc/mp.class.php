@@ -1028,10 +1028,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 	// $partie_content = apply_filters('the_content', $partie_content);
                 	// $partie_content = str_replace( ']]>', ']]&gt;', $partie_content );
 
-                	$partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=41") );
+                	$partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=41&mp_publication_type=epub") );
 
                 	//$book->addChapter("Test", "test.html", $partie_content, false);
-					//$book->addChapter("Test 2", "test2.html", $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
+					$book->addChapter("Test 2", "test2.html", $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
 
 					// addChapter($chapterName, $fileName, $chapterData = null, $autoSplit = false, $externalReferences = EPub::EXTERNAL_REF_IGNORE, $baseDir = "")
 					// EPub::EXTERNAL_REF_IGNORE
@@ -1064,15 +1064,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                     . " </platform>\n"
                     . "</display_options>";
 
-                    $book->addFile("../../META-INF/com.apple.ibooks.display-options.xml","com.apple.ibooks.display-options.xml",$xml_content,"application/xml");
+                    $book->addFileToMETAINF("com.apple.ibooks.display-options.xml",$xml_content);
 
 					$book->finalize();
 
 					//$epub_name = $book->saveBook( get_the_title( $_GET['post'] ) , MultiPublisher::$pluginPath.'book/');
 
 					$epub_name = $book->saveBook( $publication_name , MultiPublisher::$cachePath);
-
-					//$this->add_apple_xml( MultiPublisher::$cachePath.'/'.$epub_name );
 
 
 					// à la fin on ajoute un document lié 
@@ -1086,50 +1084,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             }
         }
 
-
-
-        /**
-         * Pour ajouter le fichier XML qui permet de conserver les polices spécifiées dans les CSS sur les appareils Apple.
-         * @param [type] $epub_file [description]
-         * @return void
-         * @author Loïc Horellou
-         */
-        public function add_apple_xml( $epub_file ){
-
-            $xml_content =
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-			. "<display_options>\n"
-    		. "	<platform name=\"*\">\n"
-        	. "		<option name=\"fixed-layout\">false</option>\n"
-        	. "		<option name=\"open-to-spread\">false</option>\n"
-        	. "		<option name=\"specified-fonts\">true</option>\n"
-    		. "	</platform>\n"
-    		. "	<platform name=\"iphone\">\n"
-        	. "		<option name=\"orientation-lock\">none</option>\n"
-    		. "	</platform>\n"
-			. "</display_options>";
-
-            $xml_filename = "com.apple.ibooks.display-options.xml";
-
-            $zip = new ZipArchive;
-
-            if ($zip->open( $epub_file ) == TRUE) {
-                for ($i = 0; $i < $zip->numFiles; $i++) {
-                    $filename = $zip->getNameIndex($i);
-
-                    //echo "$filename<br>\n";
-                }
-
-                //$zip->addFromString('META-INF/test.xml', '<ok></ok>');
-                //$zip->addFile(MultiPublisher::$pluginPath.'inc/com.apple.ibooks.display-options.xml', 'META-INF/com.apple.ibooks.display-options.xml');
-                $zip->addFromString('META-INF/'.$xml_filename, $xml_content);
-                //echo "fichier ajouté<br>\n";
-
-
-                $zip->close();
-            }
-        
-        }
 
 
         // Add meta box

@@ -25,6 +25,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 			<head>
 				<meta charset=\"utf-8\">
 			  	<title>".get_bloginfo( 'name', 'display' )."</title>
+			  	<link rel=\"stylesheet\" type=\"text/css\" href=\"".get_mp_css_url()."\" >
 			</head>
 
 			<body>";
@@ -53,7 +54,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 
 
 	function get_mp_css_url(){
-
+		return Multipublisher::$pluginUrl.'themefiles/carnet-du-frac/style.css';
 	}
 
 

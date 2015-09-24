@@ -23,6 +23,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <?php //MultiPublisher::wpb_list_child_pages(); ?>
 
+    ENFANTS :
+    <ul>
+    <?php 
+        wp_list_pages(
+            array(
+                'depth'=>-1,
+                'post_type'=>'publication',
+                'child_of'=>$post->ID,
+                'title_li'=>''
+            )
+        );
+    ?>
+    </ul>
+
+    <button id="generate_publication">Générer la publication</button>
+
     <table class="form-table">
         <tr>
             <th style="width:20%">
@@ -150,6 +166,22 @@ jQuery(document).ready(function($) {
             update: function( event, ui ) {
                 getEditionStructure();
             }
+        });
+
+        $("#generate_publication").click(function(event){
+            event.preventDefault();
+
+            var data = {
+                'ID': $("#post_ID").val(),
+                'action': 'generate_publication'
+            };
+
+            $.post(ajaxurl, data, function(response) {
+
+                console.log(response);
+
+            });
+
         });
 
         /*$( "div.partie" ).sortable({

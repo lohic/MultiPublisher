@@ -112,6 +112,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         static $publicationType = 'html';
 
+        static $xRefCount = 0;
+
 
         //const EDITION           = 'edition';
         //const CHAPITRE          = 'chapitre';
@@ -493,27 +495,18 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             /**
              * AJAX
              */
-            
-
-            add_action( 'wp_ajax_dialog_partie', 'dialog_partie_callback' );
-            function dialog_partie_callback() {
-                include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog.php' );
-            }
-
-            add_action( 'wp_ajax_dialog_add_partie', 'dialog_add_partie_callback' );
-            function dialog_add_partie_callback() {
-                include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog-partie.php' );
-            }
-
-
+            add_action( 'wp_ajax_dialog_partie', 			 array( $this, 'dialog_partie_callback') );
+            add_action( 'wp_ajax_dialog_add_partie',	 	 array( $this, 'dialog_add_partie_callback') );
             add_action( 'wp_ajax_publication_update_parent', array( $this, 'publication_update_parent_callback') );
-            //function publication_update_parent_callback() {
-                //include( MultiPublisher::$pluginPath . 'inc/views/ajax-publication-update-parent.php' );
-            //}
-
+            add_action( 'wp_ajax_generate_publication', 	 array( $this, 'generate_publication_callback') );
             // FIN AJAX
 
 
+            /**
+             * SHORTCODES
+             */
+            add_shortcode( 'xref', array( $this, 'xref_shortcode_function') );
+            // FIN SHORTCODES
 
 
             add_action( 'admin_print_scripts', 'mp_gallery_dialog' );
@@ -693,8 +686,40 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         }
 
+        /**
+         * Fonction pour ajouter un shortcode de référence croisée
+         * [xref txt="le fragment de texte" id="57" ]
+         * @param  [type] $atts [description]
+         * @return [type]       [description]
+         */
+        public function xref_shortcode_function( $atts ){
+            $compteur = MultiPublisher::$xRefCount ++;
+
+            $a = shortcode_atts( array(
+                'txt' => 'something',
+                'id' => 0,
+            ), $atts );
+
+            return "<a href=\"#{$a['id']}\">{$a['txt']} {$compteur}</a>";
+        }
+
+
+
+        // AJAX CALLBACK 
         public function publication_update_parent_callback() {
             include( MultiPublisher::$pluginPath . 'inc/views/ajax-publication-update-parent.php' );
+        }
+
+        public function dialog_add_partie_callback() {
+            include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog-partie.php' );
+        }
+
+        public function dialog_partie_callback() {
+            include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog.php' );
+        }
+
+        public function generate_publication_callback(){
+        	$this->generate_epub( $_POST['ID'] );
         }
 
 
@@ -744,7 +769,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		        if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
 		            $return_template = TEMPLATEPATH . '/' . $templatefilename;
 		        } else {
-		            $return_template = MultiPublisher::$pluginPath . 'themefiles/' . $templatefilename;
+		            $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
 		        }
 		        $this->do_theme_redirect($return_template);
 
@@ -753,7 +778,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		        if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
 		            $return_template = TEMPLATEPATH . '/' . $templatefilename;
 		        } else {
-		            $return_template = MultiPublisher::$pluginPath . 'themefiles/' . $templatefilename;
+		            $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
 		        }
 		        $this->do_theme_redirect($return_template);
             }elseif ($wp->query_vars["post_type"] == 'publication') {
@@ -761,7 +786,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
                     $return_template = TEMPLATEPATH . '/' . $templatefilename;
                 } else {
-                    $return_template = MultiPublisher::$pluginPath . 'themefiles/' . $templatefilename;
+                    $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
                 }
                 $this->do_theme_redirect($return_template);
 
@@ -832,7 +857,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'wp_ajax_find_posts', array( $this, 'wp_ajax_find_posts'),1);
 
 
-            $this->generate_epub();
+            //$this->generate_epub();
         }
 
 
@@ -943,12 +968,11 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
-        public function generate_epub(){
+        public function generate_epub($post_ID=null){
 
-            if(!empty($_GET['post'])){
+            if( !empty( $post_ID ) ){
 
-
-                $publication_id = $_GET['post'];
+                $publication_id = $post_ID;
 
 
                 $publication_data    = get_post($publication_id); 
@@ -957,8 +981,146 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 // test partie ID -> 41
                 // http://localhost:8888/Site_CDF/?p=41
+           
+                // -> ARBORESCENCE D'UNE PUBLICATION
+                // http://codex.wordpress.org/Class_Reference/wpdb
+                /*SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
+                FROM wp_posts AS p, wp_postmeta AS m
+                WHERE post_type='publication'
+                AND m.meta_key = 'mp_main_parent_id_key'
+                AND m.meta_value = 51
+                AND m.post_id = p.ID
+                ORDER BY menu_order*/
+               
 
-                if($publication_type == 'publication') {
+                if( $publication_type == 'publication' ) {
+
+
+	                $publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
+	                FROM wp_posts AS p, wp_postmeta AS m
+	                WHERE post_type='publication'
+	                AND m.meta_key = 'mp_main_parent_id_key'
+	                AND m.meta_value = $post_ID
+	                AND m.post_id = p.ID
+	                ORDER BY menu_order";
+
+	                global $wpdb;
+
+	                $structure  = $wpdb->get_results( $publication_query );
+
+	                $main = new StdClass;
+	                $main->post_parent = 0;
+	                $main->ID = 51;
+	                $main->post_title = "MAIN Essai Poirier";
+	                $main->child = array();
+
+	                // On ajoute $main à $structure
+	                //$structure[] = $main;
+
+	                $structure = array_unshift($structure, $main);
+
+	                //print_r($structure);
+
+	                // STACK
+	                // http://stackoverflow.com/questions/2871861/how-to-build-unlimited-level-of-menu-through-php-and-mysql
+	                // http://pastebin.com/GAFvSew4
+
+	                $html = '';
+					$parent = 0;
+					$parent_stack = array();
+
+					// $items contains the results of the SQL query
+					$children = array();
+					foreach ( $structure as $item ) {
+						$item->child = array();
+					    $children[ $item->post_parent ][] = $item;						
+					}
+
+					//print_r(json_encode($children));
+
+					//print_r("\n___\n\n");
+					//
+					
+
+
+					// function generate_structure($child_array){
+
+					// 	$parent = 0;
+					// 	$i 		= 0;
+						
+					// 	foreach($child_array as $parent_id => $child_tree){
+
+					// 		print_r( $parent_id );
+					// 		print_r( $child_tree );
+
+					// 		if(is_array($child_tree)){
+					// 			generate_structure( $child_tree );
+					// 		}
+					// 		//
+
+					// 	}
+
+					// }
+
+					// generate_structure($structure);
+
+
+					print_r(json_encode($structure));
+
+					$i = 0;
+					while ( ( $option = each( $children[ $parent ] ) ) || ( $parent > 0 ) ) {
+					    if ( !empty( $option ) ) {
+
+					    	//print_r( $option['value']->ID." ".$option['value']->post_parent." ".$option['value']->post_title."\n" );
+
+					        // 1) The item contains children:
+					        // store current parent in the stack, and update current parent
+					        if ( !empty( $children[ $option['value']->ID ] ) ) {
+
+					        	$i++;
+					        	//echo $i. '! ' . $option['value']->ID .' '.$option['value']->post_title."\n";
+
+					            $html .= '<li>' . $option['value']->post_title . '</li>'."\n";
+					            $html .= '<ul>'."\n"; 
+					            array_push( $parent_stack, $parent );
+					            $parent = $option['value']->ID;
+
+
+					            //echo $i. '  \ ' ."\n";
+					            $publication[] = $option['value'];
+					        }
+					        // 2) The item does not contain children
+					        else {
+					        	$i++;
+					        	//echo $i. '  ' . $option['value']->ID .' '.$option['value']->post_title."\n";
+
+
+					            $html .= '<li>' . $option['value']->post_title . '</li>'."\n";
+
+
+					            $publication[] = $option['value'];
+					        }
+					    }
+					    // 3) Current parent has no more children:
+					    // jump back to the previous menu level
+					    else {
+					    	$i++;
+					        //echo $i. '  / ' ."\n";
+
+					        $html .= '</ul>'."\n";
+
+					        $parent = array_pop( $parent_stack );
+					    }
+					}
+					//print_r( json_encode($main) );
+
+					// At this point, the HTML is already built
+					//echo $html;
+					//
+					//print_r($publication);
+
+
+					// END STACK
 
 
                     MultiPublisher::$publicationType = "epub";
@@ -977,7 +1139,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					. "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\">\n"
 					. "<head>"
 					. "<meta http-equiv=\"Default-Style\" content=\"text/html; charset=utf-8\" />\n"
-					. "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\" />\n"
+					. "<link rel=\"stylesheet\" type=\"text/css\" href=\"../Styles/style.css\" />\n"
 					. "<title>" . get_the_title( $publication_id ). "</title>\n"
 					. "</head>\n"
 					. "<body>\n";
@@ -1015,9 +1177,16 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					$log->logLine("Set up parameters");
 
 					// ADD CSS
-					$cssData = "body{margin:0;}";
-					$log->logLine("Add css");
-					$book->addCSSFile("styles.css", "css1", $cssData);
+					// $cssData = "body{margin:0;}";
+					// $log->logLine("Add css");
+					// $book->addCSSFile("styles.css", "css1", $cssData);
+
+                    // CHECK FONT
+                    $stylesheet = file_get_contents(MultiPublisher::$pluginPath.'/themefiles/style.css');
+
+                    if(preg_match_all("/[\w\d_\-\/.]+\.[ot]tf/", $stylesheet, $font_files)){
+                        //print_r($font_files);
+                    }
 
 					// ADD CHAPTER
 					//$book->addChapter("Chapitre 1: Raymond Hains — les textes", "index.html", "<head></head><body>Contenu du chapitre 1</body>", false);
@@ -1028,7 +1197,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 	// $partie_content = apply_filters('the_content', $partie_content);
                 	// $partie_content = str_replace( ']]>', ']]&gt;', $partie_content );
 
-                	$partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=41&mp_publication_type=epub") );
+                	$partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=57&mp_publication_type=epub") );
 
                 	//$book->addChapter("Test", "test.html", $partie_content, false);
 					$book->addChapter("Test 2", "test2.html", $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
@@ -1068,13 +1237,19 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 					$book->finalize();
 
-					//$epub_name = $book->saveBook( get_the_title( $_GET['post'] ) , MultiPublisher::$pluginPath.'book/');
-
 					$epub_name = $book->saveBook( $publication_name , MultiPublisher::$cachePath);
+					
+
+					//$epub_name = $book->saveBook( get_the_title( $_GET['post'] ) , MultiPublisher::$pluginPath.'book/');
 
 
 					// à la fin on ajoute un document lié 
 					// http://codex.wordpress.org/Function_Reference/wp_insert_attachment
+					
+
+					// $retour = new StdClass();
+					// $retour->ok = 'ok';
+					// echo json_encode($retour);
 
                 }else{
                     MultiPublisher::$publicationType = "epub";

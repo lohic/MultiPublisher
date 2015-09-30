@@ -68,20 +68,49 @@ $list = array();
 
 foreach($structure as $data) {
     $thisref =& $refs[ $data->ID ];
- 
-    $thisref['account_id'] = $data->ID;
-    $thisref['AccountName'] = $data->post_title;
-    $thisref['parent_id'] = $data->post_parent;
-    //$thisref['AccountType'] = $data['AccountType'];
-    //$thisref['AccountNumber'] = $data['AccountNumber'];
+
+    $thisref['ID'] 			= $data->ID;
+    $thisref['post_title'] 	= $data->post_title;
+    $thisref['post_parent'] = $data->post_parent;
  
     if ($data->post_parent == 0) {
-        $list[  ] =& $thisref;
+        $list[] =& $thisref;
     } else {
         $refs[ $data->post_parent ]['childs'][] =& $thisref;
     }
 }
 
-$mylist["rows"] = $list; 
 
-echo json_encode($mylist);
+//echo json_encode($list);
+
+
+
+
+function object_to_array($obj) {
+    if(is_object($obj)) $obj = (array) $obj;
+    if(is_array($obj)) {
+        $new = array();
+        foreach($obj as $key => $val) {
+            $new[$key] = object_to_array($val);
+        }
+    }
+    else $new = $obj;
+    return $new;       
+}
+
+echo json_encode(object_to_array($list));
+
+
+function analyse_structure($structure_array_json){
+	foreach($structure_array_json as $item){
+
+		echo $item['ID']." ".$item['post_title']."<br>\n";
+
+		if( isset($item['childs']) ){
+			analyse_structure($item['childs']);
+		}
+	}
+}
+
+//analyse_structure($list);
+

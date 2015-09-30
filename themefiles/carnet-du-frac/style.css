@@ -36,10 +36,16 @@
 
 	body{
 		font-family:"TimesNewRomanPSMT-Regular","Times New Roman", serif;
-		margin: 7.75mm;
+		margin: 7.75mm auto;
 		position: relative;
 		font-size: 13pt;
 		line-height: 14.4pt;
+		max-width: 15cm;
+	}
+
+	.mp-cover{
+		page-break-after: always;
+		margin-bottom: 2rem;
 	}
 
 
@@ -79,6 +85,30 @@
 		padding-top: 0.865pt;
 		line-height: 28.865pt;
 	}
+
+	h1:before,
+	h1.mp-main-title:before{
+		content: "Titre";
+		position: absolute;
+		width: 13.2mm;
+		left:0mm;
+		display: block;
+		font-family: "ArialBlackRegular","Arial Black";
+		font-size: 5pt;
+		text-transform: uppercase;
+		line-height: 1.35em;
+		font-style: normal;
+		word-break: break-word;
+		-webkit-hyphens:auto;
+		-moz-hyphens:auto;
+		hyphens:auto;
+	}
+
+	h1.mp-main-title:before{
+		content: "Page de titre";
+	}
+
+
 
 	/*h1:before{
 		position: absolute;
@@ -122,16 +152,19 @@
 
 	h2:before{
 		position: absolute;
-		width: 9mm;
+		width: 13.2mm;
 		left:0mm;
 		content: "Intertitre";
-		word-wrap: break-word;
 		display: block;
 		font-family: "ArialBlackRegular","Arial Black";
 		font-size: 5pt;
 		text-transform: uppercase;
 		line-height: 1.35em;
 		font-style: normal;
+		word-break: break-word;
+		-webkit-hyphens:auto;
+		-moz-hyphens:auto;
+		hyphens:auto;	
 	}
 
 	/*h2:before {
@@ -139,13 +172,17 @@
 		list-style-type:upper-roman;
 	}*/
 
+	h4,
 	p{
+		font-size: 1em;
 		line-height:1.15em;
 		margin:0;
 		color: device-cmyk(1.0, 0.0, 0.0, 0.5);
 		padding-left:13.2mm;
+		font-weight: normal;
 	}
 
+	h4:before,
 	p:before{
 		position: absolute;
 		left:0mm;
@@ -156,10 +193,40 @@
 		text-transform: uppercase;
 		line-height: 1.35em;
 		font-style: normal;
+		width: 13.2mm;
+		word-break: break-word;
+		-webkit-hyphens:auto;
+		-moz-hyphens:auto;
+		hyphens:auto;	
 	}
 
 	p.chapeau:before{
 		content: "Chapo";
+	}
+
+	h4{
+		padding-bottom: 1rem;
+	}
+
+	h4:last-child{
+		border-bottom: solid 1px;
+	}
+
+	h4.auteurs:before{
+		content: "Auteurs";
+	}
+
+	h4.artistes:before{
+		content: "Auteurs";
+	}
+
+	h4.commissaires:before{
+		content: "Commissaires";
+	}
+
+	h4+h4{
+		margin-top: 1em;
+		border-top: solid 1px;
 	}
 
 	/*p:before{

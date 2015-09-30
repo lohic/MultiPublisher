@@ -22,7 +22,6 @@ use PHPePub\Core\Logger;
 use PHPZip\Zip\File\Zip;
 
 
-
 if ( ! class_exists( 'MultiPublisher' ) ) {
     class MultiPublisher {
 
@@ -55,39 +54,39 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         );
 
 
-        protected static $meta_boxes = array(
-            array(
-                'id' => 'edition_additionnal',
-                'title' => 'Méta données',
-                'pages' => array('edition'),
-                'context' => 'normal',
-                'priority' => 'high',
-                'fields' => array(
-                    array(
-                        'name' => 'Text box',
-                        'desc' => 'Enter something here',
-                        'id'   => 'mp_text',
-                        'type' => 'text',
-                        'std'  => 'Default value 1'
-                    )
-                )
-            ),
-            array(
-                'id' => 'my-meta-box-2',
-                'title' => 'Custom meta box 2',
-                'pages' => array('post', 'link'), // custom post type
-                'context' => 'normal',
-                'priority' => 'high',
-                'fields' => array(
-                    array(
-                        'name' => 'Select box',
-                        'id' => 'mp_select',
-                        'type' => 'select',
-                        'options' => array('Option 1', 'Option 2', 'Option 3')
-                    )
-                )
-            )
-        );
+        // protected static $meta_boxes = array(
+        //     array(
+        //         'id' => 'edition_additionnal',
+        //         'title' => 'Méta données',
+        //         'pages' => array('edition'),
+        //         'context' => 'normal',
+        //         'priority' => 'high',
+        //         'fields' => array(
+        //             array(
+        //                 'name' => 'Text box',
+        //                 'desc' => 'Enter something here',
+        //                 'id'   => 'mp_text',
+        //                 'type' => 'text',
+        //                 'std'  => 'Default value 1'
+        //             )
+        //         )
+        //     ),
+        //     array(
+        //         'id' => 'my-meta-box-2',
+        //         'title' => 'Custom meta box 2',
+        //         'pages' => array('post', 'link'), // custom post type
+        //         'context' => 'normal',
+        //         'priority' => 'high',
+        //         'fields' => array(
+        //             array(
+        //                 'name' => 'Select box',
+        //                 'id' => 'mp_select',
+        //                 'type' => 'select',
+        //                 'options' => array('Option 1', 'Option 2', 'Option 3')
+        //             )
+        //         )
+        //     )
+        // );
 
         protected static $lang = array(
             'fr-FR'=>'Français',
@@ -146,8 +145,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 mkdir( self::$cachePath );
             }
 
-            $this->loadLibraries();
-
             // Rien pour l’instant
             //
             //            
@@ -168,6 +165,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 			} else{
 			    MultiPublisher::$publicationType = "html";
 			}  
+
+			$this->loadLibraries();
             
             // on ne charge les dépendances que si on est pas en admin
             if(!is_admin()){
@@ -179,44 +178,11 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             }
 
-            
+         
             // include( $this->pluginPath . '/inc/OLD-mp.My_meta_box.php' );
-
-
-
-
-            add_action( 'add_meta_boxes', array( $this, 'add_meta_box_edition' ) );
-            add_action( 'save_post', array( $this, 'save' ) );
-
+            // 
 
             
-
-
-            /**
-             * TEMPLATE REDIRECTION
-             */
-            
-            add_action("template_redirect",  array( $this, 'my_theme_redirect' ) );
-
-		
-
-            /**
-             * AJAX
-             */
-            add_action( 'wp_ajax_dialog_partie', 			 array( $this, 'dialog_partie_callback') );
-            add_action( 'wp_ajax_dialog_add_partie',	 	 array( $this, 'dialog_add_partie_callback') );
-            add_action( 'wp_ajax_publication_update_parent', array( $this, 'publication_update_parent_callback') );
-            add_action( 'wp_ajax_generate_publication', 	 array( $this, 'generate_publication_callback') );
-            // FIN AJAX
-
-
-            /**
-             * SHORTCODES
-             */
-            add_shortcode( 'xref', array( $this, 'xref_shortcode_function') );
-            // FIN SHORTCODES
-
-
             add_action( 'admin_print_scripts', 'mp_gallery_dialog' );
 
             function mp_gallery_dialog() { 
@@ -247,33 +213,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             }
 
 
-            add_filter( 'img_caption_shortcode', 'mp_caption_shortcode', 10, 3 );
-
-            function mp_caption_shortcode( $empty, $attr, $content ){
-                $attr = shortcode_atts( array(
-                    'id'      => '',
-                    'align'   => 'alignnone',
-                    'width'   => '',
-                    'caption' => ''
-                ), $attr );
-
-                if ( 1 > (int) $attr['width'] || empty( $attr['caption'] ) ) {
-                    return '';
-                }
-
-                if ( $attr['id'] ) {
-                    $attr['id'] = 'id="' . esc_attr( $attr['id'] ) . '" ';
-                }
-
-                return '<figure ' . $attr['id']
-                . 'class="wp-caption ' . esc_attr( $attr['align'] ) . '" '
-                . 'style="max-width: ' . ( 10 + (int) $attr['width'] ) . 'px;">'
-                . do_shortcode( $content )
-                . '<figcaption class="wp-caption-text">ok ok ' . $attr['caption'] . '</figcaption>'
-                . '</figure>';
-
-            }
-
+            
             
 
             // ------------------------------------------
@@ -282,57 +222,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             if( !function_exists('multi_publisher_mce_buttons_2') )
             {
-                function multi_publisher_mce_buttons_2( $buttons ) {
-                    array_unshift( $buttons, 'styleselect' );
-                    return $buttons;
-                }
-                add_filter( 'mce_buttons_2', 'multi_publisher_mce_buttons_2' );
+                
             }
             
 
-            if( !function_exists('multi_publisher_tiny_mce_before_init') )
-            {
-                function multi_publisher_tiny_mce_before_init( $settings ) {
-                    //
-                    $settings['theme_advanced_blockformats'] = 'p,a,div,span,h1,h2,h3,h4,h5,h6,tr,';
-                    $style_formats = array(
-                        array( 'title' => 'Button',             'inline' => 'span', 'classes' => 'button' ),
-                        array( 'title' => 'Green Button',       'inline' => 'span', 'classes' => 'button button-green' ),
-                        array( 'title' => 'Rounded Button',     'inline' => 'span', 'classes' => 'button button-rounded' ),
-                        array( 'title' => 'Other Options' ),
-                        array( 'title' => '½ Col.',             'block'  => 'div',  'classes' => 'one-half' ),
-                        array( 'title' => '½ Col. Last',        'block'  => 'div',  'classes' => 'one-half last' ),
-                        array( 'title' => 'Callout Box',        'block'  => 'div',  'classes' => 'callout-box' ),
-                        array( 'title' => 'Highlight',          'inline' => 'span', 'classes' => 'highlight' ),
-                        array( 'title' => 'Chapeau',            'block'  => 'p',    'classes' => 'chapeau' )
-                    );
-                    $settings['style_formats'] = json_encode( $style_formats );
-    
-                    // $settings['plugins'] = 'template';
-                    // $templates = array(
-                    //     array( 'title' => 'test template', 'description' => 'description template', 'content' => 'My content')
-                    // );
-                    // $settings['templates'] = json_encode( $templates );
+            
 
-                    
-                    
-                    return $settings;
-                }
-                add_filter( 'tiny_mce_before_init', 'multi_publisher_tiny_mce_before_init' );
-            }
-
-
-            /**
-             * AJOUT DE BOUTON tinyMCE
-             */
-            add_action( 'admin_init', 'my_tinymce_button' );
-
-            function my_tinymce_button() {
-                 if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
-                      add_filter( 'mce_buttons', 'my_register_tinymce_button' );
-                      add_filter( 'mce_external_plugins', 'my_add_tinymce_button' );
-                 }
-            }
+            
 
             function my_register_tinymce_button( $buttons ) {
                  array_push( $buttons, "button_eek", "button_green", "mp_tab" );
@@ -352,6 +248,63 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
         }
+
+        /**
+         * Load all the required library files.
+         */
+        protected function loadLibraries() {
+            
+            require_once( MultiPublisher::$pluginPath . 'inc/mp.structure.php');
+            require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
+            require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
+            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/Logger.php');
+            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/EPub.php');
+            require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
+
+            mp_structure::instance();
+
+            //add_action( 'admin_init',            array( $this, 'mp_admin_init' ) );
+
+            /**
+             * ADD SCRIPTS AND STYLES
+             */
+            add_action( 'admin_enqueue_scripts', array( $this, 'mp_scripts' ) );
+            add_action( 'admin_print_styles',    array( $this, 'mp_styles' ) );
+
+            /**
+             * AJAX
+             */
+            add_action( 'wp_ajax_find_posts', 				 array( $this, 'wp_ajax_find_posts'), 1);
+            add_action( 'wp_ajax_dialog_partie', 			 array( $this, 'dialog_partie_callback') );
+            add_action( 'wp_ajax_dialog_add_partie',	 	 array( $this, 'dialog_add_partie_callback') );
+            add_action( 'wp_ajax_publication_update_parent', array( $this, 'publication_update_parent_callback') );
+            add_action( 'wp_ajax_generate_publication', 	 array( $this, 'generate_publication_callback') );
+
+            /**
+             * AJOUT DE BOUTON tinyMCE
+             */
+            add_action( 'admin_init', 						 array( $this, 'my_tinymce_button') );
+            add_filter( 'tiny_mce_before_init', 			 array( $this, 'multi_publisher_tiny_mce_before_init') );
+            add_filter( 'mce_buttons_2', 					 array( $this, 'multi_publisher_mce_buttons_2') );
+
+            /**
+             * SHORTCODES
+             */
+            add_shortcode( 'xref', 							 array( $this, 'xref_shortcode_function') );
+            add_filter( 'img_caption_shortcode', 			 array( $this, 'mp_caption_shortcode', 10, 3)  );
+
+            /**
+             * METABOX + SAUVEGARDE
+             */
+            add_action( 'add_meta_boxes', array( $this, 'add_meta_box_edition' ) );
+            add_action( 'save_post', 	  array( $this, 'save' ) );
+
+            /**
+             * TEMPLATE REDIRECTION
+             */       
+            add_action("template_redirect",  array( $this, 'mp_template_redirection' ) );
+        }
+
 
         /**
          * Fonction pour ajouter un shortcode de référence croisée
@@ -386,7 +339,100 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
         public function generate_publication_callback(){
-        	$this->generate_epub( $_POST['ID'] );
+        	$this->mp_generate_epub( $_POST['ID'] );
+
+
+        	//echo json_encode( $this->mp_get_publication_json_struture( $_POST['ID'] ) );
+
+        	wp_die(); // this is required to terminate immediately and return a proper response
+        }
+
+
+
+        // TINYMCE
+        /**
+         * [my_tinymce_button description]
+         * @return [type] [description]
+         */
+        public function my_tinymce_button() {
+             if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
+                  add_filter( 'mce_buttons', 'my_register_tinymce_button' );
+                  add_filter( 'mce_external_plugins', 'my_add_tinymce_button' );
+             }
+        }
+
+        /**
+         * [multi_publisher_tiny_mce_before_init description]
+         * @param  [type] $settings [description]
+         * @return [type]           [description]
+         */
+        public function multi_publisher_tiny_mce_before_init( $settings ) {
+            //
+            $settings['theme_advanced_blockformats'] = 'p,a,div,span,h1,h2,h3,h4,h5,h6,tr,';
+            $style_formats = array(
+                array( 'title' => 'Button',             'inline' => 'span', 'classes' => 'button' ),
+                array( 'title' => 'Green Button',       'inline' => 'span', 'classes' => 'button button-green' ),
+                array( 'title' => 'Rounded Button',     'inline' => 'span', 'classes' => 'button button-rounded' ),
+                array( 'title' => 'Other Options' ),
+                array( 'title' => '½ Col.',             'block'  => 'div',  'classes' => 'one-half' ),
+                array( 'title' => '½ Col. Last',        'block'  => 'div',  'classes' => 'one-half last' ),
+                array( 'title' => 'Callout Box',        'block'  => 'div',  'classes' => 'callout-box' ),
+                array( 'title' => 'Highlight',          'inline' => 'span', 'classes' => 'highlight' ),
+                array( 'title' => 'Chapeau',            'block'  => 'p',    'classes' => 'chapeau' ),
+                array( 'title' => 'Saut de page',       'block'  => 'div',  'classes' => 'pagebreak' ),
+            );
+            $settings['style_formats'] = json_encode( $style_formats );
+
+            // $settings['plugins'] = 'template';
+            // $templates = array(
+            //     array( 'title' => 'test template', 'description' => 'description template', 'content' => 'My content')
+            // );
+            // $settings['templates'] = json_encode( $templates );
+            
+            return $settings;
+        }
+
+        /**
+         * [multi_publisher_mce_buttons_2 description]
+         * @param  [type] $buttons [description]
+         * @return [type]          [description]
+         */
+        public function multi_publisher_mce_buttons_2( $buttons ) {
+            array_unshift( $buttons, 'styleselect' );
+            return $buttons;
+        }
+
+
+        /**
+         * [mp_caption_shortcode description]
+         * @param  [type] $empty   [description]
+         * @param  [type] $attr    [description]
+         * @param  [type] $content [description]
+         * @return [type]          [description]
+         */
+        public function mp_caption_shortcode( $empty, $attr, $content ){
+            $attr = shortcode_atts( array(
+                'id'      => '',
+                'align'   => 'alignnone',
+                'width'   => '',
+                'caption' => ''
+            ), $attr );
+
+            if ( 1 > (int) $attr['width'] || empty( $attr['caption'] ) ) {
+                return '';
+            }
+
+            if ( $attr['id'] ) {
+                $attr['id'] = 'id="' . esc_attr( $attr['id'] ) . '" ';
+            }
+
+            return '<figure ' . $attr['id']
+            . 'class="wp-caption ' . esc_attr( $attr['align'] ) . '" '
+            . 'style="max-width: ' . ( 10 + (int) $attr['width'] ) . 'px;">'
+            . do_shortcode( $content )
+            . '<figcaption class="wp-caption-text">ok ok ' . $attr['caption'] . '</figcaption>'
+            . '</figure>';
+
         }
 
 
@@ -423,10 +469,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
         /**
-         * [my_theme_redirect description]
+         * [mp_template_redirection description]
          * @return [type] [description]
          */
-        public function my_theme_redirect() {
+        public function mp_template_redirection() {
 		    global $wp;
 		    //$plugindir = dirname( __FILE__ );
 
@@ -496,36 +542,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		}
 
 
-        /**
-         * Load all the required library files.
-         */
-        protected function loadLibraries() {
-            
-            require_once( MultiPublisher::$pluginPath . 'inc/mp.structure.php');
-            require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
-            require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
-            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/Logger.php');
-            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/EPub.php');
-            require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
-
-
-            mp_structure::instance();
-
-            //add_action( 'admin_init',            array( $this, 'mp_admin_init' ) );
-
-            add_action( 'admin_enqueue_scripts', array( $this, 'mp_scripts' ) );
-            add_action( 'admin_print_styles',    array( $this, 'mp_styles' ) );
-
-            // Load Template Tags
-            // require_once $this->pluginPath . '/inc/multi-publisher-editions.php';
-            // require_once $this->pluginPath . '/inc/multi-publisher-chapitres.php';
-            // 
-            
-            add_action( 'wp_ajax_find_posts', array( $this, 'wp_ajax_find_posts'),1);
-
-
-            //$this->generate_epub();
-        }
+        
 
 
         /**
@@ -635,7 +652,82 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
-        public function generate_epub($post_ID=null){
+
+        /**
+         * [mp_get_publication_json_struture description]
+         * @param  [type] $publication_ID [description]
+         * @return [type]                 [description]
+         */
+        public function mp_get_publication_json_struture($publication_ID = null){
+
+        	if( !empty( $publication_ID ) ){
+
+        		$publication_data    = get_post( $publication_ID );
+                $publication_type 	 = $publication_data->post_type;
+
+                if( $publication_type == 'publication' ) {
+
+
+                	$publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
+	                FROM wp_posts AS p, wp_postmeta AS m
+	                WHERE post_type='publication'
+	                AND m.meta_key = 'mp_main_parent_id_key'
+	                AND m.meta_value = $publication_ID
+	                AND m.post_id = p.ID
+	                ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
+
+	                global $wpdb;
+
+	                $structure  = $wpdb->get_results( $publication_query );
+
+	                $main = new StdClass;
+	                $main->post_parent 	= $publication_data->post_parent;
+	                $main->ID 			= $publication_ID;
+	                $main->post_title 	= $publication_data->post_title;
+	                $main->post_name 	= $publication_data->post_name;
+	                $main->guid 		= $publication_data->guid;
+
+	                // On ajoute $main à $structure
+	                //$structure[] = $main;
+
+	                array_unshift($structure, $main);
+
+
+	                $refs = array();
+					$list = array();
+
+					foreach($structure as $data) {
+					    $thisref =& $refs[ $data->ID ];
+
+					    $thisref['ID'] 			= $data->ID;
+					    $thisref['post_title'] 	= $data->post_title;
+					    $thisref['post_parent'] = $data->post_parent;
+					    $thisref['post_name'] 	= $data->post_name;
+					    $thisref['guid']	 	= $data->guid;
+					 
+					    if ($data->post_parent == 0) {
+					        $list[] =& $thisref;
+					    } else {
+					        $refs[ $data->post_parent ]['childs'][] =& $thisref;
+					    }
+					}
+
+					return $list;
+                }else{
+                	return false;
+                }
+        	}else{
+        		return false;
+        	}
+        }
+
+
+        /**
+         * [mp_generate_epub description]
+         * @param  [type] $post_ID [description]
+         * @return [type]          [description]
+         */
+        public function mp_generate_epub($post_ID=null){
 
             if( !empty( $post_ID ) ){
 
@@ -663,133 +755,62 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 if( $publication_type == 'publication' ) {
 
 
-	                $publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
-	                FROM wp_posts AS p, wp_postmeta AS m
-	                WHERE post_type='publication'
-	                AND m.meta_key = 'mp_main_parent_id_key'
-	                AND m.meta_value = $post_ID
-	                AND m.post_id = p.ID
-	                ORDER BY menu_order";
+	    //             $publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
+	    //             FROM wp_posts AS p, wp_postmeta AS m
+	    //             WHERE post_type='publication'
+	    //             AND m.meta_key = 'mp_main_parent_id_key'
+	    //             AND m.meta_value = $post_ID
+	    //             AND m.post_id = p.ID
+	    //             ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
 
-	                global $wpdb;
+	    //             global $wpdb;
 
-	                $structure  = $wpdb->get_results( $publication_query );
+	    //             $structure  = $wpdb->get_results( $publication_query );
 
-	                $main = new StdClass;
-	                $main->post_parent = 0;
-	                $main->ID = 51;
-	                $main->post_title = "MAIN Essai Poirier";
-	                $main->child = array();
+	    //             $main = new StdClass;
+	    //             $main->post_parent = 0;
+	    //             $main->ID = 51;
+	    //             $main->post_title = "MAIN Essai Poirier";
 
-	                // On ajoute $main à $structure
-	                //$structure[] = $main;
+	    //             // On ajoute $main à $structure
+	    //             //$structure[] = $main;
 
-	                $structure = array_unshift($structure, $main);
+	    //             array_unshift($structure, $main);
 
-	                //print_r($structure);
+	    //             //print_r($structure);
 
-	                // STACK
-	                // http://stackoverflow.com/questions/2871861/how-to-build-unlimited-level-of-menu-through-php-and-mysql
-	                // http://pastebin.com/GAFvSew4
+	    //             // STACK
+	    //             // http://stackoverflow.com/questions/2871861/how-to-build-unlimited-level-of-menu-through-php-and-mysql
+	    //             // http://pastebin.com/GAFvSew4					
 
-	                $html = '';
-					$parent = 0;
-					$parent_stack = array();
+	    //             // http://www.jeasyui.com/forum/index.php?topic=1990.0
+					// $refs = array();
+					// $list = array();
 
-					// $items contains the results of the SQL query
-					$children = array();
-					foreach ( $structure as $item ) {
-						$item->child = array();
-					    $children[ $item->post_parent ][] = $item;						
-					}
+					// foreach($structure as $data) {
+					//     $thisref =& $refs[ $data->ID ];
 
-					//print_r(json_encode($children));
-
-					//print_r("\n___\n\n");
-					//
-					
-
-
-					// function generate_structure($child_array){
-
-					// 	$parent = 0;
-					// 	$i 		= 0;
-						
-					// 	foreach($child_array as $parent_id => $child_tree){
-
-					// 		print_r( $parent_id );
-					// 		print_r( $child_tree );
-
-					// 		if(is_array($child_tree)){
-					// 			generate_structure( $child_tree );
-					// 		}
-					// 		//
-
-					// 	}
-
+					//     $thisref['ID'] 			= $data->ID;
+					//     $thisref['post_title'] 	= $data->post_title;
+					//     $thisref['post_parent'] = $data->post_parent;
+					 
+					//     if ($data->post_parent == 0) {
+					//         $list[] =& $thisref;
+					//     } else {
+					//         $refs[ $data->post_parent ]['childs'][] =& $thisref;
+					//     }
 					// }
 
-					// generate_structure($structure);
 
+					// echo json_encode($list);
 
-					print_r(json_encode($structure));
+                    $structure_json = $this->mp_get_publication_json_struture($publication_id);
 
-					$i = 0;
-					while ( ( $option = each( $children[ $parent ] ) ) || ( $parent > 0 ) ) {
-					    if ( !empty( $option ) ) {
-
-					    	//print_r( $option['value']->ID." ".$option['value']->post_parent." ".$option['value']->post_title."\n" );
-
-					        // 1) The item contains children:
-					        // store current parent in the stack, and update current parent
-					        if ( !empty( $children[ $option['value']->ID ] ) ) {
-
-					        	$i++;
-					        	//echo $i. '! ' . $option['value']->ID .' '.$option['value']->post_title."\n";
-
-					            $html .= '<li>' . $option['value']->post_title . '</li>'."\n";
-					            $html .= '<ul>'."\n"; 
-					            array_push( $parent_stack, $parent );
-					            $parent = $option['value']->ID;
-
-
-					            //echo $i. '  \ ' ."\n";
-					            $publication[] = $option['value'];
-					        }
-					        // 2) The item does not contain children
-					        else {
-					        	$i++;
-					        	//echo $i. '  ' . $option['value']->ID .' '.$option['value']->post_title."\n";
-
-
-					            $html .= '<li>' . $option['value']->post_title . '</li>'."\n";
-
-
-					            $publication[] = $option['value'];
-					        }
-					    }
-					    // 3) Current parent has no more children:
-					    // jump back to the previous menu level
-					    else {
-					    	$i++;
-					        //echo $i. '  / ' ."\n";
-
-					        $html .= '</ul>'."\n";
-
-					        $parent = array_pop( $parent_stack );
-					    }
-					}
-					//print_r( json_encode($main) );
-
-					// At this point, the HTML is already built
-					//echo $html;
-					//
-					//print_r($publication);
-
+											
 
 					// END STACK
 
-
+					
                     MultiPublisher::$publicationType = "epub";
 
 					$publication_content = apply_filters('the_content', $publication_content);
@@ -800,6 +821,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		            $langue             = explode("-",get_post_meta( $publication_id, 'mp_langue_key', true ))[0];
 		            $afficherParties    = get_post_meta( $publication_id, 'mp_afficherParties_key', true );
 		            $structure          = get_post_meta( $publication_id, 'mp_structure_key', true );
+
+
 
 					$content_start =
 					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -853,21 +876,41 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                     if(preg_match_all("/[\w\d_\-\/.]+\.[ot]tf/", $stylesheet, $font_files)){
                         //print_r($font_files);
+                    }                   
+
+                    function boucle_chapitres($structure_array_json, $_book){
+                        static $compteur = 0;
+
+                        foreach($structure_array_json as $item){
+
+                            echo $compteur.' '.$item['ID']." ".$item['post_title']."\n";
+                            echo htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub'."\n";
+                            
+                            if($compteur > 0){ // on ne prend pas le container principal
+
+                                $url  = htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub';
+
+                                echo "include : $url\n";
+
+                                $partie_content = html_entity_decode( file_get_contents($url) );
+                                $_book->addChapter($item['post_title'], $item['post_name'].'.html', $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
+
+                            }
+
+                            $compteur ++;
+
+                            if( isset($item['childs']) ){
+                                boucle_chapitres($item['childs'], $_book);
+                            }
+                        }
                     }
 
-					// ADD CHAPTER
-					//$book->addChapter("Chapitre 1: Raymond Hains — les textes", "index.html", "<head></head><body>Contenu du chapitre 1</body>", false);
+                    boucle_chapitres($structure_json, $book); 
 
-					// ADD PARTIE
-					// $partie_data    = get_post(41); 
-                	// $partie_content = $partie_data->post_content;
-                	// $partie_content = apply_filters('the_content', $partie_content);
-                	// $partie_content = str_replace( ']]>', ']]&gt;', $partie_content );
+                	// $partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=57&mp_publication_type=epub") );
 
-                	$partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=57&mp_publication_type=epub") );
-
-                	//$book->addChapter("Test", "test.html", $partie_content, false);
-					$book->addChapter("Test 2", "test2.html", $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
+                	//$book->addChapter("Test", "test.html", $partie_content, false); // sans images
+					//$book->addChapter("Test 2", "test2.html", $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
 
 					// addChapter($chapterName, $fileName, $chapterData = null, $autoSplit = false, $externalReferences = EPub::EXTERNAL_REF_IGNORE, $baseDir = "")
 					// EPub::EXTERNAL_REF_IGNORE
@@ -879,7 +922,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					// processChapterExternalReferences
 
 					// ADD TOC
-					//$book->buildTOC();
+					$book->buildTOC();
 
 					// ADD LOG
 					if ($book->isLogging) { // Only used in case we need to debug EPub.php.
@@ -917,7 +960,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					// $retour = new StdClass();
 					// $retour->ok = 'ok';
 					// echo json_encode($retour);
-
+					// 
                 }else{
                     MultiPublisher::$publicationType = "epub";
                 }

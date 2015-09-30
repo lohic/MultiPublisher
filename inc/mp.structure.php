@@ -220,7 +220,7 @@ if ( ! class_exists( 'mp_structure' ) ) {
                     'menu_name'         => __( 'Auteurs' )
                 ); 
             
-                register_taxonomy('auteur',array('edition'),array(
+                register_taxonomy('auteur',array('edition','publication'),array(
                     'hierarchical'      => false,
                     'labels'            => $labels_auteur,
                     'show_ui'           => true,
@@ -242,7 +242,7 @@ if ( ! class_exists( 'mp_structure' ) ) {
                     'menu_name'         => __( 'Sujets' )
                 ); 
             
-                register_taxonomy('sujet',array('edition'),array(
+                register_taxonomy('sujet',array('edition','publication'),array(
                     'hierarchical'      => false,
                     'labels'            => $labels_sujet,
                     'show_ui'           => true,

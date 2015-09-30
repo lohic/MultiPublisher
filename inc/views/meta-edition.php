@@ -159,116 +159,86 @@ jQuery(document).ready(function($) {
 
         console.log('meta-edition scripts ready');
 
-        $( "div.sortEdition" ).sortable({
-            connectWith: 'div.sortEdition',
-            //items: "div.partie, div.chapterlist",
-            //connectWith: "div.partie, div.chapterlist",
-            update: function( event, ui ) {
-                getEditionStructure();
-            }
-        });
+        // $( "div.sortEdition" ).sortable({
+        //     connectWith: 'div.sortEdition',
+        //     //items: "div.partie, div.chapterlist",
+        //     //connectWith: "div.partie, div.chapterlist",
+        //     update: function( event, ui ) {
+        //         getEditionStructure();
+        //     }
+        // });
+
+
 
         $("#generate_publication").click(function(event){
             event.preventDefault();
 
             var data = {
                 'ID': $("#post_ID").val(),
-                'action': 'generate_publication'
+                'action': 'generate_publication',
             };
 
             $.post(ajaxurl, data, function(response) {
 
                 console.log(response);
 
-            });
-
+            }, "json");
         });
+        //, "json"
 
-        /*$( "div.partie" ).sortable({
-            items: "div.chapter",
-            connectWith: "div.partie, div.chapterlist",
-            update: function( event, ui ) {
-                getEditionStructure();
-            }
-        });*/
 
-        /*$( "div.chapterlist" ).sortable({
-            items: "div.chapter, div.partie",
-            connectWith: "div.partie, div.chapterlist",
-            update: function( event, ui ) {
-                 getEditionStructure();
-            },
-            beforeStop:function( event, ui ) {
-                console.log(ui);
-            }
-        });*/
+        // $( "#add_part" ).click(function(event){
+        //     event.preventDefault();
 
-        //$( "div.partie>h4" ).sortable( "disable" );
-        //$( "div.partie .droppin" ).sortable( "disable" );
+        //     var data = {
+        //         'action': 'dialog_add_partie',
+        //     };
 
-        $( "#add_part" ).click(function(event){
-            event.preventDefault();
-
-            /*var qte = $('.chapterlist').children().length + 1;
-            var nom = $("#name_part").val();
-            $('.chapterlist').append("<div class='partie' id='"+ qte +"'><h4>"+ nom +"</h4></div");*/
-
-            var data = {
-                'action': 'dialog_add_partie',
-            };
-
-            $.post(ajaxurl, data, function(response) {
-                //alert('Got this from the server: ' + response);
+        //     $.post(ajaxurl, data, function(response) {
+   
                 
-                //response = JSON.parse(response);
-                //var dlg = $('<div class=\"ajax-content\">'+response.content+'</div>').appendTo("body");
-                
-                var dlg = $('<div class=\"ajax-content\">'+response+'</div>').appendTo("body");
+        //         var dlg = $('<div class=\"ajax-content\">'+response+'</div>').appendTo("body");
 
-                dlg.dialog({
-                    'dialogClass' : 'wp-dialog',
-                    'modal' : true,
-                    'autoOpen' : false,
-                    'closeOnEscape' : true,
-                    'draggable' : false,
-                    'title' : 'Ajouter une partie',
-                    'buttons' : [
-                        {
-                            'text' : 'Annuler',
-                            'class' : 'submitdelete deletion',
-                            'click' : function() {
-                                $(this).dialog('close');
-                            }
-                        },
-                        {
-                            'text' : 'Ajouter',
-                            'class' : 'button-primary',
-                            'click' : function() {
-                                var qte = $('.chapterlist').children().length + 1;
-                                var nom = $("#name_partie").val();  
-                                $('.chapterlist').append("<div class='partie' id='"+ qte +"'><h4>"+ nom +"</h4></div");
+        //         dlg.dialog({
+        //             'dialogClass' : 'wp-dialog',
+        //             'modal' : true,
+        //             'autoOpen' : false,
+        //             'closeOnEscape' : true,
+        //             'draggable' : false,
+        //             'title' : 'Ajouter une partie',
+        //             'buttons' : [
+        //                 {
+        //                     'text' : 'Annuler',
+        //                     'class' : 'submitdelete deletion',
+        //                     'click' : function() {
+        //                         $(this).dialog('close');
+        //                     }
+        //                 },
+        //                 {
+        //                     'text' : 'Ajouter',
+        //                     'class' : 'button-primary',
+        //                     'click' : function() {
+        //                         var qte = $('.chapterlist').children().length + 1;
+        //                         var nom = $("#name_partie").val();  
+        //                         $('.chapterlist').append("<div class='partie' id='"+ qte +"'><h4>"+ nom +"</h4></div");
 
-                                getEditionStructure();
+        //                         getEditionStructure();
 
-                                $(this).dialog('close');
-                            }
-                        }
-                    ]
-                }).dialog('open');
-            });
-        });
+        //                         $(this).dialog('close');
+        //                     }
+        //                 }
+        //             ]
+        //         }).dialog('open');
+        //     });
+        // });
 
-        /*jQuery( "ul.dropfalse" ).sortable({
-            connectWith: "ul",
-            dropOnEmpty: false
-        });*/
 
-        $( "div.chapterlist>.partie>h4" ).disableSelection();
+        // $( "div.chapterlist>.partie>h4" ).disableSelection();
 
-        $( "div.chapterlist>.partie" ).dblclick(function(event){
-            $(this).remove();
-            getEditionStructure();
-        });
+        // $( "div.chapterlist>.partie" ).dblclick(function(event){
+        //     $(this).remove();
+        //     getEditionStructure();
+        // });
         
 
         $( "#test_dialog" ).click(function(event){
@@ -345,50 +315,50 @@ jQuery(document).ready(function($) {
      * [getEditionStructure description]
      * @return {[type]} [description]
      */
-    function getEditionStructure(){
-        var structure = Array();
+    // function getEditionStructure(){
+    //     var structure = Array();
 
-        $('.chapterlist').children().each(function(){
-            if( $( this ).hasClass('partie') ){
+    //     $('.chapterlist').children().each(function(){
+    //         if( $( this ).hasClass('partie') ){
 
-                var partie = {
-                    id:$( this ).attr('id'),
-                    type:'partie',
-                    name:'',
-                    chapters:Array()
-                };
+    //             var partie = {
+    //                 id:$( this ).attr('id'),
+    //                 type:'partie',
+    //                 name:'',
+    //                 chapters:Array()
+    //             };
 
-                $( this ).children().each(function(){
+    //             $( this ).children().each(function(){
 
-                    if( $( this ).hasClass('chapter') ){
-                        var chapter = {
-                            id:$(this).attr('id'),
-                            name:$(this).text(),
-                            type:'chapter'
-                        };
+    //                 if( $( this ).hasClass('chapter') ){
+    //                     var chapter = {
+    //                         id:$(this).attr('id'),
+    //                         name:$(this).text(),
+    //                         type:'chapter'
+    //                     };
 
-                        partie.chapters.push(chapter)
-                    }else{
-                        partie.name = $( this ).text();
-                    }
-                });
+    //                     partie.chapters.push(chapter)
+    //                 }else{
+    //                     partie.name = $( this ).text();
+    //                 }
+    //             });
 
-                structure.push(partie);
-            }else if( $( this ).hasClass('chapter') ){
-                var chapter = {
-                    id:$(this).attr('id'),
-                    name:$(this).text(),
-                    type:'chapter'
-                };
+    //             structure.push(partie);
+    //         }else if( $( this ).hasClass('chapter') ){
+    //             var chapter = {
+    //                 id:$(this).attr('id'),
+    //                 name:$(this).text(),
+    //                 type:'chapter'
+    //             };
 
-                structure.push(chapter);
-            };
-        });
+    //             structure.push(chapter);
+    //         };
+    //     });
 
-        //console.log(structure);
+    //     //console.log(structure);
 
-        $('#structure_field').text(JSON.stringify(structure));
-    }
+    //     $('#structure_field').text(JSON.stringify(structure));
+    // }
 
 
     /**

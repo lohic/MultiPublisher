@@ -53,15 +53,50 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	}
 
 
+	/**
+	 * [get_mp_css_url description]
+	 * @return [type] [description]
+	 */
 	function get_mp_css_url(){
 		return Multipublisher::$pluginUrl.'themefiles/carnet-du-frac/style.css';
 	}
 
 
+	/**
+	 * [get_mp_edition description]
+	 * @return [type] [description]
+	 */
 	function get_mp_edition(){
 
 	}
 
+
+	/**
+	 * [get_mp_publication_structure description]
+	 * @return [type] [description]
+	 */
+	function get_mp_publication_structure(){
+
+	}
+
+	/**
+	 * [get_mp_publication_cover description]
+	 * @return [type] [description]
+	 */
+	function get_mp_publication_cover(){
+
+		$html = 
+		  "<div class=\"mp-cover\">"
+		. "<h1 class=\"mp-main-title\">".get_the_title()."</h1>"
+		. "<h4 class=\"auteurs\">Auteurs".''."</h4>"
+		. "<h4 class=\"artistes\">Artistes".''."</h4>"
+		. "<h4 class=\"commissaires\">Commissaires".''."</h4>"
+		. "</div>"
+		. "<mbp:pagebreak/>";
+
+		echo $html;
+
+	}
 
 
 	/**

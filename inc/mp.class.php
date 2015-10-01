@@ -95,8 +95,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         );
 
 
-  
-
 
         /**
          * Args for the chapitre post type
@@ -171,74 +169,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             // on ne charge les dépendances que si on est pas en admin
             if(!is_admin()){
 
-                // add_action('wp_head','talm_menu_head',99);
-                // wp_enqueue_style('talm_social', '/wp-content/plugins/formidable_talm_social/style.css');
-                // wp_enqueue_script('talm_social_js','/wp-content/plugins/formidable_talm_social/script.js',array('jquery'),false,true);
-                // add_action('wp_footer','talm_social_html');
-
             }
 
-         
-            // include( $this->pluginPath . '/inc/OLD-mp.My_meta_box.php' );
-            // 
-
-            
-            add_action( 'admin_print_scripts', 'mp_gallery_dialog' );
-
-            function mp_gallery_dialog() { 
-                include( MultiPublisher::$pluginPath . 'inc/views/mp-gallery.php' );
-            }
-
-            add_action( 'admin_head', 'mp_gallery_js_vars' );
-            function mp_gallery_js_vars() {
-
-                // Bring the post type global into scope
-                global $post_type;
-
-                // If the current post type doesn't match, return, ie. end execution here
-                if( 'publication' != $post_type )
-                    return;
-
-                // Else we reach this point and do whatever
-                ?>
-                <!-- TinyMCE Shortcode Plugin -->
-                <script type='text/javascript'>
-                var mp_js_vars = {
-                    'wp': null,
-                    'ed': null,
-                    'url': null,
-                };
-                </script>
-                <?php
-            }
-
-
-            
-            
-
-            // ------------------------------------------
-
-
-
-            if( !function_exists('multi_publisher_mce_buttons_2') )
-            {
-                
-            }
-            
-
-            
-
-            
-
-            function my_register_tinymce_button( $buttons ) {
-                 array_push( $buttons, "button_eek", "button_green", "mp_tab" );
-                 return $buttons;
-            }
-
-            function my_add_tinymce_button( $plugin_array ) {
-                 $plugin_array['my_button_script'] = plugins_url( '/mybuttons.js', __FILE__ ) ;
-                 return $plugin_array;
-            }
 
             // function my_default_editor() {
             //     $r = 'html'; // html or tinymce
@@ -257,8 +189,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             require_once( MultiPublisher::$pluginPath . 'inc/mp.structure.php');
             require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
             require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
-            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/Logger.php');
-            //require_once( MultiPublisher::$pluginPath . 'inc/lib/epub-2014-09-21/EPub.php');
             require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
 
             mp_structure::instance();
@@ -268,41 +198,48 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             /**
              * ADD SCRIPTS AND STYLES
              */
-            add_action( 'admin_enqueue_scripts', array( $this, 'mp_scripts' ) );
-            add_action( 'admin_print_styles',    array( $this, 'mp_styles' ) );
+            add_action( 'admin_enqueue_scripts',				array( $this, 'mp_scripts' ) );
+            add_action( 'admin_print_styles',					array( $this, 'mp_styles' ) );
 
             /**
              * AJAX
              */
-            add_action( 'wp_ajax_find_posts', 				 array( $this, 'wp_ajax_find_posts'), 1);
-            add_action( 'wp_ajax_dialog_partie', 			 array( $this, 'dialog_partie_callback') );
-            add_action( 'wp_ajax_dialog_add_partie',	 	 array( $this, 'dialog_add_partie_callback') );
-            add_action( 'wp_ajax_publication_update_parent', array( $this, 'publication_update_parent_callback') );
-            add_action( 'wp_ajax_generate_publication', 	 array( $this, 'generate_publication_callback') );
+            add_action( 'wp_ajax_find_posts',                   array( $this, 'wp_ajax_find_posts'), 1);
+            add_action( 'wp_ajax_dialog_partie',                array( $this, 'dialog_partie_callback') );
+            add_action( 'wp_ajax_dialog_add_partie',			array( $this, 'dialog_add_partie_callback') );
+            add_action( 'wp_ajax_publication_update_parent',	array( $this, 'publication_update_parent_callback') );
+            add_action( 'wp_ajax_generate_publication',			array( $this, 'generate_publication_callback') );
 
             /**
              * AJOUT DE BOUTON tinyMCE
              */
-            add_action( 'admin_init', 						 array( $this, 'my_tinymce_button') );
-            add_filter( 'tiny_mce_before_init', 			 array( $this, 'multi_publisher_tiny_mce_before_init') );
-            add_filter( 'mce_buttons_2', 					 array( $this, 'multi_publisher_mce_buttons_2') );
+            add_action( 'admin_init',							array( $this, 'my_tinymce_button') );
+            add_filter( 'tiny_mce_before_init',					array( $this, 'multi_publisher_tiny_mce_before_init') );
+            add_filter( 'mce_buttons_2',						array( $this, 'multi_publisher_mce_buttons_2') );
 
             /**
              * SHORTCODES
              */
-            add_shortcode( 'xref', 							 array( $this, 'xref_shortcode_function') );
-            add_filter( 'img_caption_shortcode', 			 array( $this, 'mp_caption_shortcode', 10, 3)  );
+            add_shortcode( 'xref',								array( $this, 'xref_shortcode_function') );
+            add_filter( 'img_caption_shortcode',				array( $this, 'mp_caption_shortcode', 10, 3)  );
 
             /**
              * METABOX + SAUVEGARDE
              */
-            add_action( 'add_meta_boxes', array( $this, 'add_meta_box_edition' ) );
-            add_action( 'save_post', 	  array( $this, 'save' ) );
+            add_action( 'add_meta_boxes',						array( $this, 'add_meta_box_edition' ) );
+            add_action( 'save_post',							array( $this, 'save' ) );
 
             /**
-             * TEMPLATE REDIRECTION
+             * TEMPLATE REDIRECTION + HEADER 
              */       
-            add_action("template_redirect",  array( $this, 'mp_template_redirection' ) );
+            add_action("template_redirect",						array( $this, 'mp_template_redirection' ) );
+            add_action( 'admin_head',							array( $this, 'mp_gallery_js_vars') );
+
+            /**
+             * POPIN GALLERY
+             */
+            add_action( 'admin_print_scripts',					array($this, 'mp_gallery_dialog') );
+
         }
 
 
@@ -348,6 +285,18 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
+        // POPIN DIALOG WINDOW
+        
+        /**
+         * [mp_gallery_dialog description]
+         * @return [type] [description]
+         */
+        public function mp_gallery_dialog() { 
+            include( MultiPublisher::$pluginPath . 'inc/views/mp-gallery.php' );
+        }
+
+
+
 
         // TINYMCE
         /**
@@ -356,9 +305,19 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          */
         public function my_tinymce_button() {
              if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
-                  add_filter( 'mce_buttons', 'my_register_tinymce_button' );
-                  add_filter( 'mce_external_plugins', 'my_add_tinymce_button' );
+                  add_filter( 'mce_buttons',            array( $this, 'my_register_tinymce_button' ) );
+                  add_filter( 'mce_external_plugins',   array( $this, 'my_add_tinymce_button' ) );
              }
+        }
+
+        public function my_register_tinymce_button( $buttons ) {
+            array_push( $buttons, "button_eek", "button_green", "mp_tab" );
+            return $buttons;
+        }
+
+        public function my_add_tinymce_button( $plugin_array ) {
+            $plugin_array['my_button_script'] = plugins_url( '/mybuttons.js', __FILE__ ) ;
+            return $plugin_array;
         }
 
         /**
@@ -540,6 +499,29 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		        $wp_query->is_404 = true;
 		    }
 		}
+
+
+        public function mp_gallery_js_vars() {
+
+            // Bring the post type global into scope
+            global $post_type;
+
+            // If the current post type doesn't match, return, ie. end execution here
+            if( 'publication' != $post_type )
+                return;
+
+            // Else we reach this point and do whatever
+            ?>
+            <!-- TinyMCE Shortcode Plugin -->
+            <script type='text/javascript'>
+            var mp_js_vars = {
+                'wp': null,
+                'ed': null,
+                'url': null,
+            };
+            </script>
+            <?php
+        }
 
 
         
@@ -733,82 +715,15 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 $publication_id = $post_ID;
 
-
                 $publication_data    = get_post($publication_id); 
                 $publication_content = $publication_data->post_content;
                 $publication_type 	 = $publication_data->post_type;
 
-                // test partie ID -> 41
-                // http://localhost:8888/Site_CDF/?p=41
-           
-                // -> ARBORESCENCE D'UNE PUBLICATION
-                // http://codex.wordpress.org/Class_Reference/wpdb
-                /*SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
-                FROM wp_posts AS p, wp_postmeta AS m
-                WHERE post_type='publication'
-                AND m.meta_key = 'mp_main_parent_id_key'
-                AND m.meta_value = 51
-                AND m.post_id = p.ID
-                ORDER BY menu_order*/
-               
 
                 if( $publication_type == 'publication' ) {
 
 
-	    //             $publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
-	    //             FROM wp_posts AS p, wp_postmeta AS m
-	    //             WHERE post_type='publication'
-	    //             AND m.meta_key = 'mp_main_parent_id_key'
-	    //             AND m.meta_value = $post_ID
-	    //             AND m.post_id = p.ID
-	    //             ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
-
-	    //             global $wpdb;
-
-	    //             $structure  = $wpdb->get_results( $publication_query );
-
-	    //             $main = new StdClass;
-	    //             $main->post_parent = 0;
-	    //             $main->ID = 51;
-	    //             $main->post_title = "MAIN Essai Poirier";
-
-	    //             // On ajoute $main à $structure
-	    //             //$structure[] = $main;
-
-	    //             array_unshift($structure, $main);
-
-	    //             //print_r($structure);
-
-	    //             // STACK
-	    //             // http://stackoverflow.com/questions/2871861/how-to-build-unlimited-level-of-menu-through-php-and-mysql
-	    //             // http://pastebin.com/GAFvSew4					
-
-	    //             // http://www.jeasyui.com/forum/index.php?topic=1990.0
-					// $refs = array();
-					// $list = array();
-
-					// foreach($structure as $data) {
-					//     $thisref =& $refs[ $data->ID ];
-
-					//     $thisref['ID'] 			= $data->ID;
-					//     $thisref['post_title'] 	= $data->post_title;
-					//     $thisref['post_parent'] = $data->post_parent;
-					 
-					//     if ($data->post_parent == 0) {
-					//         $list[] =& $thisref;
-					//     } else {
-					//         $refs[ $data->post_parent ]['childs'][] =& $thisref;
-					//     }
-					// }
-
-
-					// echo json_encode($list);
-
                     $structure_json = $this->mp_get_publication_json_struture($publication_id);
-
-											
-
-					// END STACK
 
 					
                     MultiPublisher::$publicationType = "epub";

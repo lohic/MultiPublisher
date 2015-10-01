@@ -178,7 +178,7 @@
 		line-height:1.15em;
 		margin:0;
 		color: device-cmyk(1.0, 0.0, 0.0, 0.5);
-		padding-left:13.2mm;
+		padding-left:13.5mm;
 		font-weight: normal;
 	}
 
@@ -193,7 +193,7 @@
 		text-transform: uppercase;
 		line-height: 1.35em;
 		font-style: normal;
-		width: 13.2mm;
+		width: 13.3mm;
 		word-break: break-word;
 		-webkit-hyphens:auto;
 		-moz-hyphens:auto;
@@ -217,7 +217,7 @@
 	}
 
 	h4.artistes:before{
-		content: "Auteurs";
+		content: "Artistes";
 	}
 
 	h4.commissaires:before{
@@ -291,8 +291,7 @@
 		page-break-before: always;
 	}
 
-
-
+		
 
 	/**
 	 * PREMIERE PAGE

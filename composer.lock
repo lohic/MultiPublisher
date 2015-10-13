@@ -4,9 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea4389a056d99e8b8306af9b00557784",
-    "content-hash": "9468c819082b4fc565ec73ccd956cba2",
+    "hash": "d5788a87b8ed11e1d6f23299e7347f25",
+    "content-hash": "f2a575140e5a73d228d0a9c999c63d99",
     "packages": [
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "time": "2015-07-28 21:55:03"
+        },
         {
             "name": "grandt/binstring",
             "version": "1.0.0",
@@ -52,16 +100,16 @@
         },
         {
             "name": "grandt/phpepub",
-            "version": "4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Grandt/PHPePub.git",
-                "reference": "77c64806cb1aa33a92931e18d04fba4cfb2b4ec1"
+                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/77c64806cb1aa33a92931e18d04fba4cfb2b4ec1",
-                "reference": "77c64806cb1aa33a92931e18d04fba4cfb2b4ec1",
+                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
+                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +145,7 @@
                 "e-book",
                 "epub"
             ],
-            "time": "2015-09-15 04:45:59"
+            "time": "2015-09-15 08:47:09"
         },
         {
             "name": "grandt/phpresizegif",

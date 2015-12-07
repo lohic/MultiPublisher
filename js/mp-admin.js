@@ -29,7 +29,11 @@ jQuery(document).ready(function($) {
 		// });
 
 
+		// $(".xref_item").click(function(e){
 
+		// 	console.log( $(this).text() );
+
+		// });
 
 
 		$(".mp_gallery_image").dblclick(function(e){

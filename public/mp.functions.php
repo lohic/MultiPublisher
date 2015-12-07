@@ -18,7 +18,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	 */
 	function get_mp_header(){
 
-		if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf" ){
+		//if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf" ){
 
 			echo "<!DOCTYPE html>
 			<html>
@@ -30,9 +30,9 @@ if ( class_exists( 'MultiPublisher' ) ) {
 
 			<body>";
 
-		}else{
-			get_header();
-		}
+		// }else{
+		// 	get_header();
+		// }
 	}
 
 	/**
@@ -40,16 +40,16 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	 * @return [type] [description]
 	 */
 	function get_mp_footer(){
-		if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf"){
+		// if(MultiPublisher::$publicationType == "epub" || MultiPublisher::$publicationType == "pdf"){
 
 			echo "</body>
 			</html>";
 
-		}else{
+		// }else{
 			
-			get_footer();
+		// 	get_footer();
 
-		}
+		// }
 	}
 
 
@@ -71,6 +71,12 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	}
 
 
+	function get_mp_notes(){
+
+		echo Multipublisher::list_notes();
+
+	}
+
 	/**
 	 * [get_mp_publication_structure description]
 	 * @return [type] [description]
@@ -88,7 +94,7 @@ if ( class_exists( 'MultiPublisher' ) ) {
 		$html = 
 		  "<div class=\"mp-cover\">"
 		. "<h1 class=\"mp-main-title\">".get_the_title()."</h1>"
-		. "<h4 class=\"auteurs\">Auteurs".''."</h4>"
+		. "<h4 class=\"auteurs\">Auteurs".get_the_tag_list()."</h4>"
 		. "<h4 class=\"artistes\">Artistes".''."</h4>"
 		. "<h4 class=\"commissaires\">Commissaires".''."</h4>"
 		. "</div>"
@@ -109,7 +115,10 @@ if ( class_exists( 'MultiPublisher' ) ) {
 
 
 
-
+	/**
+	 * [test_public description]
+	 * @return [type] [description]
+	 */
 	function test_public(){
 
 	    echo MultiPublisher::mp_public();

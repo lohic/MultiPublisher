@@ -15,7 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <style type="text/css" media="screen">
+	.xref_item.selected h2{
+	    color:#00AAFF;
+	}
 
+	.xref_result li.xref:hover{
+		color:#00AAFF;
+	}
 </style>
 <div class="wrap" id="multi_publisher">
 
@@ -122,31 +128,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     <p><?php echo mp_url(); ?></p>
 
     <?php echo $structure_html ?>
-
-   <!--  <div class="chapterlist clearafter">
-        <div class="partie" id="partie-1">
-            <div class="chapter" id="chapter-1">chap 1</div>
-            <div class="chapter" id="chapter-2">chap 2</div>
-        </div>
-        <div class="partie" id="partie-2">
-            <div class="chapter" id="chapter-3">chap 3</div>
-            <div class="chapter" id="chapter-4">chap 4</div>
-            <div class="chapter" id="chapter-5">chap 5</div>
-            <div class="chapter" id="chapter-6">chap 6</div>
-        </div>
-        <div class="partie" id="partie-3">
-            <div class="chapter" id="chapter-7">chap 7</div>
-            <div class="chapter" id="chapter-8">chap 8</div>
-        </div>
-        <div class="partie" id="partie-4">
-            <div class="chapter" id="chapter-9">chap 9</div>
-        </div>
-        <div class="partie" id="partie-5">
-            <div class="chapter" id="chapter-10">chap 10</div>
-            <div class="chapter" id="chapter-11">chap 11</div>
-            <div class="chapter" id="chapter-12">chap 12</div>
-        </div>
-    </div> -->
 </div>
 
 <script>
@@ -365,55 +346,55 @@ jQuery(document).ready(function($) {
      * SEARCH POST
      */
     
-    // Find posts
-    var $findBox = $('#find-posts'),
-        $found   = $('#find-posts-response'),
-        $findBoxSubmit = $('#find-posts-submit');
+	// Find posts
+	var $findBox = $('#find-posts'),
+		$found   = $('#find-posts-response'),
+		$findBoxSubmit = $('#find-posts-submit');
 
-    // Open
-    $('input.kc-find-post').on('dblclick', function() {
-        $findBox.data('kcTarget', $(this));
-        findPosts.open();
-    });
+	// Open
+	$('input.kc-find-post').on('dblclick', function() {
+		$findBox.data('kcTarget', $(this));
+		findPosts.open();
+	});
 
-    /**
-     * [description]
-     * @param  {[type]}    [description]
-     * @return {[type]}    [description]
-     */
-    $findBoxSubmit.click(function(e) {
-        e.preventDefault();
+	/**
+	 * [description]
+	 * @param  {[type]}    [description]
+	 * @return {[type]}    [description]
+	 */
+	$findBoxSubmit.click(function(e) {
+		e.preventDefault();
 
-        // Be nice!
-        if ( !$findBox.data('kcTarget') )
-            return;
+		// Be nice!
+		if ( !$findBox.data('kcTarget') )
+			return;
 
-        var $selected = $found.find('input:checked');
-        if ( !$selected.length )
-            return false;
+		var $selected = $found.find('input:checked');
+		if ( !$selected.length )
+			return false;
 
-        var $target = $findBox.data('kcTarget'),
-            current = $target.val(),
-            current = current === '' ? [] : current.split(','),
-            newID   = $selected.val();
+		var $target = $findBox.data('kcTarget'),
+			current = $target.val(),
+			current = current === '' ? [] : current.split(','),
+			newID   = $selected.val();
 
-        if ( $.inArray(newID, current) < 0 ) {
-            current.push(newID);
-            $target.val( current.join(',') );
-        }
+		if ( $.inArray(newID, current) < 0 ) {
+			current.push(newID);
+			$target.val( current.join(',') );
+		}
 
-        findPosts.close();
-    });
+		findPosts.close();
+	});
 
-    // Double click on the radios
-    $('input[name="found_post_id"]', $findBox).on('dblclick', function() {
-        $findBoxSubmit.trigger('click');
-    });
+	// Double click on the radios
+	$('input[name="found_post_id"]', $findBox).on('dblclick', function() {
+		$findBoxSubmit.trigger('click');
+	});
 
-    // // Close
-    $( '#find-posts-close' ).click(function() {
-        $findBox.removeData('kcTarget');
-    });
+	// // Close
+	$( '#find-posts-close' ).click(function() {
+		$findBox.removeData('kcTarget');
+	});
 
 });
 </script>

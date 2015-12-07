@@ -8,6 +8,81 @@
  */
 
 
+
+hr.pagebreak{
+    border-top:0;
+    border-bottom:dashed #00AAFF 1px;
+    background: none;
+    height: 0;
+    margin: 1em 0;
+}
+
+hr.pagebreak:before{
+    content: "\f15b";
+    display: inline-block;
+    color: #00AAFF;
+    position: relative;
+    top: -16px;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+
+p.emphase{
+    font-style: italic;
+    /*text-transform: uppercase;*/
+}
+
+
+span.wpSpot{
+    color:#00AAFF;
+    display: inline-block;
+}
+
+span.wpSpot:after{
+    content: "\f27b";
+    display: inline-block;
+    color: #00AAFF;
+    position: relative;
+    top: -8px;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+
+/* tinyMCE xref shortcode */
+span.mp_xref{
+    color:#00AAFF;
+    display: inline-block;
+}
+
+span.mp_xref:after{
+    content: "\f27b";
+    display: inline-block;
+    color: #00AAFF;
+    position: relative;
+    top: -8px;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+
+span.mp_note{
+    color:#00AAFF;
+    display: inline-block;
+}
+
+span.mp_note:after{
+    content: "\f0f6";
+    display: inline-block;
+    color: #00AAFF;
+    position: relative;
+    top: -8px;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+
+
+/**
+ *  ┌──────────────────┐
+ *  │ -> OLD STYLES <- │
+ *  └──────────────────┘
+ */
+
+/*
 #multi_publisher{
 }
 
@@ -30,7 +105,6 @@
 }
 
 #multi_publisher h3{
-    /*width: 300px;*/
     margin-top:24px;
     margin-bottom:15px;
     border-bottom : solid 5px #333;
@@ -43,7 +117,6 @@
 }
 
 #multi_publisher .chapterlist{
-    /*margin-top: 40px;*/
     background:#FFF; 
     padding: 10px;
     border: solid 1px #DDD; 
@@ -82,7 +155,6 @@
 
 .partie{
     display: inline-block;
-    /*float: left;*/
     background:#FDD; 
     height: 150px;
     min-width: 115px;
@@ -110,7 +182,6 @@
     box-sizing: border-box;  
     text-transform: uppercase;
     float: left;
-    /*pointer-events:none;*/
     font-size:10px;
     padding: 10px;
     margin: 0; 
@@ -120,7 +191,6 @@
 }
 
 .partie+.partie{
-    /*border-left: dashed 1px #F99;*/
 }
 
 .sortEditionWrapper{
@@ -167,7 +237,6 @@ button.submitdelete{
     box-sizing: border-box;  
     text-transform: uppercase;
     float: left;
-    /*pointer-events:none;*/
     font-size:10px;
     padding: 10px;
     margin: 0; 
@@ -200,4 +269,4 @@ button.submitdelete{
     margin: 5px 25px 25px 5px;
     background: #FFF;
     color: #000;
-}
+}*/

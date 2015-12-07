@@ -71,9 +71,14 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	}
 
 
-	function get_mp_notes(){
+	/**
+	 * [get_mp_notes description]
+	 * @param  [type] $title [description]
+	 * @return [type] [description]
+	 */
+	function get_mp_notes($title = null){
 
-		echo Multipublisher::list_notes();
+		echo Multipublisher::list_notes( $title );
 
 	}
 
@@ -93,10 +98,10 @@ if ( class_exists( 'MultiPublisher' ) ) {
 
 		$html = 
 		  "<div class=\"mp-cover\">"
-		. "<h1 class=\"mp-main-title\">".get_the_title()."</h1>"
-		. "<h4 class=\"auteurs\">Auteurs".get_the_tag_list()."</h4>"
-		. "<h4 class=\"artistes\">Artistes".''."</h4>"
-		. "<h4 class=\"commissaires\">Commissaires".''."</h4>"
+		. "\t<h1 class=\"mp-main-title\">".get_the_title()."</h1>"
+		. "\t<h4 class=\"auteurs\">Auteurs".get_the_tag_list()."</h4>"
+		. "\t<h4 class=\"artistes\">Artistes".''."</h4>"
+		. "\t<h4 class=\"commissaires\">Commissaires".''."</h4>"
 		. "</div>"
 		. "<mbp:pagebreak/>";
 

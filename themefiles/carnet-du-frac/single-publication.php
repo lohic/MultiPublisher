@@ -9,8 +9,8 @@
 
 <?php the_content(); ?>
 
-<h3>NOTES :</h3>
-<?php get_mp_notes(); ?>
+
+<?php get_mp_notes("<h3>Notes :</h3>"); ?>
 
 <?php endwhile; ?>
 <?php endif; ?>

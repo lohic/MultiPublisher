@@ -1,6 +1,6 @@
 (function() {
      /* Register the buttons */
-     tinymce.create('tinymce.plugins.MyButtons', {
+     tinymce.create('tinymce.plugins.mp_button_script', {
           init : function(ed, url) {
                /**
                * Inserts shortcode content
@@ -38,7 +38,7 @@
                ed.addButton( 'mp_tab', {
                     title : 'Ajouter une mosaique',
                     type  : 'menubutton',
-                    image : url + '/img/btn_tab.png',
+                    image : url + '/../img/btn_tab.png',
                     menu  : [
 						{
 							text: '4 images',
@@ -142,5 +142,5 @@
           },
      });
      /* Start the buttons */
-     tinymce.PluginManager.add( 'my_button_script', tinymce.plugins.MyButtons );
+     tinymce.PluginManager.add( 'mp_button_script', tinymce.plugins.mp_button_script );
 })();

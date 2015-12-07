@@ -221,7 +221,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             /**
              * AJOUT DE BOUTON tinyMCE
              */
-            add_action( 'admin_init',							array( $this, 'my_tinymce_button') );
+            add_action( 'admin_init',							array( $this, 'mp_tinymce_plugin') );
             add_filter( 'tiny_mce_before_init',					array( $this, 'multi_publisher_tiny_mce_before_init') );
             add_filter( 'mce_buttons_2',						array( $this, 'multi_publisher_mce_buttons_2') );
 
@@ -314,19 +314,25 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             MultiPublisher::$notesArray[] = $a['def'];
 
-            return "<a href=\"#{$compteur}\">{$a['txt']} <sup>[{$compteur}]</sup></a>";
+            $a['txt'] = urldecode($a['txt']);
+
+            return "<a href=\"#{$compteur}\">{$a['txt']}<sup>[{$compteur}]</sup></a>";
 
             //return "<a href=\"#{$compteur}\">{$a['mot']} <sup>[{$compteur} {$a['def']}]</sup></a>";
         }
 
-        public static function list_notes(){
-            $html = "<ul>\n";
+        public static function list_notes($title = null){
+
+
+            $html = !empty($title) ? $title."\n" : '';
+
+            $html .= "<ol class=\"footnotes\">\n";
 
             foreach (MultiPublisher::$notesArray as $key => $note) {
                 $html .= "<li>$note</li>\n";
             }
 
-            $html .= "</ul>\n";
+            $html .= "</ol>\n";
 
             return $html;
         }
@@ -404,13 +410,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         // TINYMCE
         /**
-         * [my_tinymce_button description]
+         * [mp_tinymce_plugin description]
          * @return [type] [description]
          */
-        public function my_tinymce_button() {
+        public function mp_tinymce_plugin() {
              if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
                   add_filter( 'mce_buttons',            array( $this, 'my_register_tinymce_button' ) );
-                  add_filter( 'mce_external_plugins',   array( $this, 'my_add_tinymce_button' ) );
+                  add_filter( 'mce_external_plugins',   array( $this, 'mp_add_tinymce_plugins' ) );
              }
         }
 
@@ -425,12 +431,14 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
         /**
-         * [my_add_tinymce_button description]
+         * [mp_add_tinymce_plugins description]
          * @param  [type] $plugin_array [description]
          * @return [type]               [description]
          */
-        public function my_add_tinymce_button( $plugin_array ) {
-            $plugin_array['my_button_script'] = plugins_url( '/mybuttons.js', __FILE__ ) ;
+        public function mp_add_tinymce_plugins( $plugin_array ) {
+            $plugin_array['mp_button_script'] = plugins_url( '/tinymce_js/mp_tinymce_buttons.js', __FILE__ ) ;
+            $plugin_array['mp_xref']          = plugins_url( '/tinymce_js/mp_xref_plugin.js', __FILE__ ) ;
+            $plugin_array['mp_note']          = plugins_url( '/tinymce_js/mp_note_plugin.js', __FILE__ ) ;
             return $plugin_array;
         }
 
@@ -440,6 +448,9 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @return [type]           [description]
          */
         public function multi_publisher_tiny_mce_before_init( $settings ) {
+
+            //$settings['content_css'] .= ",".WP_PLUGIN_URL.'/tinymce-graphical-shortcode/tinymce-plugin/icitspots/editor-style.css';
+
             //
             $settings['theme_advanced_blockformats'] = 'p,a,div,span,h1,h2,h3,h4,h5,h6,tr';
             $style_formats = array(

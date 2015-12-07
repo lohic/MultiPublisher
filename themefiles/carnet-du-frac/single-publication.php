@@ -8,6 +8,10 @@
 <?php get_mp_publication_cover(); ?>
 
 <?php the_content(); ?>
+
+<h3>NOTES :</h3>
+<?php get_mp_notes(); ?>
+
 <?php endwhile; ?>
 <?php endif; ?>
 

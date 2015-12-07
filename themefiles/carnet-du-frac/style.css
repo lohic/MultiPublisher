@@ -40,8 +40,16 @@
 		position: relative;
 		font-size: 13pt;
 		line-height: 14.4pt;
-		max-width: 15cm;
+		max-width: 132mm;
 	}
+
+	hr.pagebreak{
+		border-top:0;
+	    border-bottom:dashed #00AAFF 1px;
+	    margin: 1em 0;
+		page-break-after: always;
+	}
+
 
 	.mp-cover{
 		page-break-after: always;
@@ -173,7 +181,8 @@
 	}*/
 
 	h4,
-	p{
+	p,
+	blockquote{
 		font-size: 1em;
 		line-height:1.15em;
 		margin:0;
@@ -181,6 +190,7 @@
 		padding-left:13.5mm;
 		font-weight: normal;
 	}
+
 
 	h4:before,
 	p:before{
@@ -252,12 +262,105 @@
 
 	p.emphase{
 		font-style: italic;
+		/*text-transform: uppercase;*/
 	}
+
+	/**
+	 * CITATION
+	 */
+	blockquote{
+		padding-left:13.5mm;
+	}
+	
+	p + blockquote{
+		margin-top: 1em;
+	}
+	blockquote + p{
+		margin-top: 1em;
+	}
+
+	blockquote + p::before{
+		content: none;
+	}
+
+	blockquote>p{
+		padding-left:0;
+	}
+
+	blockquote>p::before{
+		content: none;
+	}
+
+	blockquote::before{
+		content: "« ";
+		display: inline-block;
+		padding-left: 0;
+		font-size: 1em;
+		line-height:1.15em;
+		float: left;
+		margin-right: 0.3em;
+	}
+
+	blockquote>p:last-child::after{
+		content: " »";
+		display: inline-block;
+		padding-left: 0;
+		font-size: 1em;
+		line-height:1.15em;
+		margin-left: 0.2em;
+	}
+
+	
+	p.italique{
+		font-style: italic;
+	}
+
+
+	/**
+	 * NOTE
+	 */
+
+	sup{
+		vertical-align: text-top;
+		font-size: 0.65em;
+		position: relative;
+		top:-0.3em;
+	}
+
+
+	/**
+	 * LISTES
+	 */
+
 
 	ol,ul{
 		padding-left:13.2mm;
 		list-style-position: inside;
 	}
+
+	ul{
+		list-style: none;
+		margin-bottom: 0;
+	}
+
+	ul li::before{
+		content: "–";
+		display: inline-block;
+		float: left;
+		width: 0.8em;
+	}
+
+	p+ul,
+	ul+p{
+		margin-top: 0;
+	}
+
+	ul+p::before{
+		content: none;
+	}
+
+
+
 
 	.fig{
 		float: left;

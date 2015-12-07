@@ -1,3 +1,4 @@
 vendor
 *.eot
 *.ttf
+.phpintel/*

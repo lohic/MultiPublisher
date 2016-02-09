@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
 
 	$(function() {
 
-		console.log('mp script ready');
+		console.log('mp-admin.js ready');
 
 		// $("#parent_id").change(function(e){
 		// 	console.log($(this).val());
@@ -67,8 +67,6 @@ jQuery(document).ready(function($) {
 
 
 
-
-
 		$("#mp_select_img").click(function(e){
 			wp = mp_js_vars.wp;
 
@@ -104,7 +102,7 @@ jQuery(document).ready(function($) {
 
 			//console.log('ok',mp_js_vars.ed);
 
-			console.log('ferme');
+			//console.log('ferme');
 
 			//var args = tinyMCE.activeEditor.windowManager.getParams();
 

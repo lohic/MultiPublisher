@@ -1,4 +1,4 @@
-/**
+/*
  * GRILLES DE LIGNE DE BASE
  * http://baselinecss.com
  * http://responsablecss.com/typography
@@ -359,6 +359,22 @@
 		content: none;
 	}
 
+	/**
+	 * GALLERIE
+	 */
+
+	.mp_gallery{
+		width: 100%;
+		margin-top: 1em;
+		border-spacing: 3px;
+		background-color: #F00;
+	}
+	.mp_gallery td{
+		width: 50%;
+		padding: 0;
+		background-color: #FFF;
+	}
+	.mp_gallery{}
 
 
 
@@ -441,4 +457,4 @@
 	  }*/
 	}
 
-/*}*/
+/*}

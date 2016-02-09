@@ -11,20 +11,20 @@ jQuery(document).ready(function($) {
 
 (function() {
 
-	//console.log("xref JS loaded");
+	console.log("mp_gallery_plugin.js loaded");
 
 	//-------------------------------------------
 	//------------- xrefSHORTCODE ---------------
 	//-------------------------------------------
 
-	tinymce.create('tinymce.plugins.mp_xref', {
+	tinymce.create('tinymce.plugins.mp_gallery', {
 
 		init : function(ed, url) {
 			var t = this;
 
 			t.url = url;
 
-			//console.log('MCE plugin xref created');
+			//console.log('MCE plugin gallery for multipublisher created');
 		
 			
 			//replace shortcode before editor content set
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
 
 			    //console.log( e.target.className );
 
-			    if( e.target.classList.contains('mp_xref')===true ){
+			    if( e.target.classList.contains('mp_gallery')===true ){
 
 			    	//console.log("click xref", e.target.id);
 
@@ -61,28 +61,29 @@ jQuery(document).ready(function($) {
 
 					// console.log(shortcode_obj);
 
-					var data = {
+					/*var data = {
 				        'action'	: 'dialog_edit_xref',
 				        'xref_id'	: xref.data('id'),//shortcode_obj.id,
 				        'xref_href'	: xref.data('href'),//shortcode_obj.href,
 				        'xref_txt'	: xref.text(),//shortcode_obj.txt,
 				        'parent_id'   : $("#main_parent_id_field").val()
-				    };
+				    };*/
 
-				    $.post(ajaxurl, data, function(response) {
+				    //$.post(ajaxurl, data, function(response) {
 
+				    response = "RIEN";
 				        
-				        var dlg = $('<div class=\"xref-dialog ajax-content\">'+response+'</div>').appendTo("body");
+				        var dlg = $('<div class=\"mp-gallery-dialog ajax-content\">'+response+'</div>').appendTo("body");
 
 
 				        dlg.dialog({
-				            'dialogClass' : 'wp-dialog mp-dialog-fixed',
+				            'dialogClass' : 'wp-dialog',
 				            'modal' : true,
 				            'autoOpen' : false,
 				            'closeOnEscape' : true,
 				            'draggable' : false,
 			            	'resizable': false,
-				            'title' : 'Éditer une référence croisée',
+				            'title' : 'Éditer une galerie',
 				            'width' : 500,
 				            'buttons' : [
 				                {
@@ -95,7 +96,7 @@ jQuery(document).ready(function($) {
 				            ],
 				            'open' : function (event, ui){
 
-								$(".xref_item").click(function(e){
+								/*$(".xref_item").click(function(e){
 
 									$(".xref_item").removeClass('selected');
 									$(this).addClass('selected');
@@ -134,13 +135,13 @@ jQuery(document).ready(function($) {
 								    });
 
 								
-								});
+								});*/
 				            },
 				            'close' : function (event, ui){
-				            	$(".xref-dialog").remove();
+				            	$(".mp-gallery-dialog").remove();
 				            }
 				        }).dialog('open');
-				    });
+				    //});
 
 			    }
 			});
@@ -148,20 +149,86 @@ jQuery(document).ready(function($) {
 		},
 
 		_do_spot : function(co) {
-			return co.replace(/\[xref([^\]]*)\]/g, function(a,b){
-				//console.log('_do_spot xref',a,b);
-				//console.log(shortCode2Obj(b));
+			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
+				console.log('_do_spot mp_gallery',a,b);
+				console.log(shortCode2Obj(b));
 
 				var shortCodeObj = shortCode2Obj(b);
 
-				var render = $('<span>')
-				.addClass('mp_xref')
-				.addClass('mceItem')
-				.text( decodeURI(shortCodeObj.txt) )
-				.attr("data-id",shortCodeObj.id)
-				.attr("data-href",shortCodeObj.href);
+				// console.log('gallery shortCodeObj',shortCodeObj);
 
-				//console.log('outerHTML',render.prop('outerHTML'));
+				// var render = $('<table>')
+				// .addClass('mp_gallery')
+				// .addClass('mceItem')
+				// //.text( decodeURI(shortCodeObj.txt) )
+				// .attr("data-param",shortCodeObj.param)
+				// .attr("data-type",shortCodeObj.type)
+				// .attr("data-ids",shortCodeObj.ids)
+				// //.attr("data-href",shortCodeObj.href);
+				// .append(
+				// 	$('<tr>')
+				// 	.append(
+				// 		$('<td>').text( " " )
+				// 	)
+				// 	.append(
+				// 		$('<td>').text( " " )
+				// 	)
+				// )
+				// .append(
+				// 	$('<tr>')
+				// 	.append(
+				// 		$('<td>').text( " " )
+				// 	)
+				// 	.append(
+				// 		$('<td>').text( decodeURI(shortCodeObj.txt.trim() ) )
+				// 	)
+				// );
+
+				var data = {
+	               // 'ID': $("#post_ID").val(),
+	                action 	: 'galleries_get_json',
+	                type 	: shortCodeObj.type,
+	                ids 	: shortCodeObj.ids
+	            };
+
+	            console.log(data, ajaxurl);
+
+	           
+	            // http://stackoverflow.com/questions/5316697/jquery-return-data-after-ajax-call-success#5316755
+	            function getGalleries(data){
+
+	            	var result="";
+
+	            	$.ajax({
+	            		url 	 : ajaxurl,
+						async 	 : false,
+						data 	 : data,
+						dataType : 'json',
+						success  : function(response) {
+
+			            	result = response;
+
+			                //console.log('galleries_get_json',response, data);
+
+		            	}
+		            });
+
+	            	return result;
+
+	            }
+
+	            console.log('galleries_get_json getGalleries', getGalleries(data) );
+
+	            var render = $( getGalleries(data)[ shortCodeObj.type ] )
+				.addClass('mp_gallery')
+				.addClass('mceItem')
+				.attr("data-param",shortCodeObj.param)
+				.attr("data-type",shortCodeObj.type)
+				.attr("data-ids",shortCodeObj.ids);
+
+				// console.log(decodeURI(shortCodeObj.txt));
+
+				// console.log('outerHTML',render.prop('outerHTML'))
 
 				return render.prop('outerHTML');
 			});
@@ -175,16 +242,19 @@ jQuery(document).ready(function($) {
 			};
 
 
-			return co.replace(/(<span[^>]+>)([\w=áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ'’" ]+)(<\/span>)*/g, function(a,b,c) {
-				var cls = getAttr(a, 'class');
+			return co.replace(/(<table[^>]*>[\s\S]*?<\/table>\s*)/gm, function(a,b) {
+				var cls = getAttr( a, 'class' );
 
-				//console.log('_get_spot',a,b,c);
+
+				console.log('_get_spot',a,b);
 
 				var info = $(a);
 
-				if(info.hasClass('mp_xref')){
+				console.log('info',info);
 
-					var param = 'xref txt="'+encodeURI( info.text() )+'"';
+				if(info.hasClass('mp_gallery')){
+
+					var param = 'mp_gallery txt="'+encodeURI( info.text().trim() )+'"';
 
 					for(key in info.data()){
 						param += ' '+key+'="'+info.data()[key]+'"';
@@ -193,14 +263,14 @@ jQuery(document).ready(function($) {
 					return "["+param+"]";
 				}else{
 					return a;
-				}				
+				}		
 			});
 
 		},
 
 		getInfo : function() {
 			return {
-				longname  : 'xref Shortcode',
+				longname  : 'gallery for multipublisher Shortcode',
 				author 	  : 'Loïc Horellou',
 				authorurl : 'http://www.loichorellou.net',
 				infourl   : '',
@@ -209,7 +279,7 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	tinymce.PluginManager.add('mp_xref', tinymce.plugins.mp_xref);
+	tinymce.PluginManager.add('mp_gallery', tinymce.plugins.mp_gallery);
 
 })();
 

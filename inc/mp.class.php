@@ -211,12 +211,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              * AJAX
              */
             add_action( 'wp_ajax_find_posts',                   array( $this, 'wp_ajax_find_posts'), 1);
-            add_action( 'wp_ajax_dialog_partie',                array( $this, 'dialog_partie_callback') );
+            //add_action( 'wp_ajax_dialog_partie',                array( $this, 'dialog_partie_callback') );
             add_action( 'wp_ajax_dialog_add_partie',			array( $this, 'dialog_add_partie_callback') );
             add_action( 'wp_ajax_dialog_edit_xref',             array( $this, 'dialog_edit_xref_callback') );
             add_action( 'wp_ajax_xref_list',                    array( $this, 'ajax_xref_list_callback') );
             add_action( 'wp_ajax_publication_update_parent',	array( $this, 'publication_update_parent_callback') );
             add_action( 'wp_ajax_generate_publication',			array( $this, 'generate_publication_callback') );
+            add_action( 'wp_ajax_galleries_get_json',           array( $this, 'galleries_get_json_callback') );
 
             /**
              * AJOUT DE BOUTON tinyMCE
@@ -230,6 +231,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              */
             add_shortcode( 'xref',								array( $this, 'xref_shortcode_function') );
             add_shortcode( 'note',                              array( $this, 'note_shortcode_function') );
+            add_shortcode( 'mp_gallery',                        array( $this, 'mp_gallery_shortcode_function') );
             add_filter( 'img_caption_shortcode',				array( $this, 'mp_caption_shortcode', 10, 3)  );
 
             /**
@@ -321,8 +323,39 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             //return "<a href=\"#{$compteur}\">{$a['mot']} <sup>[{$compteur} {$a['def']}]</sup></a>";
         }
 
-        public static function list_notes($title = null){
 
+        /**
+         * 
+         */
+        public function mp_gallery_shortcode_function($atts ){
+
+            $a = shortcode_atts( array(
+                'txt'   => 'something',
+                'param' => 0
+            ), $atts );
+
+            $a['txt'] = urldecode($a['txt']);
+
+            $gallerie = "<table class='mp_gallery'>";
+            $gallerie.= "\t<tr>";
+            $gallerie.= "\t\t<td>&nbsp;</td>";
+            $gallerie.= "\t\t<td>&nbsp;</td>";
+            $gallerie.= "\t</tr>";
+            $gallerie.= "\t<tr>";
+            $gallerie.= "\t\t<td>&nbsp;</td>";
+            $gallerie.= "\t\t<td>{$a['txt']}</td>";
+            $gallerie.= "\t</tr>";
+            $gallerie.= "</table>";
+
+            return $gallerie;
+
+            //return "<a href=\"#{$compteur}\">{$a['mot']} <sup>[{$compteur} {$a['def']}]</sup></a>";
+        }
+
+        /**
+         * 
+         */
+        public static function list_notes($title = null){
 
             $html = !empty($title) ? $title."\n" : '';
 
@@ -338,6 +371,24 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
+        /* http://www.network-science.de/ascii/
+
+        --------------------------------------------------------------
+
+                 @@@@@@        @@@   @@@@@@   @@@  @@@  
+                @@@@@@@@       @@@  @@@@@@@@  @@@  @@@  
+                @@!  @@@       @@!  @@!  @@@  @@!  !@@  
+                !@!  @!@       !@!  !@!  @!@  !@!  @!!  
+                @!@!@!@!       !!@  @!@!@!@!   !@@!@!   
+                !!!@!!!!       !!!  !!!@!!!!    @!!!    
+                !!:  !!!       !!:  !!:  !!!   !: :!!   
+                :!:  !:!  !!:  :!:  :!:  !:!  :!:  !:!  
+                ::   :::  ::: : ::  ::   :::   ::  :::  
+                 :   : :   : :::     :   : :   :   ::   
+
+        --------------------------------------------------------------
+        */
+
 
         // AJAX CALLBACK 
         public function publication_update_parent_callback() {
@@ -352,9 +403,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog-edit-xref.php' );
         }
 
-        public function dialog_partie_callback() {
-            include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog.php' );
+        public function galleries_get_json_callback(){
+            include( MultiPublisher::$pluginPath . 'inc/views/ajax-galleries-get-json.php' );
         }
+
+        // public function dialog_partie_callback() {
+        //     include( MultiPublisher::$pluginPath . 'inc/views/ajax-dialog.php' );
+        // }
 
         public function generate_publication_callback(){
         	$this->mp_generate_epub( $_POST['ID'] );
@@ -439,6 +494,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             $plugin_array['mp_button_script'] = plugins_url( '/tinymce_js/mp_tinymce_buttons.js', __FILE__ ) ;
             $plugin_array['mp_xref']          = plugins_url( '/tinymce_js/mp_xref_plugin.js', __FILE__ ) ;
             $plugin_array['mp_note']          = plugins_url( '/tinymce_js/mp_note_plugin.js', __FILE__ ) ;
+            $plugin_array['mp_gallery']       = plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ) ;
             return $plugin_array;
         }
 
@@ -627,6 +683,19 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		    //     do_theme_redirect($return_template);
 		    }
 		}
+
+        private static function get_gallery_json(){
+
+            $json_filename = 'galleries.json';
+
+            if (file_exists(TEMPLATEPATH . '/' . $json_filename)) {
+                $return_json = TEMPLATEPATH . '/' . $json_filename;
+            } else {
+                $return_json = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $json_filename;
+            }
+
+            return json_decode(file_get_contents( $return_json ));
+        }
 
 
         /**
@@ -926,12 +995,33 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
+
+        /*    ───────────────────
+         *  /###################/│  
+         *  ┌──────────────────┐#│
+         *  │                  │#│
+         *  │ EPUB             │#│
+         *  │ GENERATOR        │#│
+         *  │                  │#│
+         *  │                  │#│
+         *  │                  │#│
+         *  │                  │#│
+         *  │                  │#│
+         *  │                  │#│
+         *  │                  │/
+         *  └──────────────────┘
+         */
+
         /**
          * [mp_generate_epub description]
          * @param  [type] $post_ID [description]
          * @return [type]          [description]
          */
         public function mp_generate_epub($post_ID=null){
+
+            // ASPIRATION TYPO TTF:
+            // regex
+            // url[ ]*\([ ]*'[ ]*([\.\/\w-#]+\.ttf)[ ]*'[ ]*\)
 
             if( !empty( $post_ID ) ){
 
@@ -1237,7 +1327,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             $structure          = get_post_meta( $post->ID, 'mp_structure_key', true );
             $main_parent_id 	= get_post_meta( $post->ID, 'mp_main_parent_id_key', true );
 
-            $structure_html     = $this->structure_to_html($structure);
+            //$structure_html     = $this->structure_to_html($structure);
 
             include( MultiPublisher::$pluginPath . 'inc/views/meta-edition.php' );
         }
@@ -1247,44 +1337,44 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @param  [type] $json_string [description]
          * @return [type]              [description]
          */
-        public function structure_to_html($json_string){
+        // public function structure_to_html($json_string){
 
-            $structure_json = json_decode($json_string);
+        //     $structure_json = json_decode($json_string);
 
-            if(count($structure_json) <= 0){
-                $structure_json = array();
-            }
+        //     if(count($structure_json) <= 0){
+        //         $structure_json = array();
+        //     }
 
-            $html = '<div class="chapterlist sortEdition clearafter">';
+        //     $html = '<div class="chapterlist sortEdition clearafter">';
 
-            foreach($structure_json as $item){
+        //     foreach($structure_json as $item){
 
-                if($item->type == 'partie'){
+        //         if($item->type == 'partie'){
 
-                    $html.= '<div class="container-wrapper">';
-                    $html.= '<h4>'. $item->name .'</h4>';
-                    $html.= '<div class="partie sortEdition" id="'. $item->id .'">';
-                    // $html.= '<div class="droppin"></div>';
+        //             $html.= '<div class="container-wrapper">';
+        //             $html.= '<h4>'. $item->name .'</h4>';
+        //             $html.= '<div class="partie sortEdition" id="'. $item->id .'">';
+        //             // $html.= '<div class="droppin"></div>';
 
-                    foreach($item->chapters as $chapter){
-                        $html.= '<div class="item chapter" id="'. $chapter->id .'">'. $chapter->name .'</div>';
-                    }
+        //             foreach($item->chapters as $chapter){
+        //                 $html.= '<div class="item chapter" id="'. $chapter->id .'">'. $chapter->name .'</div>';
+        //             }
 
-                    $html.= '</div>';
-                    $html.= '</div>'; 
+        //             $html.= '</div>';
+        //             $html.= '</div>'; 
 
-                }else if($item->type == 'chapter'){
-                    $chapter = $item;
-                    $html.= '<div class="item chapter" id="'. $chapter->id .'">'. $chapter->name .'</div>';
-                }
+        //         }else if($item->type == 'chapter'){
+        //             $chapter = $item;
+        //             $html.= '<div class="item chapter" id="'. $chapter->id .'">'. $chapter->name .'</div>';
+        //         }
 
-            }
+        //     }
 
-            $html.= '</div>';
+        //     $html.= '</div>';
 
-            return $html;
+        //     return $html;
 
-        }
+        // }
 
         /**
          * [mp_public description]

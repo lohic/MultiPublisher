@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 
 (function() {
 
-	console.log("note JS loaded");
+	//console.log("note JS loaded");
 
 
 	//-------------------------------------------
@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
 
 			t.url = url;
 
-			console.log('MCE plugin note created');
+			//console.log('MCE plugin note created');
 		
 			
 			//replace shortcode before editor content set
@@ -70,11 +70,12 @@ jQuery(document).ready(function($) {
 
 
 			        dlg.dialog({
-			            'dialogClass' : 'wp-dialog',
+			            'dialogClass' : 'wp-dialog mp-dialog-fixed',
 			            'modal' : true,
 			            'autoOpen' : false,
 			            'closeOnEscape' : true,
 			            'draggable' : false,
+			            'resizable': false,
 			            'title' : 'Éditer une note',
 			            'width' : 500,
 			            'buttons' : [
@@ -89,7 +90,7 @@ jQuery(document).ready(function($) {
 			                    'text' : 'Enregistrer',
 			                    'class' : 'valid',
 			                    'click' : function() {
-			                        console.log("valeurs notes : ",$("#note_txt").val(), $("#note_def").val())
+			                        //console.log("valeurs notes : ",$("#note_txt").val(), $("#note_def").val())
 
 			                        var render = $('<span>')
 									.addClass('mp_note')
@@ -104,7 +105,7 @@ jQuery(document).ready(function($) {
 			                }
 			            ],
 			            'open' : function (event, ui){
-			            	console.log("valeurs notes : ",$("#note_txt").val(), $("#note_def").val())
+			            	//console.log("valeurs notes : ",$("#note_txt").val(), $("#note_def").val())
 			            },
 			            'close' : function (event, ui){
 			            	$(".note-dialog").remove();
@@ -185,7 +186,7 @@ jQuery(document).ready(function($) {
 
 
 function shortCode2Obj(shortcode_str) {
-	console.log('shortCode2Obj');
+	//console.log('shortCode2Obj');
 
     var paramRegexp = /(\w+)\s*=\s*"(.*?)"/g;
     var shortcode_obj = {};

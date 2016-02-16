@@ -218,6 +218,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'wp_ajax_publication_update_parent',	array( $this, 'publication_update_parent_callback') );
             add_action( 'wp_ajax_generate_publication',			array( $this, 'generate_publication_callback') );
             add_action( 'wp_ajax_galleries_get_json',           array( $this, 'galleries_get_json_callback') );
+            add_action( 'wp_ajax_galleries_image_get_html',     array( $this, 'galleries_image_get_html_callback'))
 
             /**
              * AJOUT DE BOUTON tinyMCE
@@ -405,6 +406,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         public function galleries_get_json_callback(){
             include( MultiPublisher::$pluginPath . 'inc/views/ajax-galleries-get-json.php' );
+        }
+
+        public function galleries_image_get_html_callback(){
+            include( MultiPublisher::$pluginPath . 'inc/views/ajax-galleries-image-get-html.php' );   
         }
 
         // public function dialog_partie_callback() {

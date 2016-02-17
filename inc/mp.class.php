@@ -218,7 +218,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'wp_ajax_publication_update_parent',	array( $this, 'publication_update_parent_callback') );
             add_action( 'wp_ajax_generate_publication',			array( $this, 'generate_publication_callback') );
             add_action( 'wp_ajax_galleries_get_json',           array( $this, 'galleries_get_json_callback') );
-            add_action( 'wp_ajax_galleries_image_get_html',     array( $this, 'galleries_image_get_html_callback'))
+            add_action( 'wp_ajax_galleries_image_get_html',     array( $this, 'galleries_image_get_html_callback') );
 
             /**
              * AJOUT DE BOUTON tinyMCE
@@ -252,7 +252,29 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              */
             add_action( 'admin_print_scripts',					array($this, 'mp_gallery_dialog') );
 
+  
+
         }
+
+
+        /*
+         
+        ------------------------------------------------------------------------------------------------------
+
+                 @@@@@@   @@@  @@@   @@@@@@   @@@@@@@   @@@@@@@   @@@@@@@   @@@@@@   @@@@@@@   @@@@@@@@  
+                @@@@@@@   @@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@ 
+                !@@       @@!  @@@  @@!  @@@  @@!  @@@    @@!    !@@       @@!  @@@  @@!  @@@  @@!
+                !@!       !@!  @!@  !@!  @!@  !@!  @!@    !@!    !@!       !@!  @!@  !@!  @!@  !@! 
+                !!@@!!    @!@!@!@!  @!@  !@!  @!@!!@!     @!!    !@!       @!@  !@!  @!@  !@!  @!!!:! 
+                 !!@!!!   !!!@!!!!  !@!  !!!  !!@!@!      !!!    !!!       !@!  !!!  !@!  !!!  !!!!!: 
+                     !:!  !!:  !!!  !!:  !!!  !!: :!!     !!:    :!!       !!:  !!!  !!:  !!!  !!:
+                    !:!   :!:  !:!  :!:  !:!  :!:  !:!    :!:    :!:       :!:  !:!  :!:  !:!  :!:
+                :::: ::   ::   :::  ::::: ::  ::   :::     ::     ::: :::  ::::: ::  :::: ::   :: ::::
+                :: : :     :   : :   : :  :    :   : :     :      :: :: :   : :  :   :: :  :   : :: ::  
+                                                                               
+        ------------------------------------------------------------------------------------------------------
+ 
+        */
 
 
         /**
@@ -373,6 +395,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
         /* http://www.network-science.de/ascii/
+        poison
 
         --------------------------------------------------------------
 
@@ -466,6 +489,26 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
+        /*
+        ---------------------------------------------------------------------------------------
+                                                              
+                @@@@@@@  @@@  @@@  @@@  @@@ @@@  @@@@@@@@@@    @@@@@@@  @@@@@@@@  
+                @@@@@@@  @@@  @@@@ @@@  @@@ @@@  @@@@@@@@@@@  @@@@@@@@  @@@@@@@@  
+                  @@!    @@!  @@!@!@@@  @@! !@@  @@! @@! @@!  !@@       @@!       
+                  !@!    !@!  !@!!@!@!  !@! @!!  !@! !@! !@!  !@!       !@!       
+                  @!!    !!@  @!@ !!@!   !@!@!   @!! !!@ @!@  !@!       @!!!:!    
+                  !!!    !!!  !@!  !!!    @!!!   !@!   ! !@!  !!!       !!!!!:    
+                  !!:    !!:  !!:  !!!    !!:    !!:     !!:  :!!       !!:       
+                  :!:    :!:  :!:  !:!    :!:    :!:     :!:  :!:       :!:       
+                   ::     ::   ::   ::     ::    :::     ::    ::: :::   :: ::::  
+                   :     :    ::    :      :      :      :     :: :: :  : :: ::   
+                                                                                  
+        ---------------------------------------------------------------------------------------
+        */
+
+
+
+
 
 
         // TINYMCE
@@ -496,10 +539,25 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @return [type]               [description]
          */
         public function mp_add_tinymce_plugins( $plugin_array ) {
+
+
             $plugin_array['mp_button_script'] = plugins_url( '/tinymce_js/mp_tinymce_buttons.js', __FILE__ ) ;
             $plugin_array['mp_xref']          = plugins_url( '/tinymce_js/mp_xref_plugin.js', __FILE__ ) ;
             $plugin_array['mp_note']          = plugins_url( '/tinymce_js/mp_note_plugin.js', __FILE__ ) ;
             $plugin_array['mp_gallery']       = plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ) ;
+
+
+            wp_register_script( 'gallerie_handle', plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ));
+
+            // Localize the script with new data
+            $gallerie_json = array(
+                'default' => MultiPublisher::get_gallery_json()
+            );
+            wp_localize_script( 'gallerie_handle', 'gallerie_data', $gallerie_json );
+
+            // Enqueued script with localized data.
+            wp_enqueue_script( 'gallerie_handle' );
+
             return $plugin_array;
         }
 
@@ -929,6 +987,25 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             }
 
         }
+
+
+
+        /*
+        ---------------------------------------------------------------------------------------
+                                        
+                @@@@@@@@  @@@@@@@   @@@  @@@  @@@@@@@   
+                @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  
+                @@!       @@!  @@@  @@!  @@@  @@!  @@@  
+                !@!       !@!  @!@  !@!  @!@  !@   @!@  
+                @!!!:!    @!@@!@!   @!@  !@!  @!@!@!@   
+                !!!!!:    !!@!!!    !@!  !!!  !!!@!!!!  
+                !!:       !!:       !!:  !!!  !!:  !!!  
+                :!:       :!:       :!:  !:!  :!:  !:!  
+                 :: ::::   ::       ::::: ::   :: ::::  
+                : :: ::    :         : :  :   :: : ::   
+
+        ---------------------------------------------------------------------------------------
+        */
 
 
         /**

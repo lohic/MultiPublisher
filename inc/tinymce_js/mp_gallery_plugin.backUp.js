@@ -187,7 +187,7 @@ jQuery(document).ready(function($) {
 				.attr("data-type",shortCodeObj.type)
 				.attr("data-ids",shortCodeObj.ids);
 
-
+				
 
 
 				// analyser shortCodeObj.type (tester le premier chiffre à l'aide substr(0, 1) )
@@ -220,7 +220,6 @@ jQuery(document).ready(function($) {
 				return render.prop('outerHTML');
 
 			});
-			console.log('do_spot');
 		},
 
 		_get_spot : function(co) {

@@ -1,26 +1,30 @@
 jQuery(document).ready(function($) {
 
 (function() {
-
-	//console.log("mp_gallery_plugin.js loaded");
-
 	tinymce.create('tinymce.plugins.mp_gallery', {
-
 		init : function(ed, url) {
 
 			var t = this;
-				console.log(t);
+			// t is an "empty" object
+			// ed >> objet editor
+
+
 			t.url = url;
 			//replace shortcode before editor content set
 			ed.onBeforeSetContent.add(function(ed, o) {
 				o.content = t._do_spot(o.content);
+
 				// o.content >> table gallery
+					//>> activate the dospot function
 			});
 
+
 			//replace shortcode as its inserted into editor (which uses the exec command)
+			//function executed after the pop up windows
 			ed.onExecCommand.add(function(ed, cmd) {
 			    if (cmd ==='mceInsertContent'){
 					tinyMCE.activeEditor.setContent( t._do_spot(tinyMCE.activeEditor.getContent()) );
+					// tinyMCE.activeEditor.getContent() >> table gallery
 				}
 			});
 			//replace the image back to shortcode on save
@@ -30,24 +34,14 @@ jQuery(document).ready(function($) {
 			});
 
 			ed.onDblClick.add(function(ed, e) {
-					console.log( e.target.className );
+					//console.log( e.target.className );
 
 			    if( e.target.classList.contains('mp_gallery')===true ){
 
-			    	//console.log("click xref", e.target.id);
-
 			    	var xref = $(e.target);
-
 			    	ed.selection.select(e.target);
-
-					// shortcode_obj = shortCode2Obj( $(e.target).attr('title') );
-
-					// console.log(shortcode_obj);
-
-
 				    response = "RIEN";
-
-				        var dlg = $('<div class=\"mp-gallery-dialog ajax-content\">'+response+'</div>').appendTo("body");
+            var dlg = $('<div class=\"mp-gallery-dialog ajax-content\">'+response+'</div>').appendTo("body");
 
 
 				        dlg.dialog({
@@ -83,22 +77,45 @@ jQuery(document).ready(function($) {
 		//launch when you click on "visuel tab in editor mode"
 		_do_spot : function(co) {
 			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
-				//console.log('_do_spot mp_gallery',a,b);
-				//console.log(shortCode2Obj(b));
+			var shortCodeObj = shortCode2Obj(b); //transform the shortcode into an object
 
-				var shortCodeObj = shortCode2Obj(b);
+			//var gt = shortCodeObj.type.substring(1,2);
+			/*test valeur id pour ajax à effectuer pour l'ensemble des g*/
+			var ar_id = shortCodeObj.ids.split(',');
+			var im_id = ar_id[0]
 
-	            var render = $( gallerie_data.default[ shortCodeObj.type ] )
-				.addClass('mp_gallery')
-				.addClass('mceItem')
-				.attr("data-param",shortCodeObj.param)
-				.attr("data-type",shortCodeObj.type)
-				.attr("data-ids",shortCodeObj.ids);
+				 var data = {
+					//'ID' : $("#post_ID").val(),
+					action 	: 'galleries_image_get_html', // ligne 221 mp.class.php
+					'id': im_id
+				};
+				var result;
+				$.ajax({
+							type: 'POST',
+    					url 	 : ajaxurl, // on ne touche pas, variable wordpress
+							data 	 : data, // variable data si dessus
+							dataType : 'html', // on va renvoyer de l'html
+			 				success  : function(response) {
+									//$("body").html(response);
+									var render = $( gallerie_data.default[ shortCodeObj.type ] );
+									result = response
+									console.log(result);
+									//return console.log(shortCodeObj.type);
+	    				}
+				});
+
+				//var render = $( gallerie_data.default[ shortCodeObj.type ] );
+
+				// var render = $( gallerie_data.default[ shortCodeObj.type ] )
+				// .addClass('mp_gallery')
+				// .addClass('mceItem')
+				// .attr("data-param",shortCodeObj.param)
+				// .attr("data-type",shortCodeObj.type)
+				// .attr("data-ids",shortCodeObj.ids);
+				// return render.prop('outerHTML');
 
 
-				return render.prop('outerHTML');
-
-			});
+		});
 
 		},
 		_get_spot : function(co) {
@@ -112,7 +129,7 @@ jQuery(document).ready(function($) {
 				var cls = getAttr( a, 'class' );
 
 
-				//console.log('_get_spot',a,b);
+				//console.log('_get_spot',a);
 
 				var info = $(a);
 

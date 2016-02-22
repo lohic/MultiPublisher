@@ -151,7 +151,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             // Rien pour l’instant
             //
-            //            
+            //
             if(isset($_GET['mp_publication_type'])){
 	            switch($_GET['mp_publication_type']){
 
@@ -168,10 +168,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 	            }
 			} else{
 			    MultiPublisher::$publicationType = "html";
-			}  
+			}
 
 			$this->loadLibraries();
-            
+
             // on ne charge les dépendances que si on est pas en admin
             if(!is_admin()){
 
@@ -191,7 +191,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * Load all the required library files.
          */
         protected function loadLibraries() {
-            
+
             require_once( MultiPublisher::$pluginPath . 'inc/mp.structure.php');
             require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
             require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
@@ -242,8 +242,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'save_post',							array( $this, 'save' ) );
 
             /**
-             * TEMPLATE REDIRECTION + HEADER 
-             */       
+             * TEMPLATE REDIRECTION + HEADER
+             */
             add_action( 'template_redirect',					array( $this, 'mp_template_redirection' ) );
             add_action( 'admin_head',							array( $this, 'mp_gallery_js_vars') );
 
@@ -252,28 +252,28 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              */
             add_action( 'admin_print_scripts',					array($this, 'mp_gallery_dialog') );
 
-  
+
 
         }
 
 
         /*
-         
+
         ------------------------------------------------------------------------------------------------------
 
-                 @@@@@@   @@@  @@@   @@@@@@   @@@@@@@   @@@@@@@   @@@@@@@   @@@@@@   @@@@@@@   @@@@@@@@  
-                @@@@@@@   @@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@ 
+                 @@@@@@   @@@  @@@   @@@@@@   @@@@@@@   @@@@@@@   @@@@@@@   @@@@@@   @@@@@@@   @@@@@@@@
+                @@@@@@@   @@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@
                 !@@       @@!  @@@  @@!  @@@  @@!  @@@    @@!    !@@       @@!  @@@  @@!  @@@  @@!
-                !@!       !@!  @!@  !@!  @!@  !@!  @!@    !@!    !@!       !@!  @!@  !@!  @!@  !@! 
-                !!@@!!    @!@!@!@!  @!@  !@!  @!@!!@!     @!!    !@!       @!@  !@!  @!@  !@!  @!!!:! 
-                 !!@!!!   !!!@!!!!  !@!  !!!  !!@!@!      !!!    !!!       !@!  !!!  !@!  !!!  !!!!!: 
+                !@!       !@!  @!@  !@!  @!@  !@!  @!@    !@!    !@!       !@!  @!@  !@!  @!@  !@!
+                !!@@!!    @!@!@!@!  @!@  !@!  @!@!!@!     @!!    !@!       @!@  !@!  @!@  !@!  @!!!:!
+                 !!@!!!   !!!@!!!!  !@!  !!!  !!@!@!      !!!    !!!       !@!  !!!  !@!  !!!  !!!!!:
                      !:!  !!:  !!!  !!:  !!!  !!: :!!     !!:    :!!       !!:  !!!  !!:  !!!  !!:
                     !:!   :!:  !:!  :!:  !:!  :!:  !:!    :!:    :!:       :!:  !:!  :!:  !:!  :!:
                 :::: ::   ::   :::  ::::: ::  ::   :::     ::     ::: :::  ::::: ::  :::: ::   :: ::::
-                :: : :     :   : :   : :  :    :   : :     :      :: :: :   : :  :   :: :  :   : :: ::  
-                                                                               
+                :: : :     :   : :   : :  :    :   : :     :      :: :: :   : :  :   :: :  :   : :: ::
+
         ------------------------------------------------------------------------------------------------------
- 
+
         */
 
 
@@ -284,7 +284,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @return [type]       [description]
          */
         public function xref_shortcode_function( $atts ){
-            
+
 
             $a = shortcode_atts( array(
                 'txt'  => 'un mot',
@@ -301,7 +301,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             global $wpdb;
 
-            
+
             $xref  = $wpdb->get_results( $xref_query );
 
             if(count($xref) > 0){
@@ -314,7 +314,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 }else if(MultiPublisher::$publicationType == "html"){
                     $epub_url = $xref[0]->guid.'.html#'.$a['href'];
                 }
-                
+
 
                 return "<a href=\"$epub_url\">{$a['txt']} <sup>[{$compteur}]</sup></a>";
             }else{
@@ -348,7 +348,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
         /**
-         * 
+         *
          */
         public function mp_gallery_shortcode_function($atts ){
 
@@ -376,7 +376,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
         /**
-         * 
+         *
          */
         public static function list_notes($title = null){
 
@@ -399,22 +399,22 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         --------------------------------------------------------------
 
-                 @@@@@@        @@@   @@@@@@   @@@  @@@  
-                @@@@@@@@       @@@  @@@@@@@@  @@@  @@@  
-                @@!  @@@       @@!  @@!  @@@  @@!  !@@  
-                !@!  @!@       !@!  !@!  @!@  !@!  @!!  
-                @!@!@!@!       !!@  @!@!@!@!   !@@!@!   
-                !!!@!!!!       !!!  !!!@!!!!    @!!!    
-                !!:  !!!       !!:  !!:  !!!   !: :!!   
-                :!:  !:!  !!:  :!:  :!:  !:!  :!:  !:!  
-                ::   :::  ::: : ::  ::   :::   ::  :::  
-                 :   : :   : :::     :   : :   :   ::   
+                 @@@@@@        @@@   @@@@@@   @@@  @@@
+                @@@@@@@@       @@@  @@@@@@@@  @@@  @@@
+                @@!  @@@       @@!  @@!  @@@  @@!  !@@
+                !@!  @!@       !@!  !@!  @!@  !@!  @!!
+                @!@!@!@!       !!@  @!@!@!@!   !@@!@!
+                !!!@!!!!       !!!  !!!@!!!!    @!!!
+                !!:  !!!       !!:  !!:  !!!   !: :!!
+                :!:  !:!  !!:  :!:  :!:  !:!  :!:  !:!
+                ::   :::  ::: : ::  ::   :::   ::  :::
+                 :   : :   : :::     :   : :   :   ::
 
         --------------------------------------------------------------
         */
 
 
-        // AJAX CALLBACK 
+        // AJAX CALLBACK
         public function publication_update_parent_callback() {
             include( MultiPublisher::$pluginPath . 'inc/views/ajax-publication-update-parent.php' );
         }
@@ -432,7 +432,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
         public function galleries_image_get_html_callback(){
-            include( MultiPublisher::$pluginPath . 'inc/views/ajax-galleries-image-get-html.php' );   
+            include( MultiPublisher::$pluginPath . 'inc/views/ajax-galleries-image-get-html.php' );
         }
 
         // public function dialog_partie_callback() {
@@ -451,7 +451,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             	$publication_ID = $_POST['publication_id'];
 
-            	$publication_data    = get_post($publication_ID); 
+            	$publication_data    = get_post($publication_ID);
                 $content = $publication_data->post_content;
 
 				//$content = get_the_content( $publication_ID );
@@ -479,30 +479,30 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
         // POPIN DIALOG WINDOW
-        
+
         /**
          * [mp_gallery_dialog description]
          * @return [type] [description]
          */
-        public function mp_gallery_dialog() { 
+        public function mp_gallery_dialog() {
             include( MultiPublisher::$pluginPath . 'inc/views/mp-gallery.php' );
         }
 
 
         /*
         ---------------------------------------------------------------------------------------
-                                                              
-                @@@@@@@  @@@  @@@  @@@  @@@ @@@  @@@@@@@@@@    @@@@@@@  @@@@@@@@  
-                @@@@@@@  @@@  @@@@ @@@  @@@ @@@  @@@@@@@@@@@  @@@@@@@@  @@@@@@@@  
-                  @@!    @@!  @@!@!@@@  @@! !@@  @@! @@! @@!  !@@       @@!       
-                  !@!    !@!  !@!!@!@!  !@! @!!  !@! !@! !@!  !@!       !@!       
-                  @!!    !!@  @!@ !!@!   !@!@!   @!! !!@ @!@  !@!       @!!!:!    
-                  !!!    !!!  !@!  !!!    @!!!   !@!   ! !@!  !!!       !!!!!:    
-                  !!:    !!:  !!:  !!!    !!:    !!:     !!:  :!!       !!:       
-                  :!:    :!:  :!:  !:!    :!:    :!:     :!:  :!:       :!:       
-                   ::     ::   ::   ::     ::    :::     ::    ::: :::   :: ::::  
-                   :     :    ::    :      :      :      :     :: :: :  : :: ::   
-                                                                                  
+
+                @@@@@@@  @@@  @@@  @@@  @@@ @@@  @@@@@@@@@@    @@@@@@@  @@@@@@@@
+                @@@@@@@  @@@  @@@@ @@@  @@@ @@@  @@@@@@@@@@@  @@@@@@@@  @@@@@@@@
+                  @@!    @@!  @@!@!@@@  @@! !@@  @@! @@! @@!  !@@       @@!
+                  !@!    !@!  !@!!@!@!  !@! @!!  !@! !@! !@!  !@!       !@!
+                  @!!    !!@  @!@ !!@!   !@!@!   @!! !!@ @!@  !@!       @!!!:!
+                  !!!    !!!  !@!  !!!    @!!!   !@!   ! !@!  !!!       !!!!!:
+                  !!:    !!:  !!:  !!!    !!:    !!:     !!:  :!!       !!:
+                  :!:    :!:  :!:  !:!    :!:    :!:     :!:  :!:       :!:
+                   ::     ::   ::   ::     ::    :::     ::    ::: :::   :: ::::
+                   :     :    ::    :      :      :      :     :: :: :  : :: ::
+
         ---------------------------------------------------------------------------------------
         */
 
@@ -594,7 +594,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             //     array( 'title' => 'test template', 'description' => 'description template', 'content' => 'My content')
             // );
             // $settings['templates'] = json_encode( $templates );
-            
+
             return $settings;
         }
 
@@ -674,7 +674,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 	        $my_wp_query  = new WP_Query();
 			$all_wp_pages = $my_wp_query->query(array('post_type' => 'publication'));
 			$children 	  = get_page_children( $id, $all_wp_pages );
-			
+
 			return $children;
         }
 
@@ -886,7 +886,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * [mp_scripts description]
          * @return [type] [description]
          */
-        public function mp_scripts() { 
+        public function mp_scripts() {
             wp_enqueue_script( 'jquery-ui-sortable' );
 
             // DIALOG
@@ -958,7 +958,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                         //echo $compteur.' '.$item['ID']." ".$item['post_title']."\n";
                         //echo htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub'."\n";
-                        
+
                         if($compteur > 0){ // on ne prend pas le container principal
 
                             $url  = htmlspecialchars_decode($item['ID']).'&mp_publication_type=epub';
@@ -979,7 +979,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
                 boucle_xref( $structure_json);
-                
+
                 MultiPublisher::$xref_list = "<ul>". MultiPublisher::$xref_list . "</ul>";
 
                 return MultiPublisher::$xref_list;
@@ -992,17 +992,17 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
         /*
         ---------------------------------------------------------------------------------------
-                                        
-                @@@@@@@@  @@@@@@@   @@@  @@@  @@@@@@@   
-                @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@  
-                @@!       @@!  @@@  @@!  @@@  @@!  @@@  
-                !@!       !@!  @!@  !@!  @!@  !@   @!@  
-                @!!!:!    @!@@!@!   @!@  !@!  @!@!@!@   
-                !!!!!:    !!@!!!    !@!  !!!  !!!@!!!!  
-                !!:       !!:       !!:  !!!  !!:  !!!  
-                :!:       :!:       :!:  !:!  :!:  !:!  
-                 :: ::::   ::       ::::: ::   :: ::::  
-                : :: ::    :         : :  :   :: : ::   
+
+                @@@@@@@@  @@@@@@@   @@@  @@@  @@@@@@@
+                @@@@@@@@  @@@@@@@@  @@@  @@@  @@@@@@@@
+                @@!       @@!  @@@  @@!  @@@  @@!  @@@
+                !@!       !@!  @!@  !@!  @!@  !@   @!@
+                @!!!:!    @!@@!@!   @!@  !@!  @!@!@!@
+                !!!!!:    !!@!!!    !@!  !!!  !!!@!!!!
+                !!:       !!:       !!:  !!!  !!:  !!!
+                :!:       :!:       :!:  !:!  :!:  !:!
+                 :: ::::   ::       ::::: ::   :: ::::
+                : :: ::    :         : :  :   :: : ::
 
         ---------------------------------------------------------------------------------------
         */
@@ -1059,7 +1059,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					    $thisref['post_parent'] = $data->post_parent;
 					    $thisref['post_name'] 	= $data->post_name;
 					    $thisref['guid']	 	= $data->guid;
-					 
+
 					    if ($data->post_parent == 0) {
 					        $list[] =& $thisref;
 					    } else {
@@ -1079,7 +1079,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
         /*    ───────────────────
-         *  /###################/│  
+         *  /###################/│
          *  ┌──────────────────┐#│
          *  │                  │#│
          *  │ EPUB             │#│
@@ -1109,7 +1109,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 $publication_id = $post_ID;
 
-                $publication_data    = get_post($publication_id); 
+                $publication_data    = get_post($publication_id);
                 $publication_content = $publication_data->post_content;
                 $publication_type 	 = $publication_data->post_type;
 
@@ -1119,7 +1119,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                     $structure_json = $this->mp_get_publication_json_struture($publication_id);
 
-					
+
                     MultiPublisher::$publicationType = "epub";
 
 					$publication_content = apply_filters('the_content', $publication_content);
@@ -1163,9 +1163,9 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					//$book->setDescription( get_the_content() );
 					$book->setDescription( $publication_content );
 					$book->setAuthor("Loïc Horellou / Jérôme Saint Loubert Bié / Yohanna My Nguyen", "Johnson, John Doe");
-					$book->setPublisher("John and Jane Doe Publications", "http://JohnJaneDoePublications.com/"); 
+					$book->setPublisher("John and Jane Doe Publications", "http://JohnJaneDoePublications.com/");
 					$book->setDate( time() );
-					$book->setRights("Copyright and licence information specific for the book."); 
+					$book->setRights("Copyright and licence information specific for the book.");
 					$book->setSourceURL( $publication_data->guid );
 					$book->addDublinCoreMetadata(DublinCore::CONTRIBUTOR, "PHP");
 					$book->setSubject("test — Carnet du Frac");
@@ -1185,7 +1185,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                     if(preg_match_all("/[\w\d_\-\/.]+\.[ot]tf/", $stylesheet, $font_files)){
                         //print_r($font_files);
-                    }                   
+                    }
 
                     function boucle_chapitres($structure_array_json, $_book){
                         static $compteur = 0;
@@ -1194,7 +1194,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                             echo $compteur.' '.$item['ID']." ".$item['post_title']."\n";
                             echo htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub'."\n";
-                            
+
                             if($compteur > 0){ // on ne prend pas le container principal
 
                                 $url  = htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub';
@@ -1214,7 +1214,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                         }
                     }
 
-                    boucle_chapitres($structure_json, $book); 
+                    boucle_chapitres($structure_json, $book);
 
                 	// $partie_content = html_entity_decode( file_get_contents("http://localhost:8888/Site_CDF/?p=57&mp_publication_type=epub") );
 
@@ -1257,19 +1257,19 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 					$book->finalize();
 
 					$epub_name = $book->saveBook( $publication_name , MultiPublisher::$cachePath);
-					
+
 
 					//$epub_name = $book->saveBook( get_the_title( $_GET['post'] ) , MultiPublisher::$pluginPath.'book/');
 
 
-					// à la fin on ajoute un document lié 
+					// à la fin on ajoute un document lié
 					// http://codex.wordpress.org/Function_Reference/wp_insert_attachment
-					
+
 
 					// $retour = new StdClass();
 					// $retour->ok = 'ok';
 					// echo json_encode($retour);
-					// 
+					//
                 }else{
                     MultiPublisher::$publicationType = "epub";
                 }
@@ -1283,13 +1283,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         // Add meta box
         /*function mp_add_box() {
             global $meta_box;
-         
+
             foreach ($meta_box['pages'] as $page) {
                 add_meta_box($meta_box['id'], $meta_box['title'], 'mp_show_box', $page, $meta_box['context'], $meta_box['priority']);
             }
         }*/
 
-     
+
 
         /**
          * Adds the meta box container.
@@ -1306,14 +1306,14 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
-        
+
         /**
          * Save the meta when the post is saved.
          * @param  int $post_id The ID of the post being saved.
          * @return [type]          [description]
          */
         public function save( $post_id ) {
-        
+
             /*
              * We need to verify this came from the our screen and with proper authorization,
              * because save_post can be triggered at other times.
@@ -1331,7 +1331,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             // If this is an autosave, our form has not been submitted,
                     //     so we don't want to do anything.
-            if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+            if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
                 return $post_id;
 
             // Check the user's permissions.
@@ -1339,7 +1339,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 if ( ! current_user_can( 'edit_page', $post_id ) )
                     return $post_id;
-        
+
             } else {
 
                 if ( ! current_user_can( 'edit_post', $post_id ) )
@@ -1366,7 +1366,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             $this->check_field( $post_id, 'afficherParties_field', 	'mp_afficherParties_key');
             $this->check_field( $post_id, 'structure_field', 		'mp_structure_key');
             $this->check_field( $post_id, 'main_parent_id_field', 	'mp_main_parent_id_key');
-            
+
         }
 
         /**
@@ -1382,7 +1382,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 $_value  = !empty($_POST[ $_field ]) ? sanitize_text_field( $_POST[ $_field ] ) : '';
                 $_old    = get_post_meta( $_post_id, $_key, true);
- 
+
                 if ($_value && $_value != $_old) {
                     update_post_meta( $_post_id, $_key, $_value );
                 } elseif ('' == $_value && $_old) {
@@ -1398,7 +1398,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @param WP_Post $post The post object.
          */
         public function render_meta_box_edition_content( $post ) {
-        
+
             // Add an nonce field so we can check for it later.
             wp_nonce_field( 'mp_inner_custom_box', 'mp_custom_box_nonce' );
 
@@ -1443,7 +1443,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         //             }
 
         //             $html.= '</div>';
-        //             $html.= '</div>'; 
+        //             $html.= '</div>';
 
         //         }else if($item->type == 'chapter'){
         //             $chapter = $item;
@@ -1468,5 +1468,3 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
     }
 }
-
-

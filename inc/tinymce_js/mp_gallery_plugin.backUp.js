@@ -180,18 +180,20 @@ jQuery(document).ready(function($) {
 	            // OLD
 	            //console.log('galleries_get_json getGalleries', getGalleries(data) );
 	            //var render = $( getGalleries(data)[ shortCodeObj.type ] )
-	            var render = $( gallerie_data.default[ shortCodeObj.type ] )
-				.addClass('mp_gallery')
-				.addClass('mceItem')
-				.attr("data-param",shortCodeObj.param)
-				.attr("data-type",shortCodeObj.type)
-				.attr("data-ids",shortCodeObj.ids);
+							//console.log(result);
+						// 	var render = $( gallerie_data.default[ shortCodeObj.type ] )
+						//  .addClass('mp_gallery')
+						//  .addClass('mceItem')
+						//  .attr("data-param",shortCodeObj.param)
+						//  .attr("data-type",shortCodeObj.type)
+						//  .attr("data-ids",shortCodeObj.ids);
 
-				
+						//return render.prop('outerHTML');
+
 
 
 				// analyser shortCodeObj.type (tester le premier chiffre à l'aide substr(0, 1) )
-				// charger les data ids, en fonction du nombre d'images de la galerie et les associer aux classes présentes (a,b,c,d)
+				// charger lesni data ids, en fonction du nombre d'images de la galerie et les associer aux classes présentes (a,b,c,d)
 				// on peut formater la requete ajax suivante afin qu'elle renvoie de l'html directement
 
 				// var data = {
@@ -217,7 +219,7 @@ jQuery(document).ready(function($) {
 					// console.log(decodeURI(shortCodeObj.txt));
 					// console.log('outerHTML',render.prop('outerHTML'))
 
-				return render.prop('outerHTML');
+
 
 			});
 		},

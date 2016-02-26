@@ -77,47 +77,37 @@ jQuery(document).ready(function($) {
 		//launch when you click on "visuel tab in editor mode"
 		_do_spot : function(co) {
 			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
-			var shortCodeObj = shortCode2Obj(b); //transform the shortcode into an object
+				var shortCodeObj = shortCode2Obj(b);
 
-			//var gt = shortCodeObj.type.substring(1,2);
-			/*test valeur id pour ajax à effectuer pour l'ensemble des g*/
-			var ar_id = shortCodeObj.ids.split(',');
-			var im_id = ar_id[0]
+				//var gt = shortCodeObj.type.substring(1,2);
+				/*test valeur id pour ajax à effectuer pour l'ensemble des g*/
+				var ar_id = shortCodeObj.ids.split(',');
+				var im_id = ar_id[0]
 
-				 var data = {
-					//'ID' : $("#post_ID").val(),
-					action 	: 'galleries_image_get_html', // ligne 221 mp.class.php
-					'id': im_id
+				var result = "";
+
+				var data = {
+					//'ID' : $("#post_ID").val(), //useless ?
+					action 	 : 'galleries_image_get_html', // ligne 221 mp.class.php
+					'id'     : im_id
 				};
-				var result;
 				$.ajax({
-							type: 'POST',
-    					url 	 : ajaxurl, // on ne touche pas, variable wordpress
-							data 	 : data, // variable data si dessus
-							dataType : 'html', // on va renvoyer de l'html
-			 				success  : function(response) {
-									//$("body").html(response);
-									var render = $( gallerie_data.default[ shortCodeObj.type ] );
-									result = response
-									console.log(result);
-									//return console.log(shortCodeObj.type);
-	    				}
+					type     : 'POST',
+	    		url 	   : ajaxurl, // variable wordpress
+					data 	   : data,
+					async    : false, //  async pour renvoyer result
+					dataType : 'html',
+					success  : function(response) {
+						result = response;
+						return result;
+		    	}
 				});
 
-				//var render = $( gallerie_data.default[ shortCodeObj.type ] );
-
-				// var render = $( gallerie_data.default[ shortCodeObj.type ] )
-				// .addClass('mp_gallery')
-				// .addClass('mceItem')
-				// .attr("data-param",shortCodeObj.param)
-				// .attr("data-type",shortCodeObj.type)
-				// .attr("data-ids",shortCodeObj.ids);
-				// return render.prop('outerHTML');
-
+				return $(result).prop('outerHTML');
 
 		});
 
-		},
+	},
 		_get_spot : function(co) {
 			function getAttr(s, n) {
 				n = new RegExp(n + '=\"([^\"]+)\"', 'g').exec(s);
@@ -127,13 +117,7 @@ jQuery(document).ready(function($) {
 
 			return co.replace(/(<table[^>]*>[\s\S]*?<\/table>\s*)/gm, function(a,b) {
 				var cls = getAttr( a, 'class' );
-
-
-				//console.log('_get_spot',a);
-
 				var info = $(a);
-
-				//console.log('info',info);
 
 				if(info.hasClass('mp_gallery')){
 
@@ -169,8 +153,6 @@ jQuery(document).ready(function($) {
 });
 
 function shortCode2Obj(shortcode_str) {
-	//console.log('shortCode2Obj');
-
     var paramRegexp = /(\w+)\s*=\s*"(.*?)"/g;
     var shortcode_obj = {};
     var paramMatch = paramRegexp.exec(shortcode_str);

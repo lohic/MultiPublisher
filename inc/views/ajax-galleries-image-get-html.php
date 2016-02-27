@@ -3,14 +3,19 @@
 header('Content-Type: text/html; charset=utf-8');
 
 global $wpdb; // this is how you get access to the database
-//echo '<p>'.$_POST['id'].'</p>'."\n";
 
-
+$gt = $_POST['gt'];
 $id = $_POST['id'];
-$info_img = wp_get_attachment_image_src ( $id );
 
-echo '<img src ="'.$info_img[0].'"/>';
-//echo "<img width=\"40\" height=\"40\"/>\n";
+$json_gall = MultiPublisher::get_gallery_json();
+
+echo $json_gall[$gt];
+
+
+
+//$info_img = wp_get_attachment_image_src ( $id );
+
+//echo '<img src ="'.$info_img[0].'"/>';
 
 
 // ici si on veut on peut appeler des fonctions de MultiPublisher

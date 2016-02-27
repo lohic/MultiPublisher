@@ -587,7 +587,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 array( 'title' => 'Chapeau',            'block'  => 'p',    'classes' => 'chapeau' ),
                 array( 'title' => 'Emphase',            'block'  => 'p',    'classes' => 'emphase' ),
             );
-            $settings['style_formats'] = json_encode( $style_formats );
+            $settings['style_formats'] = json_encode( $style_formats  );
 
             // $settings['plugins'] = 'template';
             // $templates = array(
@@ -757,7 +757,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                 $return_json = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $json_filename;
             }
 
-            return json_decode(file_get_contents( $return_json ));
+            return json_decode(file_get_contents( $return_json ), true);
         }
 
 

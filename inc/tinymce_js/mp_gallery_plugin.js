@@ -79,17 +79,16 @@ jQuery(document).ready(function($) {
 			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
 				var shortCodeObj = shortCode2Obj(b);
 
-				//var gt = shortCodeObj.type.substring(1,2);
-				/*test valeur id pour ajax à effectuer pour l'ensemble des g*/
+				var gt = shortCodeObj.type;
 				var ar_id = shortCodeObj.ids.split(',');
-				var im_id = ar_id[0]
 
 				var result = "";
 
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					action 	 : 'galleries_image_get_html', // ligne 221 mp.class.php
-					'id'     : im_id
+					'id'     : ar_id,
+					'gt'		 : gt
 				};
 				$.ajax({
 					type     : 'POST',
@@ -102,9 +101,15 @@ jQuery(document).ready(function($) {
 						return result;
 		    	}
 				});
+				console.log(result);
+				var render = $(result)
+				 .addClass('mp_gallery')
+				 .addClass('mceItem')
+				 .attr("data-param",shortCodeObj.param)
+				 .attr("data-type",shortCodeObj.type)
+				 .attr("data-ids",shortCodeObj.ids);
 
-				return $(result).prop('outerHTML');
-
+				return render.prop('outerHTML');
 		});
 
 	},

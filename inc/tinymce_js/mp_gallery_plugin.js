@@ -81,14 +81,16 @@ jQuery(document).ready(function($) {
 
 				var gt = shortCodeObj.type;
 				var ar_id = shortCodeObj.ids.split(',');
-
+				var abcd = shortCodeObj.txt;
+				//console.log(abcd);
 				var result = "";
 
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					action 	 : 'galleries_image_get_html', // ligne 221 mp.class.php
 					'id'     : ar_id,
-					'gt'		 : gt
+					'gt'		 : gt,
+					'class'	 : abcd
 				};
 				$.ajax({
 					type     : 'POST',
@@ -102,7 +104,7 @@ jQuery(document).ready(function($) {
 		    	}
 				});
 				console.log(result);
-				var render = $(result)
+				 var render = $(result)
 				 .addClass('mp_gallery')
 				 .addClass('mceItem')
 				 .attr("data-param",shortCodeObj.param)

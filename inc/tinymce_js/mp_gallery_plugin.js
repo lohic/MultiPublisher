@@ -105,8 +105,7 @@ jQuery(document).ready(function($) {
 		    	}
 				});
 				var obj_gal = $.parseJSON(result);
-				console.log(obj_gal.arr_img);
-				// console.log(result);
+
 				 var render = $(obj_gal.table)
 				 .addClass('mp_gallery')
 				 .addClass('mceItem')
@@ -119,8 +118,6 @@ jQuery(document).ready(function($) {
 					console.log(tdc);
 					$(render).find("."+tdc+"").append(obj_gal.arr_img[i]);
 				};
-				// var elem = $(render).find(".a").replaceWith("test");
-				// console.log(elem);
 				return render.prop('outerHTML');
 		});
 

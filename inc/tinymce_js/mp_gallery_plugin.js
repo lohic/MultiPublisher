@@ -90,7 +90,7 @@ jQuery(document).ready(function($) {
 					action 	 : 'galleries_image_get_html', // ligne 221 mp.class.php
 					'id'     : ar_id,
 					'gt'		 : gt,
-					'class'	 : abcd
+					'abcd'	 : abcd
 				};
 				$.ajax({
 					type     : 'POST',
@@ -101,16 +101,26 @@ jQuery(document).ready(function($) {
 					success  : function(response) {
 						result = response;
 						return result;
+
 		    	}
 				});
-				console.log(result);
-				 var render = $(result)
+				var obj_gal = $.parseJSON(result);
+				console.log(obj_gal.arr_img);
+				// console.log(result);
+				 var render = $(obj_gal.table)
 				 .addClass('mp_gallery')
 				 .addClass('mceItem')
 				 .attr("data-param",shortCodeObj.param)
 				 .attr("data-type",shortCodeObj.type)
 				 .attr("data-ids",shortCodeObj.ids);
 
+				for(var i = 0; i < obj_gal.arr_img.length; i ++){
+					var tdc = $(obj_gal.arr_img[i]).data("abcd");
+					console.log(tdc);
+					$(render).find("."+tdc+"").append(obj_gal.arr_img[i]);
+				};
+				// var elem = $(render).find(".a").replaceWith("test");
+				// console.log(elem);
 				return render.prop('outerHTML');
 		});
 

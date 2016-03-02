@@ -1,5 +1,11 @@
 jQuery(document).ready(function($) {
 
+	console.log('gallerie_data',gallerie_data);
+
+	gallerie_data.test = "super";
+
+	console.log('gallerie_data',gallerie_data);
+
 (function() {
 	tinymce.create('tinymce.plugins.mp_gallery', {
 		init : function(ed, url) {
@@ -76,7 +82,9 @@ jQuery(document).ready(function($) {
 
 		//launch when you click on "visuel tab in editor mode"
 		_do_spot : function(co) {
+
 			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
+
 				var shortCodeObj = shortCode2Obj(b);
 
 				var gt = shortCodeObj.type;
@@ -87,31 +95,33 @@ jQuery(document).ready(function($) {
 
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
-					action 	 : 'galleries_image_get_html', // ligne 221 mp.class.php
+					'action' : 'galleries_image_get_html', // ligne 221 mp.class.php
 					'id'     : ar_id,
-					'gt'		 : gt,
+					'gt'	 : gt,
 					'abcd'	 : abcd
 				};
 				$.ajax({
 					type     : 'POST',
-	    		url 	   : ajaxurl, // variable wordpress
-					data 	   : data,
-					async    : false, //  async pour renvoyer result
+	    			url 	 : ajaxurl, 	// variable wordpress
+					data 	 : data,
+					async    : false, 		//  async pour renvoyer result
 					dataType : 'html',
 					success  : function(response) {
 						result = response;
 						return result;
-
-		    	}
+		    		}
 				});
+
+
+
 				var obj_gal = $.parseJSON(result);
 
-				 var render = $(obj_gal.table)
-				 .addClass('mp_gallery')
-				 .addClass('mceItem')
-				 .attr("data-param",shortCodeObj.param)
-				 .attr("data-type",shortCodeObj.type)
-				 .attr("data-ids",shortCodeObj.ids);
+				var render = $(obj_gal.table)
+				.addClass('mp_gallery')
+				.addClass('mceItem')
+				.attr("data-param",shortCodeObj.param)
+				.attr("data-type",shortCodeObj.type)
+				.attr("data-ids",shortCodeObj.ids);
 
 				for(var i = 0; i < obj_gal.arr_img.length; i ++){
 					var tdc = $(obj_gal.arr_img[i]).data("abcd");

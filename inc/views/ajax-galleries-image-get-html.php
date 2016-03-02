@@ -24,8 +24,8 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
     };
   }else{
     $img = null;
-  };
-  array_push( $arr_img, $img );
+  }
+array_push( $arr_img, $img );
 };
 
 //echo $json_gall[$gt];

@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-
+//obj console.log(gallerie_data);
 (function() {
 	tinymce.create('tinymce.plugins.mp_gallery', {
 		init : function(ed, url) {
@@ -101,9 +101,10 @@ jQuery(document).ready(function($) {
 					success  : function(response) {
 						result = response;
 						return result;
-
+						//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
 		    	}
 				});
+				//analyse de l'objet
 				var obj_gal = $.parseJSON(result);
 
 				 var render = $(obj_gal.table)

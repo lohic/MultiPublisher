@@ -155,6 +155,17 @@ jQuery(document).ready(function($) {
 
 				var shortCodeObj = shortCode2Obj(b);
 
+
+				var gallery, frame, data;
+
+
+				// Check if the `wp.media` API exists.
+				if ( typeof wp === 'undefined' || ! wp.media ) {
+					return;
+				}
+
+				console.log('wp.media',wp.media.gallery);
+
 				// console.log('gallery shortCodeObj',shortCodeObj);
 
 				// var render = $('<table>')

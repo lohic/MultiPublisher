@@ -34,12 +34,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         static $cachePath;
 
         static $publicationType = 'html';
-        static $xRefCount = 1;
-        static $noteCount = 1;
+        static $xRefCount       = 1;
+        static $noteCount       = 1;
 
-        static $notesArray = array();
+        static $notesArray      = array();
 
-        static $xref_list = '';
+        static $xref_list       = '';
+        static $chapters_list   = '';
 
         /**
          * Args for the edition post type
@@ -936,6 +937,62 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             // wp_enqueue_style( 'wp-jquery-ui-tooltip' );
         }
 
+        /**
+         * [mp_publication_xref_list description]
+         * @param  [type] $publication_ID [description]
+         * @return [type]                 [description]
+         */
+        public function mp_publication_get_html_structure($publication_ID = null, $current_ID = null){
+            if( !empty( $publication_ID ) ){
+
+                MultiPublisher::$chapters_list = '';
+
+                $structure_json = MultiPublisher::mp_get_publication_json_struture($publication_ID);
+
+                // http://localhost:8888/Site_CDF/wp-admin/post.php?post=51&action=edit
+
+                function boucle_structure($structure_array_json, $current_ID){
+                    static $compteur = 0;
+
+                    foreach($structure_array_json as $item){
+
+                        //echo $compteur.' '.$item['ID']." ".$item['post_title']."\n";
+                        //echo htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub'."\n";
+                        
+                        $url  = 'post.php?post='.htmlspecialchars_decode($item['ID']).'&action=edit';
+
+                        $start = "";
+                        $end   = "";
+
+                        if($compteur == 0){ // on ne prend pas le container principal
+                            $start  = "[BOOK] ";
+                            $end    = "";
+                        }
+
+                        if($item['ID'] == $current_ID){
+                            $start .= "<strong><em>";
+                            $end    = "</em></strong>".$end; 
+                        }
+
+                        MultiPublisher::$chapters_list .= "<li>$start<a href='$url'>".$item['ID'].' → '.$item['post_title']."</a>$end</li>\n";
+
+                        $compteur ++;
+
+                        if( isset($item['childs']) ){
+                            boucle_structure( $item['childs'], $current_ID );
+                        }
+                    }
+                }
+
+
+                boucle_structure( $structure_json, $current_ID);
+                
+                MultiPublisher::$chapters_list = "<ul>\n". MultiPublisher::$chapters_list . "</ul>\n";
+
+                return MultiPublisher::$chapters_list;
+
+            }
+        }
 
 
         /**
@@ -963,7 +1020,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                             $url  = htmlspecialchars_decode($item['ID']).'&mp_publication_type=epub';
 
-                            MultiPublisher::$xref_list .= "<li class='xref_item' data-id='".$item['ID']."'><h2>".$item['ID'].' → '.$item['post_title']."</h2><ul class='xref_list'></ul></li>";
+                            MultiPublisher::$xref_list .= "<li class='xref_item' data-id='".$item['ID']."'><h2>".$item['ID'].' → '.$item['post_title']."</h2>\n<ul class='xref_list'></ul>\n</li>\n";
 
                             //$_book->addChapter($item['post_title'], $item['post_name'].'.html', $partie_content, false, EPub::EXTERNAL_REF_ADD, './images/');
 
@@ -980,7 +1037,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
                 boucle_xref( $structure_json);
                 
-                MultiPublisher::$xref_list = "<ul>". MultiPublisher::$xref_list . "</ul>";
+                MultiPublisher::$xref_list = "<ul>\n". MultiPublisher::$xref_list . "</ul>\n";
 
                 return MultiPublisher::$xref_list;
 
@@ -1029,6 +1086,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 	                AND m.meta_key = 'mp_main_parent_id_key'
 	                AND m.meta_value = $publication_ID
 	                AND m.post_id = p.ID
+                    AND post_status <>'trash'
 	                ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
 
 	                global $wpdb;

@@ -29,24 +29,22 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
 </style>
 <div class="wrap" id="multi_publisher">
-
-    <h2>Super</h2>
-
-    <?php //MultiPublisher::wpb_list_child_pages(); ?>
-
-    ENFANTS :
-    <ul>
+    <!-- <ul> -->
     <?php 
-        wp_list_pages(
-            array(
-                'depth'=>-1,
-                'post_type'=>'publication',
-                'child_of'=>$post->ID,
-                'title_li'=>''
-            )
-        );
+        // wp_list_pages(
+        //     array(
+        //         'depth'=>-1,
+        //         'post_type'=>'publication',
+        //         'child_of'=>$post->ID,
+        //         'title_li'=>''
+        //     )
+        // );
     ?>
-    </ul>
+    <!-- </ul> -->
+
+    <?php 
+     if( empty($main_parent_id) ) :
+    ?>
 
     <button id="generate_publication">Générer la publication</button>
 
@@ -78,60 +76,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             </td>
         </tr>
-   <!--      <tr>
-            <th style="width:20%">
-                <label for="afficherParties_field">
-                    <?php //_e( 'Afficher les parties', 'mp_field' ); ?>
-                </label>
-            </th>
-            <td>
-                <input type="checkbox" name="afficherParties_field" id="afficherParties_field"<?php //echo $afficherParties ? ' checked="checked"' : ''?>/>
-            </td>
-        </tr> -->
-<!--         <tr>
-            <th style="width:20%">
-                <label for="structure_field">
-                    <?php //_e( 'Structure', 'mp_field' ); ?>
-                </label>
-            </th>
-            <td>
-                <textarea name="structure_field" id="structure_field"><?php //echo $structure ?></textarea>
-            </td>
-        </tr> -->
-       <!--  <tr>
-            <td>
-                <input type="text" value="<?php // echo esc_attr( $main_parent_id )?>" id="main_parent_id_field" name="main_parent_id_field"/><br>
-                <button type="" id="add_part">Ajouter une partie</button>
-                <input type="text" value="" id="name_part"/>
-                <button type="" id="add_chapter">Ajouter un chapitre</button>
-                <button type="" id="test_dialog">Dialogue + AJAX</button>
-            </td>
-        </tr> -->
-    <!--     <tr>
-            <td> -->
-                <!-- <form name="plugin_form" id="plugin_form" method="post" action=""> -->
-                        <?php //wp_nonce_field('plugin_nonce'); ?> 
-                        <!-- // Other form elements and code ... -->
-                        <?php //find_posts_div(); ?>
-                        <!-- <a onclick="findPosts.open('action','find_posts');return false;" href="#">
-                        <?php //esc_attr_e('Example Post Search'); ?>
-                        </a> -->
-
-                        <!--<input type="text" name="kc-find-post" id="kc-find-post" class="kc-find-post">-->
-                <!-- </form> -->
-
-                <!-- <form id="emc2pdc_form" method="post" action="">
-                    <?php //wp_nonce_field( 'find-posts', '_ajax_nonce', false); ?> 
-                    <input type="text" name="kc-find-post" id="kc-find-post" class="kc-find-post">
-                </form> -->
-  <!--           </td>
-        </tr> -->
-
+ 
     </table>
 
+    <?php else : ?>
 
-    <!--<p><?php echo 'pluginPath : ' . self::$pluginPath .'<br> pluginDir : ' . self::$pluginDir  .'<br> pluginUrl : ' . self::$pluginUrl ; ?></p> --> 
-    <!-- <p><?php echo mp_url(); ?></p>-->
+    <input type="hidden" id="ISBN_field"            name="ISBN_field"           value="<?php echo esc_attr( $ISBN )?>" />
+    <input type="hidden" id="langue_field"          name="langue_field"         value="<?php echo esc_attr( $langue )?>" />
+    <input type="hidden" id="main_parent_id_field"  name="main_parent_id_field" value="<?php echo esc_attr( $main_parent_id )?>" />
+
+    <?php endif; ?>
+
+    <h1>Structure :</h1>
+    <?php 
+
+        $publication_id = empty($main_parent_id) ? $post->ID : $main_parent_id;
+
+
+        echo MultiPublisher::mp_publication_get_html_structure( $publication_id, $post->ID );
+
+     ?>
 
 </div>
 

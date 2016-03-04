@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
 	//obj console.log(gallerie_data);
-	//console.log('gallerie_data',gallerie_data);
+
 
 (function() {
 	tinymce.create('tinymce.plugins.mp_gallery', {
@@ -100,31 +100,38 @@ jQuery(document).ready(function($) {
 					type     : 'POST',
 	    			url 	 : ajaxurl, // variable wordpress
 					data 	 : data,
-					async    : false,   //  async pour renvoyer result
+					//async    : false,   //  async pour renvoyer result
 					dataType : 'html',
 					success  : function(response) {
-						result = response;
-						return result;
+						result = $.parseJSON(response);
+						console.log('result', result);
+						//return result;
+						//incrémenter img
+						return gallerie_data.img = result;
 					//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
 		    		}
 				});
+				//recup type de gallerie
+				var gal_type = gallerie_data.default[gt];
 
-				var obj_gal = $.parseJSON(result);
+				var img_list = gallerie_data.img;
+				console.log(gallerie_data);
 
-				var render = $(obj_gal.table)
+				//console.log(result);
+				var render = $(gal_type)
 				.addClass('mp_gallery')
 				.addClass('mceItem')
 				.attr("data-param",shortCodeObj.param)
 				.attr("data-type",shortCodeObj.type)
 				.attr("data-ids",shortCodeObj.ids);
 
-				for(var i = 0; i < obj_gal.arr_img.length; i ++){
-					var tdc = $(obj_gal.arr_img[i]).data("abcd");
-					console.log(tdc);
-					$(render).find("."+tdc+"").append(obj_gal.arr_img[i]);
+				for(var i = 0; i < img_list.length; i ++){
+					var tdc = $(img_list[i]).data("abcd");
+					//console.log(tdc);
+					$(render).find("."+tdc+"").append(img_list[i]);
 				};
 				return render.prop('outerHTML');
-			});
+
 	},
 		_get_spot : function(co) {
 			function getAttr(s, n) {

@@ -9,8 +9,8 @@ $gt 		= $_POST['gt'];
 $id 		= $_POST['id'];
 $abcd 		= $_POST['abcd'];
 
-$json_gall 	= MultiPublisher::get_gallery_json();
-$arr_img 	= array();
+//$json_gall 	= MultiPublisher::get_gallery_json();
+$arr_img = array();
 
 for ( $i = 0; $i < count($id) ; $i ++ ){
 	$info_img = wp_prepare_attachment_for_js( $id[$i] );
@@ -29,11 +29,11 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 };
 
 //echo $json_gall[$gt];
-$obj_gal = json_encode(array(
-	"table" => $json_gall[$gt],
-	"arr_img" => $arr_img
-));
+//$obj_gal = json_encode(array(
+ 	//"table" => $json_gall[$gt],
+ 	//"arr_img" => $arr_img
+//));
 
-echo $obj_gal;
+echo json_encode($arr_img);
 
 wp_die(); // this is required to terminate immediately and return a proper response

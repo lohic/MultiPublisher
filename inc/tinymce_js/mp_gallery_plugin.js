@@ -1,15 +1,8 @@
 jQuery(document).ready(function($) {
-<<<<<<< HEAD
-//obj console.log(gallerie_data);
-=======
 
-	console.log('gallerie_data',gallerie_data);
+	//obj console.log(gallerie_data);
+	//console.log('gallerie_data',gallerie_data);
 
-	gallerie_data.test = "super";
-
-	console.log('gallerie_data',gallerie_data);
-
->>>>>>> ec00c271c74032bd0cd3f6ef1acb024721e8c58b
 (function() {
 	tinymce.create('tinymce.plugins.mp_gallery', {
 		init : function(ed, url) {
@@ -23,9 +16,8 @@ jQuery(document).ready(function($) {
 			//replace shortcode before editor content set
 			ed.onBeforeSetContent.add(function(ed, o) {
 				o.content = t._do_spot(o.content);
-
 				// o.content >> table gallery
-					//>> activate the dospot function
+				//>> activate the dospot function
 			});
 
 
@@ -44,7 +36,7 @@ jQuery(document).ready(function($) {
 			});
 
 			ed.onDblClick.add(function(ed, e) {
-					//console.log( e.target.className );
+				//console.log( e.target.className );
 
 			    if( e.target.classList.contains('mp_gallery')===true ){
 
@@ -96,7 +88,6 @@ jQuery(document).ready(function($) {
 				var abcd = shortCodeObj.txt;
 				//console.log(abcd);
 				var result = "";
-
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					'action' : 'galleries_image_get_html', // ligne 221 mp.class.php
@@ -104,27 +95,20 @@ jQuery(document).ready(function($) {
 					'gt'	 : gt,
 					'abcd'	 : abcd
 				};
+
 				$.ajax({
 					type     : 'POST',
-	    			url 	 : ajaxurl, 	// variable wordpress
+	    			url 	 : ajaxurl, // variable wordpress
 					data 	 : data,
-					async    : false, 		//  async pour renvoyer result
+					async    : false,   //  async pour renvoyer result
 					dataType : 'html',
 					success  : function(response) {
 						result = response;
 						return result;
-<<<<<<< HEAD
-						//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
-		    	}
-				});
-				//analyse de l'objet
-=======
+					//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
 		    		}
 				});
 
-
-
->>>>>>> ec00c271c74032bd0cd3f6ef1acb024721e8c58b
 				var obj_gal = $.parseJSON(result);
 
 				var render = $(obj_gal.table)
@@ -140,8 +124,7 @@ jQuery(document).ready(function($) {
 					$(render).find("."+tdc+"").append(obj_gal.arr_img[i]);
 				};
 				return render.prop('outerHTML');
-		});
-
+			});
 	},
 		_get_spot : function(co) {
 			function getAttr(s, n) {

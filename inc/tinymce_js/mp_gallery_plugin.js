@@ -106,14 +106,13 @@ jQuery(document).ready(function($) {
 						result = $.parseJSON(response);
 						console.log('result', result);
 						//return result;
-						//incrémenter img
 						return gallerie_data.img = result;
 					//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
 		    		}
 				});
 				//recup type de gallerie
 				var gal_type = gallerie_data.default[gt];
-
+				//recup list des images ne fonctionne pas correctement
 				var img_list = gallerie_data.img;
 				console.log(gallerie_data);
 
@@ -125,13 +124,14 @@ jQuery(document).ready(function($) {
 				.attr("data-type",shortCodeObj.type)
 				.attr("data-ids",shortCodeObj.ids);
 
+				//push image dans gallerie, bug
 				for(var i = 0; i < img_list.length; i ++){
 					var tdc = $(img_list[i]).data("abcd");
 					//console.log(tdc);
 					$(render).find("."+tdc+"").append(img_list[i]);
 				};
 				return render.prop('outerHTML');
-
+			});
 	},
 		_get_spot : function(co) {
 			function getAttr(s, n) {

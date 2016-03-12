@@ -83,11 +83,15 @@ jQuery(document).ready(function($) {
 
 				var shortCodeObj = shortCode2Obj(b);
 
-				var gt = shortCodeObj.type;
-				var ar_id = shortCodeObj.ids.split(',');
-				var abcd = shortCodeObj.txt;
+				var gt 		= shortCodeObj.type;
+				var ar_id 	= shortCodeObj.ids.split(',');
+				var abcd 	= shortCodeObj.txt;
+
+				var mp_gallery_id = data2id(shortCodeObj.type, shortCodeObj.ids);
+				console.log(mp_gallery_id);
+
 				//console.log(abcd);
-				var result = "";
+				var result 	= "";
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					'action' : 'galleries_image_get_html', // ligne 221 mp.class.php
@@ -176,6 +180,17 @@ jQuery(document).ready(function($) {
 })();
 
 });
+
+
+function data2id(type, ids){
+
+	var id = "";
+
+	id = type+"-"+ids.replace(/,/g,"-");
+
+	return id;
+
+}
 
 function shortCode2Obj(shortcode_str) {
     var paramRegexp = /(\w+)\s*=\s*"(.*?)"/g;

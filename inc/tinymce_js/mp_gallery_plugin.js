@@ -87,11 +87,10 @@ jQuery(document).ready(function($) {
 				var ar_id 	= shortCodeObj.ids.split(',');
 				var abcd 	= shortCodeObj.txt;
 
-				var mp_gallery_id = data2id(shortCodeObj.type, shortCodeObj.ids);
-				console.log(mp_gallery_id);
+				//recup gallery id
 
-				//console.log(abcd);
-				var result 	= "";
+				var mp_gallery_id = data2id(shortCodeObj.type, shortCodeObj.ids);
+
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					'action' : 'galleries_image_get_html', // ligne 221 mp.class.php
@@ -102,25 +101,20 @@ jQuery(document).ready(function($) {
 
 				$.ajax({
 					type     : 'POST',
-	    			url 	 : ajaxurl, // variable wordpress
+	    			url 	 : ajaxurl,
 					data 	 : data,
-					//async    : false,   //  async pour renvoyer result
+					//async    : false,
 					dataType : 'html',
 					success  : function(response) {
-						result = $.parseJSON(response);
-						console.log('result', result);
-						//return result;
-						return gallerie_data.img = result;
-					//ajout une variable à l'objet pour le stocker et l'afficher de façon async.
+						return gallerie_data[mp_gallery_id] = $.parseJSON(response);
 		    		}
 				});
+
 				//recup type de gallerie
 				var gal_type = gallerie_data.default[gt];
-				//recup list des images ne fonctionne pas correctement
-				var img_list = gallerie_data.img;
-				console.log(gallerie_data);
+				var gal_img = gallerie_data[mp_gallery_id];
+				console.log(gal_img);
 
-				//console.log(result);
 				var render = $(gal_type)
 				.addClass('mp_gallery')
 				.addClass('mceItem')
@@ -128,12 +122,12 @@ jQuery(document).ready(function($) {
 				.attr("data-type",shortCodeObj.type)
 				.attr("data-ids",shortCodeObj.ids);
 
-				//push image dans gallerie, bug
-				for(var i = 0; i < img_list.length; i ++){
-					var tdc = $(img_list[i]).data("abcd");
-					//console.log(tdc);
-					$(render).find("."+tdc+"").append(img_list[i]);
-				};
+				if(gal_img !== undefined){
+					 for( var i = 0; i < gal_img.length; i ++ ){
+					 	var data = $(gal_img[i]).data("abcd");
+					 	$(render).find("."+data+"").append(gal_img[i]);
+					 };
+			 	}
 				return render.prop('outerHTML');
 			});
 	},
@@ -186,7 +180,7 @@ function data2id(type, ids){
 
 	var id = "";
 
-	id = type+"-"+ids.replace(/,/g,"-");
+	id = type+"_"+ids.replace(/,/g,"-");
 
 	return id;
 

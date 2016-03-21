@@ -1,6 +1,6 @@
 {
 	"g1"  : "<table><tr><td class=\"a\">a</td></tr></table>",
-	"g21" : "<table><tr><td class=\"a\">a</td></tr><tr><td class=\"b\">b</td></tr></table>", 
+	"g21" : "<table><tr><td class=\"a\">a</td></tr><tr><td class=\"b\">b</td></tr></table>",
 	"g22" : "<table><tr><td class=\"a\">a</td><td class=\"b\">b</td></tr></table>",
 	"g31" : "<table><tr><td colspan=\"2\" class=\"a\">a</td></tr><tr><td class=\"b\">b</td><td class=\"c\">c</td></tr></table>",
 	"g32" : "<table><tr><td class=\"a\">a</td><td rowspan=\"2\" class=\"b\">b</td></tr><tr><td class=\"c\">c</td></tr></table>",

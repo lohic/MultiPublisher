@@ -85,7 +85,7 @@ jQuery(document).ready(function($) {
 
 				var gt 		= shortCodeObj.type;
 				var ar_id 	= shortCodeObj.ids.split(',');
-				var abcd 	= shortCodeObj.txt;
+				var abcd 	= gallery_txt(gt);
 
 				//recup gallery id
 
@@ -143,9 +143,7 @@ jQuery(document).ready(function($) {
 				var info = $(a);
 
 				if(info.hasClass('mp_gallery')){
-
 					var param = 'mp_gallery txt="'+encodeURI( info.text().trim() )+'"';
-
 					for(key in info.data()){
 						param += ' '+key+'="'+info.data()[key]+'"';
 					}
@@ -187,6 +185,7 @@ function data2id(type, ids){
 }
 
 function shortCode2Obj(shortcode_str) {
+
     var paramRegexp = /(\w+)\s*=\s*"(.*?)"/g;
     var shortcode_obj = {};
     var paramMatch = paramRegexp.exec(shortcode_str);
@@ -195,11 +194,18 @@ function shortCode2Obj(shortcode_str) {
 
     while (paramMatch != null) {
         paramMatch = paramRegexp.exec(shortcode_str);
-
         if (paramMatch != null) {
             shortcode_obj[paramMatch[1]] = paramMatch[2];
         }
     }
 
     return shortcode_obj;
+}
+
+function gallery_txt(type){
+	var n = type.substr(1,1);
+	var abcd = "abcd";
+	var txt = abcd.substr(0,n);
+
+	return txt;
 }

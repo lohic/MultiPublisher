@@ -113,7 +113,6 @@ jQuery(document).ready(function($) {
 				//recup type de gallerie
 				var gal_type = gallerie_data.default[gt];
 				var gal_img = gallerie_data[mp_gallery_id];
-				console.log(gal_img);
 
 				var render = $(gal_type)
 				.addClass('mp_gallery')

@@ -7,7 +7,7 @@
  *  └──────────────────┘
  */
 
-var wp, ed, url;
+var wp, ed, url, id, gt;
 
 function set_param(wp, ed, url){
 
@@ -55,11 +55,12 @@ jQuery(document).ready(function($) {
 			custom_uploader.on('select', function() {
 				var attachment = custom_uploader.state().get('selection').first().toJSON();
 				//$upload_button.siblings('input[type="text"]').val(attachment.url);
-
+				id = attachment.id.toString();
 				$mp_gallery_image_target.html("<img src='"+attachment.url+"'/>");
-								
-			});
 
+			});
+			var elem = $(this).parents().eq(3);
+			gt = $(elem).data('gallery');
 			//Open the uploader dialog
 			custom_uploader.open();
 
@@ -69,8 +70,6 @@ jQuery(document).ready(function($) {
 
 		$("#mp_select_img").click(function(e){
 			wp = mp_js_vars.wp;
-
-
 			custom_uploader = wp.media.frames.file_frame = wp.media({
 				title: 'Choose Image',
 				button: {
@@ -96,28 +95,12 @@ jQuery(document).ready(function($) {
 
 
 
-		$("#mos2").click(function(e){
-
+		$("#submit").click(function(e){
 			ed = mp_js_vars.ed;
-
-			//console.log('ok',mp_js_vars.ed);
-
-			//console.log('ferme');
-
-			//var args = tinyMCE.activeEditor.windowManager.getParams();
-
-			//console.log(mp_js_vars.mp_editor);
-
-			//console.log( top.editor.activeEditor.windowManager.getParams() );
-			//
-			ed.insertContent( $("#mp_gallery_editor").html() );
-
-			//ed.selection.setContent('<table><tr><td><div class="mp_gallery_image">&nbsp;</div></td><td><div class="mp_gallery_image">&nbsp;</div></td></tr><tr><td><div class="mp_gallery_image">&nbsp;</div></td><td><div class="mp_gallery_image">&nbsp;</div></td></tr></table>');
+			ed.insertContent( "[mp_gallery txt=\"\" ids=\""+id+"\" type=\""+gt+"\"]" );
 			ed.windowManager.close();
 		});
 
 
 	});
 });
-
-

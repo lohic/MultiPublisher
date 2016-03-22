@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * 	┌──────────────────┐
  *	│ 		           │
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div id="mp_gallery_editor">
 
-			<table class="mp_gallery_three">
+			<!-- <table class="mp_gallery_three">
 				<tr>
 					<td colspan="2"><div class="mp_gallery_image">&nbsp;</div></td>
 				</tr>
@@ -42,20 +42,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td><div class="mp_gallery_image">&nbsp;</div></td>
 					<td><div class="mp_gallery_image">&nbsp;</div></td>
 				</tr>
-			</table>
+			</table> -->
 
-			<table class="mp_gallery_one">
+			<table class="mp_gallery_one" data-gallery="g1">
 				<tr>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
+					<td><div class="mp_gallery_image">1 image&nbsp;</div></td>
 				</tr>
 			</table>
-			
+
 		</div>
 
-
-		<button id="mos4">4 images</button>
-		<button id="mos2">2 images</button>
-		<button id="mos1">1 image</button>
+        <button id="mos" class="g1">1 image</button>
+        <button id="mos" class="g2">2 images</button>
+        <button id="mos" class="g3">3 images</button>
+		<button id="mos" class="g4">4 images</button>
+        <button id="submit">submit</button>
 
 	</div>
 </div>
@@ -75,11 +76,12 @@ table td{
 	background: #444;
 	width: 100%;
 	min-height: 100px;
+    color: white;
 }
 
 .mp_gallery_image img{
 	width: 100%;
 	height: auto;
 }
-	
+
 </style>

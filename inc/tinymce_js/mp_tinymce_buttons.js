@@ -12,55 +12,23 @@
                 */
                ed.addButton( 'mp_tab', {
                     title : 'Ajouter une mosaique',
-                    type  : 'menubutton',
+                    type  : 'button',
                     image : url + '/../img/btn_tab.png',
-                    menu  : [
-						{
-							text: '4 images',
-							value: '4 images',
-							onclick: function() {
-								ed.insertContent(this.value());
-							}
-						},
-						{
-							text: '2 images',
-							//value: '2 images',
-							onclick: function() {
-								//ed.insertContent(this.value());
-								ed.windowManager.open(
-                                             {
-                                                  title: 'Test avec inclusion d\'un fichier php',
-                                                  id: 'mp_gallery_dialog',
-                                                  width : 480,
-                                                  height : 'auto',
-                                                  wpDialog : true,
-                                             },
-									{
-                                                  custom_param : 1,
-                                                  param : set_param(wp,ed,url)
-									}
-								);
-							}
-						},
-						{
-							text: '1 image',
-							value: '1 image',
-							onclick: function() {
-								ed.windowManager.open( {
-							        title: 'Insert h3 tag',
-							        body: [{
-							            type: 'textbox',
-							            name: 'title',
-							            label: 'Your title'
-							        }],
-							        onsubmit: function( e ) {
-							            ed.insertContent( '&lt;h3&gt;' + e.data.title + '&lt;/h3&gt;');
-							        }
-							    });
-							}
-						}
-                    ]
-     
+                    onclick: function() {
+                        ed.windowManager.open(
+                            {
+                                 title: 'Creat a gallery',
+                                 id: 'mp_gallery_dialog',
+                                 width : 480,
+                                 height : 'auto',
+                                 wpDialog : true,
+                            },
+                            {
+                                 custom_param : 1,
+                                 param : set_param(wp,ed,url)
+                            }
+                        );
+                    }
                });
 
           },

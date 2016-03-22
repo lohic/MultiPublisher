@@ -14,8 +14,6 @@ function set_param(wp, ed, url){
 	mp_js_vars.wp = wp;
 	mp_js_vars.ed = ed;
 	mp_js_vars.url = url;
-
-	console.log('editor',ed);
 }
 
 jQuery(document).ready(function($) {
@@ -23,7 +21,6 @@ jQuery(document).ready(function($) {
 	$(function() {
 
 		console.log('mp-admin.js ready');
-
 		// $("#parent_id").change(function(e){
 		// 	console.log($(this).val());
 		// });
@@ -35,6 +32,10 @@ jQuery(document).ready(function($) {
 
 		// });
 
+		$("button").click(function(c){
+			var g = $(c.target).attr('class');
+			$("#"+g).slideToggle();
+		});
 
 		$(".mp_gallery_image").dblclick(function(e){
 
@@ -100,7 +101,5 @@ jQuery(document).ready(function($) {
 			ed.insertContent( "[mp_gallery txt=\"\" ids=\""+id+"\" type=\""+gt+"\"]" );
 			ed.windowManager.close();
 		});
-
-
 	});
 });

@@ -44,12 +44,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tr>
 			</table> -->
 
-			<table class="mp_gallery_one" data-gallery="g1">
-				<tr>
-					<td><div class="mp_gallery_image">1 image&nbsp;</div></td>
-				</tr>
-			</table>
 
+            <!-- gallery 2 -->
+            <div id="g2" style='display:none;'>
+                <table class="mp_gallery_two" data-gallery="g21">
+                    <tr>
+                        <td class=\"a\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                        <td class=\"b\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                    </tr>
+                </table>
+
+                <table class="mp_gallery_two" data-gallery="g22">
+                    <tr>
+                        <td class=\"a\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                        <td class=\"b\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- gallery 1  -->
+            <div id="g1" style='display:none;'>
+    			<table class="mp_gallery_one" data-gallery="g1">
+    				<tr>
+    					<td><div class="mp_gallery_image">1 image&nbsp;</div></td>
+    				</tr>
+    			</table>
+            </div>
 		</div>
 
         <button id="mos" class="g1">1 image</button>

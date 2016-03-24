@@ -46,37 +46,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
             <!-- gallery 2 -->
-            <div id="g2" style='display:none;'>
+            <!-- <div id="g2" class="gallery_container" style='display:none;'>
+                <h2>2 images</h2>
                 <table class="mp_gallery_two" data-gallery="g21">
                     <tr>
-                        <td class=\"a\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                        <td class=\"a\"><div class="mp_gallery_image">&nbsp;</div></td>
                     </tr>
                     <tr>
-                        <td class=\"b\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                        <td class=\"b\"><div class="mp_gallery_image">&nbsp;</div></td>
                     </tr>
                 </table>
-
                 <table class="mp_gallery_two" data-gallery="g22">
                     <tr>
-                        <td class=\"a\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
-                        <td class=\"b\"><div class="mp_gallery_image">2 image&nbsp;</div></td>
+                        <td class=\"a\"><div class="mp_gallery_image">&nbsp;</div></td>
+                        <td class=\"b\"><div class="mp_gallery_image">&nbsp;</div></td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
             <!-- gallery 1  -->
-            <div id="g1" style='display:none;'>
-    			<table class="mp_gallery_one" data-gallery="g1">
-    				<tr>
-    					<td><div class="mp_gallery_image">1 image&nbsp;</div></td>
-    				</tr>
-    			</table>
+            <div class="gallery_container">
+
             </div>
 		</div>
 
-        <button id="mos" class="g1">1 image</button>
-        <button id="mos" class="g2">2 images</button>
-        <button id="mos" class="g3">3 images</button>
-		<button id="mos" class="g4">4 images</button>
+        <button id="g1" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_1.png" alt="" /></button>
+        <button id="g21" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_21.png" alt="" /></button>
+        <button id="g22" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_22.png" alt="" /></button>
+        <button id="g31" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_31.png" alt="" /></button>
+        <button id="g32" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_32.png" alt="" /></button>
+        <button id="g33" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_33.png" alt="" /></button>
+        <button id="g34" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_34.png" alt="" /></button>
+		<button id="g4" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/MultiPublisher/inc/img/btn_4.png" alt="" /></button>
+
         <button id="submit">submit</button>
 
 	</div>
@@ -104,5 +105,19 @@ table td{
 	width: 100%;
 	height: auto;
 }
+button img{
+    width: 50%;
+    height: auto;
+}
+button{
+    background: none;
+    border:0px solid;
+}
+.height-transition {
+       -webkit-transition: max-height 0.5s ease-in-out;
+       -moz-transition: max-height 0.5s ease-in-out;
+       -o-transition: max-height 0.5s ease-in-out;
+       transition: max-height 0.5s ease-in-out;
+   }
 
 </style>

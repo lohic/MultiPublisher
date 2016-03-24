@@ -21,27 +21,18 @@ jQuery(document).ready(function($) {
 	$(function() {
 
 		console.log('mp-admin.js ready');
-		// $("#parent_id").change(function(e){
-		// 	console.log($(this).val());
-		// });
 
-
-		// $(".xref_item").click(function(e){
-
-		// 	console.log( $(this).text() );
-
-		// });
-
-		$("button").click(function(c){
-			var g = $(c.target).attr('class');
-			$("#"+g).slideToggle();
+		$(".mos").click(function(c){
+			gt = $(c.target).attr('id');
+			var elem = gallerie_data.default[gt];
+			$(".gallery_container").html(elem);
+			$(".gallery_container td").append("<div class='mp_gallery_image'>&nbsp;</div>");
+			//$(".gallery_container table").data.("gallery",g);
 		});
 
-		$(".mp_gallery_image").dblclick(function(e){
-
+		$(".gallery_container").on('dblclick', '.mp_gallery_image',function(e){
 			ed = mp_js_vars.ed;
 			wp = mp_js_vars.wp;
-
 			$mp_gallery_image_target = $(this);
 
 			custom_uploader = wp.media.frames.file_frame = wp.media({
@@ -60,8 +51,6 @@ jQuery(document).ready(function($) {
 				$mp_gallery_image_target.html("<img src='"+attachment.url+"'/>");
 
 			});
-			var elem = $(this).parents().eq(3);
-			gt = $(elem).data('gallery');
 			//Open the uploader dialog
 			custom_uploader.open();
 
@@ -69,36 +58,38 @@ jQuery(document).ready(function($) {
 
 
 
-		$("#mp_select_img").click(function(e){
-			wp = mp_js_vars.wp;
-			custom_uploader = wp.media.frames.file_frame = wp.media({
-				title: 'Choose Image',
-				button: {
-					text: 'Choose Image'
-				},
-				multiple: false
-			});
-
-			//When a file is selected, grab the URL and set it as the text field's value
-			custom_uploader.on('select', function() {
-				var attachment = custom_uploader.state().get('selection').first().toJSON();
-				//$upload_button.siblings('input[type="text"]').val(attachment.url);
-
-				$(".mp_gallery_image").html("<img src='"+attachment.url+"'/>");
-
-				//ed.windowManager
-			});
-
-			//Open the uploader dialog
-			custom_uploader.open();
-		});
+		// $("#mp_select_img").click(function(e){
+		// 	wp = mp_js_vars.wp;
+		// 	custom_uploader = wp.media.frames.file_frame = wp.media({
+		// 		title: 'Choose Image',
+		// 		button: {
+		// 			text: 'Choose Image'
+		// 		},
+		// 		multiple: false
+		// 	});
+		//
+		// 	//When a file is selected, grab the URL and set it as the text field's value
+		// 	custom_uploader.on('select', function() {
+		// 		var attachment = custom_uploader.state().get('selection').first().toJSON();
+		// 		//$upload_button.siblings('input[type="text"]').val(attachment.url);
+		//
+		// 		$(".mp_gallery_image").html("<img src='"+attachment.url+"'/>");
+		//
+		// 		//ed.windowManager
+		// 	});
+		//
+		// 	//Open the uploader dialog
+		// 	custom_uploader.open();
+		// });
 
 
 
 
 		$("#submit").click(function(e){
 			ed = mp_js_vars.ed;
+			console.log(gt);
 			ed.insertContent( "[mp_gallery txt=\"\" ids=\""+id+"\" type=\""+gt+"\"]" );
+			$mp_gallery_image_target.empty();
 			ed.windowManager.close();
 		});
 	});

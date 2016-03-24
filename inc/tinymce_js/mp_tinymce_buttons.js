@@ -2,7 +2,6 @@
      /* Register the buttons */
      tinymce.create('tinymce.plugins.mp_button_script', {
           init : function(ed, url) {
-
                /**
                 * [title description]
                 * @type {String}

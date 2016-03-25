@@ -17,55 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div style="display:none;">
 	<div id="mp_gallery_dialog">
-		<!-- <h1>super</h1> -->
-
-		<!-- <button id="mp_select_img">Sélectionner une image</button> -->
-
 		<div id="mp_gallery_editor">
-
-			<!-- <table class="mp_gallery_three">
-				<tr>
-					<td colspan="2"><div class="mp_gallery_image">&nbsp;</div></td>
-				</tr>
-				<tr>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-				</tr>
-			</table>
-
-			<table class="mp_gallery_four">
-				<tr>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-				</tr>
-				<tr>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-					<td><div class="mp_gallery_image">&nbsp;</div></td>
-				</tr>
-			</table> -->
-
-
-            <!-- gallery 2 -->
-            <!-- <div id="g2" class="gallery_container" style='display:none;'>
-                <h2>2 images</h2>
-                <table class="mp_gallery_two" data-gallery="g21">
-                    <tr>
-                        <td class=\"a\"><div class="mp_gallery_image">&nbsp;</div></td>
-                    </tr>
-                    <tr>
-                        <td class=\"b\"><div class="mp_gallery_image">&nbsp;</div></td>
-                    </tr>
-                </table>
-                <table class="mp_gallery_two" data-gallery="g22">
-                    <tr>
-                        <td class=\"a\"><div class="mp_gallery_image">&nbsp;</div></td>
-                        <td class=\"b\"><div class="mp_gallery_image">&nbsp;</div></td>
-                    </tr>
-                </table>
-            </div> -->
-            <!-- gallery 1  -->
             <div class="gallery_container">
-
             </div>
 		</div>
 

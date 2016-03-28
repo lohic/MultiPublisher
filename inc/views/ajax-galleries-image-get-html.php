@@ -17,7 +17,7 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 	//print_r($info_img);
 	if ( $info_img['url'] !== null ){
 		if( $info_img['caption'] !== null ){
-			$img = '<img img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img[title].'" src ="'.$info_img[url].'"/><p class="wp-caption-dd">'.$info_img[caption].'</p>';
+			$img = '<img img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img['title'].'" src ="'.$info_img['url'].'"/><p class="wp-caption-dd">'.$info_img['caption'].'</p>';
 			// $img = '<img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img['title'].'" src ="'.$info_img['url'].'"/>';
 		}else{
 			$img = '<img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img['title'].'" src ="'.$info_img['url'].'"/>';

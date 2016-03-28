@@ -207,6 +207,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'admin_enqueue_scripts',				array( $this, 'mp_scripts' ) );
             add_action( 'admin_print_styles',					array( $this, 'mp_styles' ) );
 
+
+            /// -> BOUCLE JSON galleries.json
+            /// -> utiliser add_image_size en fonction du nombre de tailles trouvées
+
             /**
              * AJAX
              */

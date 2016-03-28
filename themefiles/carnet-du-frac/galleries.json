@@ -1,5 +1,5 @@
 {
-	"structure":{
+	"structures":{
 		"g1"  : "<table><tr><td class=\"a\"></td></tr></table>",
 		"g21" : "<table><tr><td class=\"a\"></td></tr><tr><td class=\"b\"></td></tr></table>",
 		"g22" : "<table><tr><td class=\"a\"></td><td class=\"b\"></td></tr></table>",

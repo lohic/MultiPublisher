@@ -111,7 +111,7 @@ jQuery(document).ready(function($) {
 				});
 
 				//recup type de gallerie
-				var gal_type = gallerie_data.default[gt];
+				var gal_type = gallerie_data.default.structures[gt];
 				var gal_img = gallerie_data[mp_gallery_id];
 
 				var render = $(gal_type)

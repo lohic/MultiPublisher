@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
 		$(".mos").click(function(c){
 			id = [];
 			gt = $(c.target).attr('id');
-			var elem = gallerie_data.default[gt];
+			var elem = gallerie_data.default.structures[gt];
 			$(".gallery_container").html(elem);
 			$(".gallery_container td").append("<div class='mp_gallery_image'>&nbsp;</div>");
 

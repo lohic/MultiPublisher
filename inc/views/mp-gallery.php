@@ -62,10 +62,12 @@ button img{
     width: 50%;
     height: auto;
 }
+
 button{
     background: none;
     border:0px solid;
 }
+
 .height-transition {
        -webkit-transition: max-height 0.5s ease-in-out;
        -moz-transition: max-height 0.5s ease-in-out;

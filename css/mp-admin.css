@@ -75,7 +75,6 @@ span.mp_note:after{
     font: normal normal normal 14px/1 FontAwesome;
 }
 
-
 /**
  *  ┌──────────────────┐
  *  │ -> OLD STYLES <- │
@@ -117,9 +116,9 @@ span.mp_note:after{
 }
 
 #multi_publisher .chapterlist{
-    background:#FFF; 
+    background:#FFF;
     padding: 10px;
-    border: solid 1px #DDD; 
+    border: solid 1px #DDD;
 }
 
 #multi_publisher .chapter {
@@ -155,7 +154,7 @@ span.mp_note:after{
 
 .partie{
     display: inline-block;
-    background:#FDD; 
+    background:#FDD;
     height: 150px;
     min-width: 115px;
     box-sizing: border-box;
@@ -179,12 +178,12 @@ span.mp_note:after{
 
 .partie>h4{
     width: 114px;
-    box-sizing: border-box;  
+    box-sizing: border-box;
     text-transform: uppercase;
     float: left;
     font-size:10px;
     padding: 10px;
-    margin: 0; 
+    margin: 0;
     font-weight: bold;
     line-height:1em;
     color:#F00;
@@ -234,12 +233,12 @@ button.submitdelete{
 }
 .mp-container-wrapper h4 {
     width: 114px;
-    box-sizing: border-box;  
+    box-sizing: border-box;
     text-transform: uppercase;
     float: left;
     font-size:10px;
     padding: 10px;
-    margin: 0; 
+    margin: 0;
     font-weight: bold;
     line-height:1em;
     color:#F00;

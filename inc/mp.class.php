@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( '-1' );
 }
 
-
-
 use PHPePub\Core\EPub;
 use PHPePub\Core\EPubChapterSplitter;
 use PHPePub\Core\Structure\OPF\DublinCore;
@@ -208,8 +206,14 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'admin_print_styles',					array( $this, 'mp_styles' ) );
 
 
-            /// -> BOUCLE JSON galleries.json
-            /// -> utiliser add_image_size en fonction du nombre de tailles trouvées
+            /**add image size**/
+            $size_json = MultiPublisher::get_gallery_json();
+            for($i = 0 ; $i < count($size_json['imagesSizes']) ; $i ++){
+                $name = $size_json['imagesSizes'][$i]['n'];
+                $w = $size_json['imagesSizes'][$i]['w'];
+                $h = $size_json['imagesSizes'][$i]['h'];
+                add_image_size( $name, $w, $h, false);
+            };
 
             /**
              * AJAX

@@ -176,6 +176,8 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             }
 
 
+
+
             // function my_default_editor() {
             //     $r = 'html'; // html or tinymce
             //     return $r;
@@ -206,12 +208,15 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             add_action( 'admin_print_styles',					array( $this, 'mp_styles' ) );
 
 
-            /**add image size**/
+            /**
+             * ADD IMAGE SIZE
+             */
             $size_json = MultiPublisher::get_gallery_json();
             for($i = 0 ; $i < count($size_json['imagesSizes']) ; $i ++){
-                $name = $size_json['imagesSizes'][$i]['n'];
-                $w = $size_json['imagesSizes'][$i]['w'];
-                $h = $size_json['imagesSizes'][$i]['h'];
+                $name   = $size_json['imagesSizes'][$i]['n'];
+                $w      = $size_json['imagesSizes'][$i]['w'];
+                $h      = $size_json['imagesSizes'][$i]['h'];
+
                 add_image_size( $name, $w, $h, false);
             };
 
@@ -701,7 +706,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 		    //A Specific Custom Post Type
 		    if ($wp->query_vars["post_type"] == 'edition') {
 		        $templatefilename = 'single-edition.php';
-		        if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
+		        if (defined('TEMPLATEPATH') && file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
 		            $return_template = TEMPLATEPATH . '/' . $templatefilename;
 		        } else {
 		            $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
@@ -712,7 +717,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 		    }elseif ($wp->query_vars["post_type"] == 'chapitre') {
 		        $templatefilename = 'single-chapitre.php';
-		        if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
+		        if (defined('TEMPLATEPATH') && file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
 		            $return_template = TEMPLATEPATH . '/' . $templatefilename;
 		        } else {
 		            $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
@@ -723,7 +728,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             }elseif ($wp->query_vars["post_type"] == 'publication') {
                 $templatefilename = 'single-publication.php';
-                if (file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
+                if (defined('TEMPLATEPATH') && file_exists(TEMPLATEPATH . '/' . $templatefilename)) {
                     $return_template = TEMPLATEPATH . '/' . $templatefilename;
                 } else {
                     $return_template = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $templatefilename;
@@ -759,7 +764,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             $json_filename = 'galleries.json';
 
-            if (file_exists(TEMPLATEPATH . '/' . $json_filename)) {
+            if (defined('TEMPLATEPATH') && file_exists(TEMPLATEPATH . '/' . $json_filename)) {
                 $return_json = TEMPLATEPATH . '/' . $json_filename;
             } else {
                 $return_json = MultiPublisher::$pluginPath . 'themefiles/carnet-du-frac/' . $json_filename;

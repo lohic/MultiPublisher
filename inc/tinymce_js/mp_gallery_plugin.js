@@ -106,7 +106,8 @@ jQuery(document).ready(function($) {
 					//async    : false,
 					dataType : 'html',
 					success  : function(response) {
-						return gallerie_data[mp_gallery_id] = $.parseJSON(response);
+						console.log(response);
+						//return gallerie_data[mp_gallery_id] = $.parseJSON(response);
 		    		}
 				});
 

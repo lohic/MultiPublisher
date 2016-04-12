@@ -212,12 +212,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              * ADD IMAGE SIZE
              */
             $size_json = MultiPublisher::get_gallery_json();
+
             for($i = 0 ; $i < count($size_json['imagesSizes']) ; $i ++){
+
                 $name   = $size_json['imagesSizes'][$i]['n'];
                 $w      = $size_json['imagesSizes'][$i]['w'];
                 $h      = $size_json['imagesSizes'][$i]['h'];
-
-                add_image_size( $name, $w, $h, false);
+                add_image_size( $name, (int)$w, (int)$h, false);
             };
 
             /**

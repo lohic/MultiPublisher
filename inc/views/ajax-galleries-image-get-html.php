@@ -32,6 +32,6 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
  	//"arr_img" => $arr_img
 //));
 
-//echo json_encode($arr_img);
+// echo json_encode($arr_img);
 
 wp_die(); // this is required to terminate immediately and return a proper response

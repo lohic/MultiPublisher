@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
 					dataType : 'html',
 					success  : function(response) {
 						console.log(response);
-						//return gallerie_data[mp_gallery_id] = $.parseJSON(response);
+						// return gallerie_data[mp_gallery_id] = $.parseJSON(response);
 		    		}
 				});
 

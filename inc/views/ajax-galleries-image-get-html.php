@@ -24,6 +24,8 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 	};
 	array_push( $arr_img, $img );
 	print_r($info_img);
+
+	// print_r(wp_get_attachment_metadata($id[$i]));
 };
 
 //echo $json_gall[$gt];

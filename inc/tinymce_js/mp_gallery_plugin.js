@@ -86,17 +86,26 @@ jQuery(document).ready(function($) {
 				var gt 		= shortCodeObj.type;
 				var ar_id 	= shortCodeObj.ids.split(',');
 				var abcd 	= gallery_txt(gt);
+				var class_arr = [];
 
 				//recup gallery id
-
 				var mp_gallery_id = data2id(shortCodeObj.type, shortCodeObj.ids);
+
+				//get the image size related to the position in the table
+				var elem_td =  $(gallerie_data.default.structures[gt]).find('td');
+				elem_td.each(function(index){
+					var classes = $(this).attr("class");
+					var class_size = classes.split(' ')[1];
+					class_arr.push(class_size);
+				});
 
 				var data = {
 					//'ID' : $("#post_ID").val(), //useless ?
 					'action' : 'galleries_image_get_html', // ligne 221 mp.class.php
 					'id'     : ar_id,
 					'gt'	 : gt,
-					'abcd'	 : abcd
+					'abcd'	 : abcd,
+					'sizes'   : class_arr
 				};
 
 				$.ajax({
@@ -106,8 +115,8 @@ jQuery(document).ready(function($) {
 					//async    : false,
 					dataType : 'html',
 					success  : function(response) {
-						console.log(response);
-						// return gallerie_data[mp_gallery_id] = $.parseJSON(response);
+						//console.log(response);
+						return gallerie_data[mp_gallery_id] = $.parseJSON(response);
 		    		}
 				});
 

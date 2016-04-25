@@ -21,15 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="gallery_container">
             </div>
 		</div>
-
-        <button id="g1" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_1.png" alt="" /></button>
-        <button id="g21" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_21.png" alt="" /></button>
-        <button id="g22" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_22.png" alt="" /></button>
-        <button id="g31" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_31.png" alt="" /></button>
-        <button id="g32" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_32.png" alt="" /></button>
-        <button id="g33" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_33.png" alt="" /></button>
-        <button id="g34" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_34.png" alt="" /></button>
-		<button id="g4" class="mos"><img src="/wp_carnetFrac/wp-content/plugins/multi-publisher/inc/img/btn_4.png" alt="" /></button>
+        <button id="g1" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_1.png" alt="" /></button>
+        <button id="g21" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_21.png" alt="" /></button>
+        <button id="g22" class="mos"><img src="<?php echo self::$pluginUrl; ?>/inc/img/btn_22.png" alt="" /></button>
+        <button id="g31" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_31.png" alt="" /></button>
+        <button id="g32" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_32.png" alt="" /></button>
+        <button id="g33" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_33.png" alt="" /></button>
+        <button id="g34" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_34.png" alt="" /></button>
+		<button id="g4" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_4.png" alt="" /></button>
 
         <button id="submit">submit</button>
 
@@ -66,13 +65,12 @@ button img{
 button{
     background: none;
     border:0px solid;
+    margin-top: 50px;
+    margin-left: -13px;
 }
-
-.height-transition {
-       -webkit-transition: max-height 0.5s ease-in-out;
-       -moz-transition: max-height 0.5s ease-in-out;
-       -o-transition: max-height 0.5s ease-in-out;
-       transition: max-height 0.5s ease-in-out;
-   }
-
+#submit{
+    border: 1px solid rgb(89, 183, 244);
+    padding: 3px 8px 3px 8px;
+    margin: 0 0 0 15px;
+}
 </style>

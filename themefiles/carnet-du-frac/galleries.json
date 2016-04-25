@@ -1,18 +1,18 @@
 {
 	"structures":{
-		"g1"  : "<table><tr><td class=\"a\"></td></tr></table>",
-		"g21" : "<table><tr><td class=\"a\"></td></tr><tr><td class=\"b\"></td></tr></table>",
-		"g22" : "<table><tr><td class=\"a\"></td><td class=\"b\"></td></tr></table>",
-		"g31" : "<table><tr><td colspan=\"2\" class=\"a\"></td></tr><tr><td class=\"b\"></td><td class=\"c\"></td></tr></table>",
-		"g32" : "<table><tr><td class=\"a\"></td><td rowspan=\"2\" class=\"b\"></td></tr><tr><td class=\"c\"></td></tr></table>",
-		"g33" : "<table><tr><td class=\"a\"></td><td class=\"b\"></td></tr><tr><td colspan=\"2\" class=\"c\"></td></tr></table>",
-		"g34" : "<table><tr><td rowspan=\"2\" class=\"a\"></td><td class=\"b\"></td></tr><tr><td class=\"c\"></td></tr></table>",
-		"g4"  : "<table><tr><td class=\"a\"></td><td class=\"b\"></td></tr><tr><td class=\"c\"></td><td class=\"d\"></td></tr></table>"
+		"g1"  : "<table><tr><td class=\"a pict2x2\"></td></tr></table>",
+		"g21" : "<table><tr><td class=\"a pict2x1\"></td></tr><tr><td class=\"b pict2x1\"></td></tr></table>",
+		"g22" : "<table><tr><td class=\"a pict1x2\"></td><td class=\"b pict1x2\"></td></tr></table>",
+		"g31" : "<table><tr><td colspan=\"2\" class=\"a pict2x1\"></td></tr><tr><td class=\"b pict1x1\"></td><td class=\"c pict1x1\"></td></tr></table>",
+		"g32" : "<table><tr><td class=\"a pict1x1\"></td><td rowspan=\"2\" class=\"b pict1x2\"></td></tr><tr><td class=\"c pict1x1\"></td></tr></table>",
+		"g33" : "<table><tr><td class=\"a pict1x1\"></td><td class=\"b pict1x1\"></td></tr><tr><td colspan=\"2\" class=\"c pict2x1\"></td></tr></table>",
+		"g34" : "<table><tr><td rowspan=\"2\" class=\"a pict1x2\"></td><td class=\"b pict1x1\"></td></tr><tr><td class=\"c pict1x1\"></td></tr></table>",
+		"g4"  : "<table><tr><td class=\"a pict1x1\"></td><td class=\"b pict1x1\"></td></tr><tr><td class=\"c pict1x1\"></td><td class=\"d pict1x1\"></td></tr></table>"
 	},
-	"imagesSizes":[
-		{"n":"pict1x1","w":504,"h":504},
-		{"n":"pict1x2","w":504,"h":1220},
-		{"n":"pict2x1","w":1040,"h":504},
-		{"n":"pict2x2","w":1040,"h":1220}
-	]
+	"imagesSizes":{
+		"pict1x1" : {"w":504,"h":504},
+		"pict1x2" : {"w":504,"h":1220},
+		"pict2x1" : {"w":1040,"h":504},
+		"pict2x2" : {"w":1040,"h":1220}
+	}
 }

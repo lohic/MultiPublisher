@@ -43,7 +43,8 @@ jQuery(document).ready(function($) {
 			wp = mp_js_vars.wp;
 			$mp_gallery_image_target = $(this);
 
-		 	var classOf = $(e.currentTarget).parent().attr("class");
+		 	var classOf = ($(e.currentTarget).parent().attr("class").split(' '))[0];
+			console.log(classOf);
 			custom_uploader = wp.media.frames.file_frame = wp.media({
 				title: 'Choose Image',
 				button: {
@@ -58,7 +59,6 @@ jQuery(document).ready(function($) {
 				i = abcd.indexOf(classOf);
 				var img = attachment.id.toString();
 				id.splice(i, 1, img);
-				console.log(id);
 				$mp_gallery_image_target.html("<img src='"+attachment.url+"'/>");
 
 			});

@@ -8,7 +8,6 @@
  */
 
 
-
 hr.pagebreak{
     border-top:0;
     border-bottom:dashed #00AAFF 1px;
@@ -76,14 +75,13 @@ span.mp_note:after{
 }
 
 table{
-    max-width: 100%;
-}
-
-table img{
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }
-
+table img{
+    width: 100%;
+    height: auto;
+}
 /**
  *  ┌──────────────────┐
  *  │ -> OLD STYLES <- │

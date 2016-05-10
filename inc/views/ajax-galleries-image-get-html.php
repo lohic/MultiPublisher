@@ -17,7 +17,6 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 	$sizes_img = wp_get_attachment_metadata($id[$i])["sizes"][$size_id[$i]];
 	if ( $info_img['url'] !== null ){
 		$classPos = $abcd[$i];
-		// $classSizeUrl = ;
 		if( $info_img['caption'] !== null ){
 			$img = '<img data-abcd="'.$classPos.'" alt="'.$info_img['title'].'" src ="'.$dir."/".$sizes_img['file'].'"/><p class="wp-caption-dd">'.$info_img['caption'].'</p>';
 			// $img = '<img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img['title'].'" src ="'.$info_img['url'].'"/>';
@@ -28,16 +27,8 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 		$img = null;
 	};
 	array_push( $arr_img, $img );
-	//print_r();
-
-	// print_r($sizes_img['file']);
 };
 
-//echo $json_gall[$gt];
-//$obj_gal = json_encode(array(
- 	//"table" => $json_gall[$gt],
- 	//"arr_img" => $arr_img
-//));
 
 echo json_encode($arr_img);
 

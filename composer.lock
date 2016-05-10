@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d5788a87b8ed11e1d6f23299e7347f25",
-    "content-hash": "f2a575140e5a73d228d0a9c999c63d99",
+    "hash": "f359ba2f5beeca46b9ad8b303ca3b09f",
+    "content-hash": "0d435abe26d705ffa071f70911036584",
     "packages": [
         {
             "name": "fortawesome/font-awesome",
@@ -353,16 +353,67 @@
                 "zip"
             ],
             "time": "2015-04-30 06:45:53"
+        },
+        {
+            "name": "volux/dom",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/volux/dom.git",
+                "reference": "f1f376c0f41cde705b28f9cc498ef83c3adb39d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/volux/dom/zipball/f1f376c0f41cde705b28f9cc498ef83c3adb39d8",
+                "reference": "f1f376c0f41cde705b28f9cc498ef83c3adb39d8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-xsl": "*",
+                "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "volux\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Skulov",
+                    "email": "andrey.skulov@gmail.com",
+                    "homepage": "http://volux.ru"
+                }
+            ],
+            "description": "Extended DOM objects with jQuery-like functionality. Create and transform, traversal and manipulation well-formed XML and HTML.",
+            "homepage": "https://github.com/volux/dom",
+            "keywords": [
+                "Xpath",
+                "dom",
+                "jquery",
+                "php",
+                "xml",
+                "xslt"
+            ],
+            "time": "2013-09-22 17:28:39"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "volux/dom": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.3.0"
-    },
+    "platform": [],
     "platform-dev": []
 }

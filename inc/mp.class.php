@@ -19,6 +19,7 @@ use PHPePub\Core\EPubChapterSplitter;
 use PHPePub\Core\Structure\OPF\DublinCore;
 use PHPePub\Core\Logger;
 use PHPZip\Zip\File\Zip;
+use volux\Dom;
 
 
 if ( ! class_exists( 'MultiPublisher' ) ) {
@@ -196,7 +197,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             require_once( MultiPublisher::$pluginPath . 'public/mp.functions.php');
             require_once( MultiPublisher::$pluginPath . 'inc/mp-settings.php' );
             require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
-
             mp_structure::instance();
 
             //add_action( 'admin_init',            array( $this, 'mp_admin_init' ) );
@@ -359,25 +359,48 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         /**
          *
          */
+        /*gallery front*/
+        /*voir sur  les autres shortcordE*/
         public function mp_gallery_shortcode_function($atts ){
+            //require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
 
-            $a = shortcode_atts( array(
-                'txt'   => 'something',
-                'param' => 0
-            ), $atts );
+            $gallery_type = MultiPublisher::get_gallery_json()["structures"];
 
-            $a['txt'] = urldecode($a['txt']);
+            $gallery = new Dom\Html();
 
-            $gallerie = "<table class='mp_gallery'>";
-            $gallerie.= "\t<tr>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t</tr>";
-            $gallerie.= "\t<tr>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t\t<td>{$a['txt']}</td>";
-            $gallerie.= "\t</tr>";
-            $gallerie.= "</table>";
+            // $gallery
+            // ->body()
+            // ->html("<table><tr><td class=\"a\">a</td><td class=\"b\">b</td></tr><tr><td class=\"c\">c</td><td class=\"d\">d</td></tr></table>");
+            //
+            // $gallery->find('.a')->html('<img id="a" />');
+            // $gallery->find('.b')->html('<img id="b" />');
+            // $gallery->find('.c')->html('<img id="c" />');
+            // $gallery->find('.d')->html('<img id="d" />');
+            //
+            // echo $gallery->find('body')->children();
+
+
+
+
+            //print_r( $atts );
+
+            // $a = shortcode_atts( array(
+            //     'txt'   => 'something',
+            //     'param' => 0
+            // ), $atts );
+            //
+            // $a['txt'] = urldecode($a['txt']);
+            //
+            // $gallerie = "<table class='mp_gallery'>";
+            // $gallerie.= "\t<tr>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t</tr>";
+            // $gallerie.= "\t<tr>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t\t<td>{$a['txt']}</td>";
+            // $gallerie.= "\t</tr>";
+            // $gallerie.= "</table>";
 
             return $gallerie;
 

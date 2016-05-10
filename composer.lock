@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f359ba2f5beeca46b9ad8b303ca3b09f",
-    "content-hash": "0d435abe26d705ffa071f70911036584",
+    "hash": "84fd5ea69da1dc0d6b68f664f43fec59",
+    "content-hash": "e69d34750dca8f92245541cd16fc4888",
     "packages": [
         {
             "name": "fortawesome/font-awesome",
@@ -356,7 +356,7 @@
         },
         {
             "name": "volux/dom",
-            "version": "dev-master",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/volux/dom.git",
@@ -409,11 +409,11 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "volux/dom": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.3.0"
+    },
     "platform-dev": []
 }

@@ -13,9 +13,7 @@
     "require": {
         "grandt/phpepub": ">=4.0.3",
  		"php": ">=5.3.0",
- 		"FortAwesome/Font-Awesome": "*"
-    },
-	"require": {
-        "volux/dom": "dev-master"
+ 		"FortAwesome/Font-Awesome": "*",
+		"volux/dom": "^1.3"
     }
 }

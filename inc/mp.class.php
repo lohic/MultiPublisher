@@ -21,6 +21,7 @@ use PHPePub\Core\EPubChapterSplitter;
 use PHPePub\Core\Structure\OPF\DublinCore;
 use PHPePub\Core\Logger;
 use PHPZip\Zip\File\Zip;
+use volux\Dom\Html;
 
 
 if ( ! class_exists( 'MultiPublisher' ) ) {
@@ -133,7 +134,6 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             return self::$instance;
         }
-
 
 
         /**
@@ -348,32 +348,48 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         }
 
 
+
         /**
          * 
          */
         public function mp_gallery_shortcode_function($atts ){
 
-            $a = shortcode_atts( array(
-                'txt'   => 'something',
-                'param' => 0
-            ), $atts );
+            // $a = shortcode_atts( array(
+            //     'txt'   => 'something',
+            //     'param' => 0
+            // ), $atts );
 
-            $a['txt'] = urldecode($a['txt']);
+            // $a['txt'] = urldecode($a['txt']);
 
-            $gallerie = "<table class='mp_gallery'>";
-            $gallerie.= "\t<tr>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t</tr>";
-            $gallerie.= "\t<tr>";
-            $gallerie.= "\t\t<td>&nbsp;</td>";
-            $gallerie.= "\t\t<td>{$a['txt']}</td>";
-            $gallerie.= "\t</tr>";
-            $gallerie.= "</table>";
+            // $gallerie = "<table class='mp_gallery'>";
+            // $gallerie.= "\t<tr>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t</tr>";
+            // $gallerie.= "\t<tr>";
+            // $gallerie.= "\t\t<td>&nbsp;</td>";
+            // $gallerie.= "\t\t<td>{$a['txt']}</td>";
+            // $gallerie.= "\t</tr>";
+            // $gallerie.= "</table>";
 
-            return $gallerie;
+            // return $gallerie;
 
-            //return "<a href=\"#{$compteur}\">{$a['mot']} <sup>[{$compteur} {$a['def']}]</sup></a>";
+            // lib dom php
+            // https://github.com/tburry/pquery
+            // peut être se référer au wiki https://code.google.com/archive/p/ganon/
+            // pour certains détails
+
+            $gallery = "<table><tr><td class=\"a\">a</td><td class=\"b\">b</td></tr><tr><td class=\"c\">c</td><td class=\"d\">d</td></tr></table>";
+
+
+            $dom = pQuery::parseStr($gallery);
+
+            $dom->query('.a')->html('<img id="a" />');
+            $dom->query('.b')->html('<img id="b" />');
+            $dom->query('.c')->html('<img id="c" />');
+            $dom->query('.d')->html('<img id="d" />');
+
+            return $dom->html();
         }
 
         /**
@@ -959,7 +975,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
                         //echo $compteur.' '.$item['ID']." ".$item['post_title']."\n";
                         //echo htmlspecialchars_decode($item['guid']).'&mp_publication_type=epub'."\n";
                         
-                        $url  = 'post.php?post='.htmlspecialchars_decode($item['ID']).'&action=edit';
+                        $url   = 'post.php?post='.htmlspecialchars_decode($item['ID']).'&action=edit';
 
                         $start = "";
                         $end   = "";

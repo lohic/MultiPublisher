@@ -4,21 +4,160 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d5788a87b8ed11e1d6f23299e7347f25",
-    "content-hash": "f2a575140e5a73d228d0a9c999c63d99",
+    "hash": "03ce028113e411006645ce83cebc2b2e",
+    "content-hash": "e0e49abac2bb511b974611549a2e78ce",
     "packages": [
         {
-            "name": "fortawesome/font-awesome",
-            "version": "v4.4.0",
+            "name": "ejz/core",
+            "version": "v1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+                "url": "https://github.com/Ejz/Core.git",
+                "reference": "209ebef03a31c18084656a5a541e2032753e281a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "url": "https://api.github.com/repos/Ejz/Core/zipball/209ebef03a31c18084656a5a541e2032753e281a",
+                "reference": "209ebef03a31c18084656a5a541e2032753e281a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "constants.php",
+                    "core.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Ejz",
+                    "email": "ejz@ya.ru",
+                    "homepage": "http://ejz.ru/"
+                }
+            ],
+            "description": "Core is a set of help functions. Added to global scope.",
+            "keywords": [
+                "core",
+                "ejz",
+                "helpers",
+                "utils"
+            ],
+            "time": "2016-05-10 15:06:39"
+        },
+        {
+            "name": "ejz/dom",
+            "version": "v1.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ejz/DOM.git",
+                "reference": "ce138602788e9079d5ae3e43d5dedd3178c17df6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ejz/DOM/zipball/ce138602788e9079d5ae3e43d5dedd3178c17df6",
+                "reference": "ce138602788e9079d5ae3e43d5dedd3178c17df6",
+                "shasum": ""
+            },
+            "require": {
+                "ejz/core": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ejz\\": "src/Ejz"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Ejz",
+                    "email": "ejz@ya.ru",
+                    "homepage": "http://ejz.ru/"
+                }
+            ],
+            "description": "DOM is native HTML parsing library for PHP. Supports XPath syntax.",
+            "keywords": [
+                "Xpath",
+                "dom",
+                "ejz",
+                "native",
+                "php"
+            ],
+            "time": "2015-11-30 10:02:11"
+        },
+        {
+            "name": "fluentdom/fluentdom",
+            "version": "5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FluentDOM/FluentDOM.git",
+                "reference": "19c5a3c77c91871d2a2545949b5bde20889fcb45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FluentDOM/FluentDOM/zipball/19c5a3c77c91871d2a2545949b5bde20889fcb45",
+                "reference": "19c5a3c77c91871d2a2545949b5bde20889fcb45",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "fluentdom/css-selector": "Allows to use css selectors."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/FluentDOM.php"
+                ],
+                "psr-4": {
+                    "FluentDOM\\": "src/FluentDOM"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "FluentDOM Contributors",
+                    "homepage": "https://github.com/FluentDOM/FluentDOM/contributors"
+                }
+            ],
+            "description": "A fluent api for the php dom extension.",
+            "homepage": "http://fluentdom.org",
+            "keywords": [
+                "Xpath",
+                "dom",
+                "jquery",
+                "xml"
+            ],
+            "time": "2015-07-07 13:34:07"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "e7cc59d666ed0826656f695afad7c56e95eb6513"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e7cc59d666ed0826656f695afad7c56e95eb6513",
+                "reference": "e7cc59d666ed0826656f695afad7c56e95eb6513",
                 "shasum": ""
             },
             "require-dev": {
@@ -28,7 +167,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "4.6.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -53,7 +192,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2015-07-28 21:55:03"
+            "time": "2016-05-04 16:06:44"
         },
         {
             "name": "grandt/binstring",
@@ -100,23 +239,23 @@
         },
         {
             "name": "grandt/phpepub",
-            "version": "4.0.3",
+            "version": "4.0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Grandt/PHPePub.git",
-                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca"
+                "reference": "ccb501e566358ac19a9fedb6eb8bf96665823452"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
-                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
+                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/ccb501e566358ac19a9fedb6eb8bf96665823452",
+                "reference": "ccb501e566358ac19a9fedb6eb8bf96665823452",
                 "shasum": ""
             },
             "require": {
-                "grandt/phpresizegif": ">=1.0.3",
-                "grandt/relativepath": ">=1.0.1",
+                "grandt/phpresizegif": "~1.0.3",
+                "grandt/relativepath": "~1.0.1",
                 "php": ">=5.3.0",
-                "phpzip/phpzip": ">=2.0.7"
+                "phpzip/phpzip": "~2.0.7"
             },
             "type": "library",
             "autoload": {
@@ -145,7 +284,7 @@
                 "e-book",
                 "epub"
             ],
-            "time": "2015-09-15 08:47:09"
+            "time": "2016-03-16 15:48:26"
         },
         {
             "name": "grandt/phpresizegif",
@@ -294,23 +433,118 @@
             "time": "2015-05-14 08:18:23"
         },
         {
-            "name": "phpzip/phpzip",
-            "version": "2.0.7",
+            "name": "paquettg/php-html-parser",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Grandt/PHPZip.git",
-                "reference": "a43a7ce8b2f21050f8b143876c5c1661b0d65306"
+                "url": "https://github.com/paquettg/php-html-parser.git",
+                "reference": "18845e09831dd0772b88b51e788a4f74c701224c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPZip/zipball/a43a7ce8b2f21050f8b143876c5c1661b0d65306",
-                "reference": "a43a7ce8b2f21050f8b143876c5c1661b0d65306",
+                "url": "https://api.github.com/repos/paquettg/php-html-parser/zipball/18845e09831dd0772b88b51e788a4f74c701224c",
+                "reference": "18845e09831dd0772b88b51e788a4f74c701224c",
                 "shasum": ""
             },
             "require": {
-                "grandt/binstring": ">=0.2.0",
-                "grandt/phpzipmerge": ">=1.0.3",
-                "grandt/relativepath": ">=1.0.1",
+                "paquettg/string-encode": "~0.1.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0",
+                "phpunit/phpunit": "~4.8.0",
+                "satooshi/php-coveralls": "~0.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPHtmlParser": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gilles Paquette",
+                    "email": "paquettg@gmail.com",
+                    "homepage": "http://gillespaquette.ca"
+                }
+            ],
+            "description": "An HTML DOM parser. It allows you to manipulate HTML. Find tags on an HTML page with selectors just like jQuery.",
+            "homepage": "https://github.com/paquettg/php-html-parser",
+            "keywords": [
+                "dom",
+                "html",
+                "parser"
+            ],
+            "time": "2016-04-06 15:24:40"
+        },
+        {
+            "name": "paquettg/string-encode",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paquettg/string-encoder.git",
+                "reference": "cf08343649701979f581c1601d01247fa3782439"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paquettg/string-encoder/zipball/cf08343649701979f581c1601d01247fa3782439",
+                "reference": "cf08343649701979f581c1601d01247fa3782439",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "stringEncode": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gilles Paquette",
+                    "email": "paquettg@gmail.com",
+                    "homepage": "http://gillespaquette.ca"
+                }
+            ],
+            "description": "Facilitating the process of altering string encoding in PHP.",
+            "homepage": "https://github.com/paquettg/string-encoder",
+            "keywords": [
+                "charset",
+                "encoding",
+                "string"
+            ],
+            "time": "2014-05-29 18:38:09"
+        },
+        {
+            "name": "phpzip/phpzip",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Grandt/PHPZip.git",
+                "reference": "936f93d656f68e29c231a39e19fd59a636fe7e47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Grandt/PHPZip/zipball/936f93d656f68e29c231a39e19fd59a636fe7e47",
+                "reference": "936f93d656f68e29c231a39e19fd59a636fe7e47",
+                "shasum": ""
+            },
+            "require": {
+                "grandt/binstring": ">=1.0.0",
+                "grandt/phpzipmerge": ">=1.0.4",
+                "grandt/relativepath": ">=1.0.2",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -352,7 +586,110 @@
                 "stream",
                 "zip"
             ],
-            "time": "2015-04-30 06:45:53"
+            "time": "2015-11-16 16:30:51"
+        },
+        {
+            "name": "tburry/pquery",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tburry/pquery.git",
+                "reference": "872339ffd38d261c4417ea1855428b1b4ff9abf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tburry/pquery/zipball/872339ffd38d261c4417ea1855428b1b4ff9abf1",
+                "reference": "872339ffd38d261c4417ea1855428b1b4ff9abf1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "htmlawed/htmlawed": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "IQuery.php",
+                    "gan_formatter.php",
+                    "gan_node_html.php",
+                    "gan_parser_html.php",
+                    "gan_selector_html.php",
+                    "gan_tokenizer.php",
+                    "gan_xml2array.php",
+                    "pQuery.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A jQuery like html dom parser written in php.",
+            "keywords": [
+                "dom",
+                "ganon",
+                "php"
+            ],
+            "time": "2016-01-14 20:55:00"
+        },
+        {
+            "name": "volux/dom",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/volux/dom.git",
+                "reference": "f1f376c0f41cde705b28f9cc498ef83c3adb39d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/volux/dom/zipball/f1f376c0f41cde705b28f9cc498ef83c3adb39d8",
+                "reference": "f1f376c0f41cde705b28f9cc498ef83c3adb39d8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-xsl": "*",
+                "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "volux\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Skulov",
+                    "email": "andrey.skulov@gmail.com",
+                    "homepage": "http://volux.ru"
+                }
+            ],
+            "description": "Extended DOM objects with jQuery-like functionality. Create and transform, traversal and manipulation well-formed XML and HTML.",
+            "homepage": "https://github.com/volux/dom",
+            "keywords": [
+                "Xpath",
+                "dom",
+                "jquery",
+                "php",
+                "xml",
+                "xslt"
+            ],
+            "time": "2013-09-22 17:28:39"
         }
     ],
     "packages-dev": [],

@@ -8,12 +8,13 @@
 
 
 @font-face {
-    font-family: 'ArialBlackRegular';
+    font-family: 'Arial-Black';
     src: url('../font/ArialBlack/arialblack.ttf') format('truetype');
+    font-style: normal;
 }
 
 @font-face {
-	font-family:'TimesNewRomanPSMT-Regular';
+	font-family:'TimesNewRomanPSMT';
 	src: url('../font/TimesNewRomanPSMT/TimesNewRomanPSMT_gdi.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
@@ -35,7 +36,7 @@
 
 
 	body{
-		font-family:"TimesNewRomanPSMT-Regular","Times New Roman", serif;
+		font-family:"TimesNewRomanPSMT","Times New Roman", serif;
 		margin: 7.75mm auto;
 		position: relative;
 		font-size: 13pt;
@@ -101,7 +102,7 @@
 		width: 13.2mm;
 		left:0mm;
 		display: block;
-		font-family: "ArialBlackRegular","Arial Black";
+		font-family: "Arial-Black","Arial Black";
 		font-size: 5pt;
 		text-transform: uppercase;
 		line-height: 1.35em;
@@ -135,7 +136,7 @@
 		left:0mm;
 		content: 'Titre';
 		display: block;
-		font-family: "ArialBlackRegular","Arial Black";
+		font-family: "Arial-Black","Arial Black";
 		font-size: 5pt;
 		text-transform: uppercase;
 		line-height: 1.35em;
@@ -164,7 +165,7 @@
 		left:0mm;
 		content: "Intertitre";
 		display: block;
-		font-family: "ArialBlackRegular","Arial Black";
+		font-family: "Arial-Black","Arial Black";
 		font-size: 5pt;
 		text-transform: uppercase;
 		line-height: 1.35em;
@@ -198,7 +199,7 @@
 		left:0mm;
 		content: "Texte";
 		display: block;
-		font-family: "ArialBlackRegular","Arial Black";
+		font-family: "Arial-Black","Arial Black";
 		font-size: 5pt;
 		text-transform: uppercase;
 		line-height: 1.35em;
@@ -386,7 +387,7 @@
 	.ref{
 		font-size: 5pt;
 		/*color:red;*/
-		font-family: "ArialBlackRegular","Arial Black";
+		font-family: "Arial-Black","Arial Black";
 		text-transform: uppercase;
 	}
 

@@ -68,6 +68,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 
 			<tr valign="top">
+			<th scope="row">est ce que ça fonctionne</th>
+			<td><input type="text" name="mp_test" value="<?php echo esc_attr( get_option('mp_test') ); ?>" /></td>
+			</tr>
+
+			<tr valign="top">
 			<th scope="row">Options, Etc.</th>
 			<td><input type="text" name="mp_option_etc" value="<?php echo esc_attr( get_option('mp_option_etc') ); ?>" /></td>
 			</tr>
@@ -78,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	    <table class="form-table">
 			<tr valign="top">
 			<th scope="row"><?php _e('Url du serveur pour la génération des pdf') ?></th>
-			<td><input type="text" name="pdf_server_url" value="<?php echo esc_attr( get_option('pdf_server_url') ); ?>" /></td>
+			<td><input type="text" name="mp_pdf_server_url" value="<?php echo esc_attr( get_option('mp_pdf_server_url') ); ?>" /></td>
 			</tr>
 	    </table>
 	    
@@ -89,8 +94,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<hr/>
 
 	<p><strong>Conception et réalisation :</strong><br>
-	    &rarr; <a href="http://www.jslb.fr" target="_blank">Jérôme Saint-Loubert Bié</a>,<br>
-	    &rarr; <a href="http://www.yohannamy.com" target="_blank">Yohanna My Nguyen<a>,<br>
-	    &rarr; <a href="http://www.loichorellou.net" target="_blank">Loïc Horellou</a>.</p>
+	    &rarr; <a href="http://www.jslb.fr" target="_blank">Jérôme Saint-Loubert Bié</a><br>
+	    &rarr; <a href="http://www.yohannamy.com" target="_blank">Yohanna My Nguyen<a><br>
+	    &rarr; <a href="http://www.loichorellou.net" target="_blank">Loïc Horellou</a><br>
+	    &rarr; <a href="http://www.armansansd.net" target="_blank">Arman Mohtadji<a></p>
 
 </div>

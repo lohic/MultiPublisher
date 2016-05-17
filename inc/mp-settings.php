@@ -100,6 +100,8 @@ function multipublisher_register_settings() { // whitelist options
 	register_setting( 'multipublisher_settings_group', 'mp_new_option_name' );
 	register_setting( 'multipublisher_settings_group', 'mp_some_other_option' );
 	register_setting( 'multipublisher_settings_group', 'mp_option_etc' );
+
+	register_setting( 'multipublisher_settings_group', 'mp_test' );
 	register_setting( 'multipublisher_settings_group', 'mp_pdf_server_url' );
 
 

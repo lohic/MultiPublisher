@@ -18,88 +18,6 @@ if ( ! class_exists( 'mp_structure' ) ) {
 
         protected static $instance;
 
-
-        //const EDITION           = 'edition';
-        //const CHAPITRE          = 'chapitre';
-
-        /**
-         * Args for the edition post type
-         * @var array
-         */
-        // protected $editionArgs = array(
-        //     'public'          => true,
-        //     'rewrite'         => array( 'slug' => 'edition', 'with_front' => false ),
-        //     'menu_position'   => 6,
-        //     'supports'        => array(
-        //         'title',
-        //         'editor',
-        //         'thumbnail',
-        //         'custom-fields'
-        //     ),
-        //     'capability_type' => array( 'multi_publisher_edition', 'multi_publisher_editions' ),
-        //     'map_meta_cap'    => true
-        // );
-
-
-
-        // array(
-        //                     'label'             => __('Éditions'),
-        //                     'singular_label'    => __('Edition'),
-        //                     'public'            => true,
-        //                     'show_ui'           => true,
-        //                     'show_in_menu'      => 'multipublisher',
-        //                     //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-        //                     'menu_icon'         => 'dashicons-calendar',
-        //                     'show_in_nav_menus' => false,
-        //                     'capability_type'   => 'post',
-        //                     'rewrite'           => array("slug" => "edition"),
-        //                     'hierarchical'      => false,
-        //                     'query_var'         => false,
-        //                     'supports'          => array('title','editor','thumbnail'),
-        //                     'menu_position'     => 20,
-        //                     //'taxonomies'      => array('category'),
-        //                 )
-
-
-        /**
-         * Args for the chapitre post type
-         * @var array
-         */
-        // protected $chapitreArgs = array(
-        //     'public'          => true,
-        //     'rewrite'         => array( 'slug' => 'chapitre', 'with_front' => false ),
-        //     'menu_position'   => 6,
-        //     'supports'        => array(
-        //         'title',
-        //         'editor',
-        //         'thumbnail'
-        //     ),
-        //     'capability_type' => array( 'multi_publisher_chapter', 'multi_publisher_chapters' ),
-        //     'map_meta_cap'    => true
-        // );
-
-        // register_post_type(
-        //                 'chapitre',
-        //                 array(
-        //                     'label'             => __('Chapitres'),
-        //                     'singular_label'    => __('Chapitre'),
-        //                     'public'            => true,
-        //                     'show_ui'           => true,
-        //                     'show_in_menu'      => 'multipublisher',
-        //                     //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-        //                     'menu_icon'         => 'dashicons-media-spreadsheet',
-        //                     'show_in_nav_menus' => false,
-        //                     'capability_type'   => 'post',
-        //                     'rewrite'           => array("slug" => "chapitre"),
-        //                     'hierarchical'      => false,
-        //                     'query_var'         => false,
-        //                     'supports'          => array('title','editor','thumbnail'),
-        //                     'menu_position'     => 20,
-        //                     //'taxonomies'      => array('category'),
-        //                 )
-        //             );
-
-
         /**
          * Static Singleton Factory Method
          * @return MultiPublisher
@@ -120,68 +38,26 @@ if ( ! class_exists( 'mp_structure' ) ) {
 
     
             function mp_create_custom_posts() {
-
-                // Edition
-                // register_post_type(
-                //     'edition',
-                //     array(
-                //         'label'             => __('Éditions'),
-                //         'singular_label'    => __('Edition'),
-                //         'public'            => true,
-                //         'show_ui'           => true,
-                //         'show_in_menu'      => 'multipublisher',
-                //         'menu_icon'         => 'dashicons-calendar',
-                //         'show_in_nav_menus' => false,
-                //         'capability_type'   => 'post',
-                //         'rewrite'           => array("slug" => "edition"),
-                //         'hierarchical'      => false,
-                //         'query_var'         => false,
-                //         'supports'          => array('title','editor','thumbnail'),
-                //         'menu_position'     => 20,
-                //         'taxonomies'        => array('auteur','sujet'),
-                //     )
-                // );  
-
-                // Chapitre
-                // register_post_type(
-                //     'chapitre',
-                //     array(
-                //         'label'             => __('Chapitres'),
-                //         'singular_label'    => __('Chapitre'),
-                //         'public'            => true,
-                //         'show_ui'           => true,
-                //         'show_in_menu'      => 'multipublisher',
-                //         'menu_icon'         => 'dashicons-media-spreadsheet',
-                //         'show_in_nav_menus' => false,
-                //         'capability_type'   => 'post',
-                //         'rewrite'           => array("slug" => "chapitre"),
-                //         'hierarchical'      => false,
-                //         'query_var'         => false,
-                //         'supports'          => array('title','editor','thumbnail'),
-                //         'menu_position'     => 20,
-                //     )
-                // );  
-
                 
                 // https://wordpress.org/support/topic/permalinks-404-with-custom-post-type/page/2
                 register_post_type(
                     'publication',
                     array(
-                        'labels' => array (
-							'name' 			=> 'Publications',
-							'singular_name' => 'Publication',
-							'menu_name' 	=> 'Publications',
-							'add_new' 		=> 'Add Publication',
-							'add_new_item' 	=> 'Add New Publication',
-							'edit' 			=> 'Edit',
-							'edit_item' 	=> 'Edit Publication',
-							'new_item' 		=> 'New Publication',
-							'view' 			=> 'View Publication',
-							'view_item' 	=> 'View Publication',
-							'search_items' 	=> 'Search Publication',
-							'not_found' 	=> 'No Publication Found',
-							'not_found_in_trash' => 'No Publication Found in Trash',
-							'parent' 		=> 'Parent Publication',
+                        'labels'    => array (
+                            'name'                  => __('Publications'),
+                            'singular_name'         => __('Publication'),
+                            'menu_name'             => __('Publications'),
+                            'add_new'               => __('Add Publication'),
+                            'add_new_item'          => __('Add New Publication'),
+                            'edit'                  => __('Edit'),
+                            'edit_item'             => __('Edit Publication'),
+                            'new_item'              => __('New Publication'),
+                            'view'                  => __('View Publication'),
+                            'view_item'             => __('View Publication'),
+                            'search_items'          => __('Search Publication'),
+                            'not_found'             => __('No Publication Found'),
+                            'not_found_in_trash'    => __('No Publication Found in Trash'),
+                            'parent'                => __('Parent Publication'),
                         ),
                         //'label'             => __('Publications'),
                         //'singular_label'    => __('Publication'),
@@ -255,10 +131,7 @@ if ( ! class_exists( 'mp_structure' ) ) {
             add_action( 'init', 'mp_create_custom_posts' );
             add_action( 'init', 'create_mp_taxonomies' );   
 
-
         }
-
-
     }
 }
 

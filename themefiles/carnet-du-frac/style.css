@@ -172,7 +172,7 @@
 		word-break: break-word;
 		-webkit-hyphens:auto;
 		-moz-hyphens:auto;
-		hyphens:auto;	
+		hyphens:auto;
 	}
 
 	/*h2:before {
@@ -207,7 +207,7 @@
 		word-break: break-word;
 		-webkit-hyphens:auto;
 		-moz-hyphens:auto;
-		hyphens:auto;	
+		hyphens:auto;
 	}
 
 	p.chapeau:before{
@@ -271,7 +271,7 @@
 	blockquote{
 		padding-left:13.5mm;
 	}
-	
+
 	p + blockquote{
 		margin-top: 1em;
 	}
@@ -310,7 +310,7 @@
 		margin-left: 0.2em;
 	}
 
-	
+
 	p.italique{
 		font-style: italic;
 	}
@@ -364,15 +364,21 @@
 	 */
 
 	.mp_gallery{
+
+        max-width: 132mm;
 		width: 100%;
 		margin-top: 1em;
-		border-spacing: 3px;
-		background-color: #F00;
+        border-spacing: 3px;
+		/*background-color: #F00;*/
 	}
-	.mp_gallery td{
-		width: 50%;
+    .mp_gallery td{
 		padding: 0;
-		background-color: #FFF;
+		/*background-color: #FFF;*/
+	}
+	.mp_gallery td img{
+        width: 100%;
+		padding: 0;
+		/*background-color: #FFF;*/
 	}
 	.mp_gallery{}
 
@@ -380,7 +386,7 @@
 
 	.fig{
 		float: left;
-		margin-left:-13.2mm; 
+		margin-left:-13.2mm;
 	}
 
 	.ref{
@@ -410,7 +416,7 @@
 		page-break-before: always;
 	}
 
-		
+
 
 	/**
 	 * PREMIERE PAGE

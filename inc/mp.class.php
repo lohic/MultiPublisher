@@ -362,45 +362,32 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         /*gallery front*/
         /*voir sur  les autres shortcordE*/
         public function mp_gallery_shortcode_function($atts ){
-            //require_once( MultiPublisher::$pluginPath . 'vendor/autoload.php');
 
             $gallery_type = MultiPublisher::get_gallery_json()["structures"];
-
-            // $a = shortcode_atts( array(
-            //     'txt'   => 'something',
-            //     'param' => 0
-            // ), $atts );
-
-            // $a['txt'] = urldecode($a['txt']);
-
-            // $gallerie = "<table class='mp_gallery'>";
-            // $gallerie.= "\t<tr>";
-            // $gallerie.= "\t\t<td>&nbsp;</td>";
-            // $gallerie.= "\t\t<td>&nbsp;</td>";
-            // $gallerie.= "\t</tr>";
-            // $gallerie.= "\t<tr>";
-            // $gallerie.= "\t\t<td>&nbsp;</td>";
-            // $gallerie.= "\t\t<td>{$a['txt']}</td>";
-            // $gallerie.= "\t</tr>";
-            // $gallerie.= "</table>";
-
-            // return $gallerie;
-
-            // lib dom php
+            $gallery_images_array = explode( ",", $atts['ids'] );
+            $gallery_class_array = [];
+            $gallery_sizes_array = [];
             // https://github.com/tburry/pquery
             // peut être se référer au wiki https://code.google.com/archive/p/ganon/
             // pour certains détails
 
-            $gallery = "<table><tr><td class=\"a\">a</td><td class=\"b\">b</td></tr><tr><td class=\"c\">c</td><td class=\"d\">d</td></tr></table>";
+            $dom = pQuery::parseStr( $gallery_type[$atts['type']] );
+            foreach($dom('td[class]') as $element) {
+                $element = explode( " ", $element->class );
+                array_push($gallery_class_array, $element[0]);
+                array_push($gallery_sizes_array, $element[1]);
+            }
 
+            foreach ( $gallery_class_array as $id => $key ) {
+                $info_img = wp_prepare_attachment_for_js( $gallery_images_array[$id] );
+            	$dir = dirname($info_img['url']);
+                $img_src = wp_get_attachment_metadata($gallery_images_array[$id])['sizes'][$gallery_sizes_array[$id]]['file'];
 
-            $dom = pQuery::parseStr($gallery);
-
-            $dom->query('.a')->html('<img id="a" />');
-            $dom->query('.b')->html('<img id="b" />');
-            $dom->query('.c')->html('<img id="c" />');
-            $dom->query('.d')->html('<img id="d" />');
-
+                $dom->query('.'.$key)->html(
+                '<p class="wp-caption-dd">'.$info_img['caption'].'</p>
+                <img id="'.$gallery_class_array[$id].'" src="'.$dir.'/'.$img_src.'" />'
+                );
+            }
             return $dom->html();
         }
 

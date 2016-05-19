@@ -380,10 +380,10 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             foreach ( $gallery_class_array as $id => $key ) {
                 $info_img = wp_prepare_attachment_for_js( $gallery_images_array[$id] );
+                $size = $gallery_sizes_array[$id];
             	$dir = dirname($info_img['url']);
                 if ( $info_img['url'] !== null ){
-                    $img_src = wp_get_attachment_metadata($gallery_images_array[$id])['sizes'][$gallery_sizes_array[$id]]['file'];
-
+                    $img_src = wp_get_attachment_metadata($gallery_images_array[$id])['sizes'][$size]['file'];
                     $dom->query('.'.$key)->html(
                     '<p class="wp-caption-dd">'.$info_img['caption'].'</p>
                     <img id="'.$gallery_class_array[$id].'" src="'.$dir.'/'.$img_src.'" />'

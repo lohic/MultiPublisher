@@ -29,7 +29,6 @@
                         );
                     }
                });
-
           },
           createControl : function(n, cm) {
                return null;

@@ -16,6 +16,7 @@ jQuery(document).ready(function($) {
 			//replace shortcode before editor content set
 			ed.onBeforeSetContent.add(function(ed, o) {
 				o.content = t._do_spot(o.content);
+
 				// o.content >> table gallery
 				//>> activate the dospot function
 			});
@@ -33,53 +34,79 @@ jQuery(document).ready(function($) {
 			ed.onPostProcess.add(function(ed, o) {
 				if (o.get)
 					o.content = t._get_spot(o.content);
-			});
+				});
 
-			ed.onDblClick.add(function(ed, e) {
-				//console.log( e.target.className );
+				ed.onDblClick.add(function(ed, e) {
+					//if( e.target.src !== undefined ){
+						var classOf = (e.target.dataset.abcd);
+						var elem = $(e.rangeParent).closest('table')[0];
+						var ids = (elem.dataset.ids).split(',');
 
-			    if( e.target.classList.contains('mp_gallery')===true ){
+						console.log(ids);
+						custom_uploader = wp.media.frames.file_frame = wp.media({
+						title: 'Change the Image',
+						button: {
+							text: 'Change image'
+						},
+						multiple: false
+						});
+						custom_uploader.on('select', function() {
+							var attachment = custom_uploader.state().get('selection').first().toJSON();
+							//var abcd and i are in mp-admin.js
+							i = abcd.indexOf(classOf);
+							
+							ids.splice(i, 1, (attachment.id).toString());
+							ids = ids.join();
+							e.target.src = attachment.url;
+							console.log("new ids :" , ids);
+							elem.dataset.ids = ids;
+							console.log("data_set :", elem.dataset.ids);							
+						});
+						custom_uploader.open();
+					//}
 
-			    	var xref = $(e.target);
-			    	ed.selection.select(e.target);
-				    response = "RIEN";
-            var dlg = $('<div class=\"mp-gallery-dialog ajax-content\">'+response+'</div>').appendTo("body");
+				//OLD
+			    //if( e.target.classList.contains('mp_gallery')===true ){
+
+			    	// var xref = $(e.target);
+			    	// ed.selection.select(e.target);
+				    // response = "RIEN";
+        //     		var dlg = $('<div class=\"mp-gallery-dialog ajax-content\">'+response+'</div>').appendTo("body");
 
 
-				        dlg.dialog({
-				            'dialogClass' : 'wp-dialog',
-				            'modal' : true,
-				            'autoOpen' : false,
-				            'closeOnEscape' : true,
-				            'draggable' : false,
-			            	'resizable': false,
-				            'title' : 'Éditer une galerie',
-				            'width' : 500,
-				            'buttons' : [
-				                {
-				                    'text' : 'Annuler',
-				                    'class' : 'submitdelete deletion',
-				                    'click' : function() {
-				                        $(this).dialog('close');
-				                    }
-				                }
-				            ],
-				            'open' : function (event, ui){
+				    //     dlg.dialog({
+				    //         'dialogClass' : 'wp-dialog',
+				    //         'modal' : true,
+				    //         'autoOpen' : false,
+				    //         'closeOnEscape' : true,
+				    //         'draggable' : false,
+			     //        	'resizable': false,
+				    //         'title' : 'Éditer une galerie',
+				    //         'width' : 500,
+				    //         'buttons' : [
+				    //             {
+				    //                 'text' : 'Annuler',
+				    //                 'class' : 'submitdelete deletion',
+				    //                 'click' : function() {
+				    //                     $(this).dialog('close');
+				    //                 }
+				    //             }
+				    //         ],
+				    //         'open' : function (event, ui){
 
-				            },
-				            'close' : function (event, ui){
-				            	$(".mp-gallery-dialog").remove();
-				            }
-				        }).dialog('open');
-			    }
+				    //         },
+				    //         'close' : function (event, ui){
+				    //         	$(".mp-gallery-dialog").remove();
+				    //         }
+				    //     }).dialog('open');
+			    //}
 			});
 
 		},
 
 		//launch when you click on "visuel tab in editor mode"
-		_do_spot : function(co) {
-
-			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
+		_do_spot : function(co) {	
+				return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
 
 				var shortCodeObj = shortCode2Obj(b);
 
@@ -105,7 +132,7 @@ jQuery(document).ready(function($) {
 					'id'     : ar_id,
 					'gt'	 : gt,
 					'abcd'	 : abcd,
-					'sizes'   : class_arr
+					'sizes'  : class_arr
 				};
 
 				$.ajax({
@@ -137,8 +164,10 @@ jQuery(document).ready(function($) {
 					 	$(render).find("."+data+"").append(gal_img[i]);
 					 };
 			 	}
+
 				return render.prop('outerHTML');
 			});
+
 	},
 		_get_spot : function(co) {
 			function getAttr(s, n) {

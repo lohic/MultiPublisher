@@ -380,14 +380,25 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
             foreach ( $gallery_class_array as $id => $key ) {
                 $info_img = wp_prepare_attachment_for_js( $gallery_images_array[$id] );
+
                 $size = $gallery_sizes_array[$id];
             	$dir = dirname($info_img['url']);
                 if ( $info_img['url'] !== null ){
-                    $img_src = wp_get_attachment_metadata($gallery_images_array[$id])['sizes'][$size]['file'];
-                    $dom->query('.'.$key)->html(
-                    '<p class="wp-caption-dd">'.$info_img['caption'].'</p>
-                    <img id="'.$gallery_class_array[$id].'" src="'.$dir.'/'.$img_src.'" />'
-                    );
+                    // var_dump($size);
+
+                    // var_dump(wp_get_attachment_image_src($gallery_images_array[$id],$size)[3]);
+
+                    if(wp_get_attachment_image_src($gallery_images_array[$id],$size)[3] ){
+
+                        $img_src = wp_get_attachment_metadata($gallery_images_array[$id])['sizes'][$size]['file'];
+
+                        $dom->query('.'.$key)->html(
+                        '<p class="wp-caption-dd">'.$info_img['caption'].'</p>
+                        <img id="'.$gallery_class_array[$id].'" src="'.$dir.'/'.$img_src.'" />'
+                        );
+                    }else{
+                        $dom->query('.'.$key)->html('<p class="wp-caption-dd">L’image n’est pas à la bonne résolution.</p>');
+                    }
                 }
             }
             return $dom->html();

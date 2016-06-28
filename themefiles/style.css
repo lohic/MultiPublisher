@@ -149,7 +149,6 @@
 	p:before{
 		position: absolute;
 		left:0mm;
-		content: "Texte";
 		display: block;
 		font-family: "ArialBlackRegular","Arial Black";
 		font-size: 5pt;

@@ -18,7 +18,9 @@ for ( $i = 0; $i < count($id) ; $i ++ ){
 	if ( $info_img['url'] !== null ){
 		$classPos = $abcd[$i];
 		if( $info_img['caption'] !== null ){
-			$img = '<img data-abcd="'.$classPos.'" alt="'.$info_img['title'].'" src ="'.$dir."/".$sizes_img['file'].'"/><p class="wp-caption-dd">'.$info_img['caption'].'</p>';
+			//$img = '<img data-abcd="'.$classPos.'" alt="'.$info_img['title'].'" src ="'.$dir."/".$sizes_img['file'].'"/><p class="wp-caption-dd">'.$info_img['caption'].'</p>';
+			$img = '<p class="wp-caption-dd">'.$info_img['caption'].'</p><img data-abcd="'.$classPos.'" alt="'.$info_img['title'].'" src ="'.$dir."/".$sizes_img['file'].'"/>';
+
 			// $img = '<img style ="width:150px; height:auto;" data-abcd="'.$abcd[$i].'" alt="'.$info_img['title'].'" src ="'.$info_img['url'].'"/>';
 		}else{
 			$img = '<img data-abcd="'.$classPos.'" alt="'.$info_img['title'].'" src ="'.$dir."/".$sizes_img['file'].'"/>';

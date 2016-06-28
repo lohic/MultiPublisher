@@ -83,6 +83,23 @@ table img{
     height: auto;
 }
 
+table img:hover{
+    opacity: 0.3;
+
+}
+table td{
+    position: relative;
+}
+table td:hover:after{
+      content: "\f044";
+      font: normal normal normal 16px/1 FontAwesome;
+      color: #18AAF9;
+      vertical-align: middle;
+      position: absolute;
+      right: 20px;
+      top: 55px;
+}
+
 /**
  *  ┌──────────────────┐
  *  │ -> OLD STYLES <- │

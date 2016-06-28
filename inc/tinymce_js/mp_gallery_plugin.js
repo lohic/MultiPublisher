@@ -6,19 +6,11 @@ jQuery(document).ready(function($) {
 (function() {
 	tinymce.create('tinymce.plugins.mp_gallery', {
 		init : function(ed, url) {
-
 			var t = this;
-			// t is an "empty" object
-			// ed >> objet editor
-
-
 			t.url = url;
 			//replace shortcode before editor content set
 			ed.onBeforeSetContent.add(function(ed, o) {
 				o.content = t._do_spot(o.content);
-
-				// o.content >> table gallery
-				//>> activate the dospot function
 			});
 
 
@@ -35,7 +27,7 @@ jQuery(document).ready(function($) {
 				if (o.get)
 					o.content = t._get_spot(o.content);
 				});
-
+				
 				ed.onDblClick.add(function(ed, e) {
 					//if( e.target.src !== undefined ){
 						var classOf = (e.target.dataset.abcd);
@@ -150,7 +142,7 @@ jQuery(document).ready(function($) {
 				//recup type de gallerie
 				var gal_type = gallerie_data.default.structures[gt];
 				var gal_img = gallerie_data[mp_gallery_id];
-
+				
 				var render = $(gal_type)
 				.addClass('mp_gallery')
 				.addClass('mceItem')
@@ -160,7 +152,7 @@ jQuery(document).ready(function($) {
 
 				if(gal_img !== undefined){
 					 for( var i = 0; i < gal_img.length; i ++ ){
-					 	var data = $(gal_img[i]).data("abcd");
+					 	var data = $($(gal_img[i])[1]).data("abcd");
 					 	$(render).find("."+data+"").append(gal_img[i]);
 					 };
 			 	}

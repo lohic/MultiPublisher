@@ -27,12 +27,19 @@ jQuery(document).ready(function($) {
 				if (o.get)
 					o.content = t._get_spot(o.content);
 				});
+
+				ed.onClick = null;
 				
 				ed.onDblClick.add(function(ed, e) {
+
+					console.log("doubleclick");
+
 					//if( e.target.src !== undefined ){
 						var classOf = (e.target.dataset.abcd);
-						var elem = $(e.rangeParent).closest('table')[0];
-						var ids = (elem.dataset.ids).split(',');
+						console.log("e.target",e.target);
+						var elem = $(e.target).closest('table')[0];
+						console.log("elem",elem);
+						var ids = $(elem).data("ids").split(',');
 
 						console.log(ids);
 						custom_uploader = wp.media.frames.file_frame = wp.media({

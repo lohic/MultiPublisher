@@ -18,10 +18,6 @@ if ( ! class_exists( 'mp_structure' ) ) {
 
         protected static $instance;
 
-
-        //const EDITION           = 'edition';
-        //const CHAPITRE          = 'chapitre';
-
         /**
          * Args for the edition post type
          * @var array
@@ -40,27 +36,6 @@ if ( ! class_exists( 'mp_structure' ) ) {
             'map_meta_cap'    => true
         );
 
-
-
-        // array(
-        //                     'label'             => __('Éditions'),
-        //                     'singular_label'    => __('Edition'),
-        //                     'public'            => true,
-        //                     'show_ui'           => true,
-        //                     'show_in_menu'      => 'multipublisher',
-        //                     //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-        //                     'menu_icon'         => 'dashicons-calendar',
-        //                     'show_in_nav_menus' => false,
-        //                     'capability_type'   => 'post',
-        //                     'rewrite'           => array("slug" => "edition"),
-        //                     'hierarchical'      => false,
-        //                     'query_var'         => false,
-        //                     'supports'          => array('title','editor','thumbnail'),
-        //                     'menu_position'     => 20,
-        //                     //'taxonomies'      => array('category'),
-        //                 )
-
-
         /**
          * Args for the chapitre post type
          * @var array
@@ -77,28 +52,6 @@ if ( ! class_exists( 'mp_structure' ) ) {
             'capability_type' => array( 'multi_publisher_chapter', 'multi_publisher_chapters' ),
             'map_meta_cap'    => true
         );
-
-        // register_post_type(
-        //                 'chapitre',
-        //                 array(
-        //                     'label'             => __('Chapitres'),
-        //                     'singular_label'    => __('Chapitre'),
-        //                     'public'            => true,
-        //                     'show_ui'           => true,
-        //                     'show_in_menu'      => 'multipublisher',
-        //                     //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-        //                     'menu_icon'         => 'dashicons-media-spreadsheet',
-        //                     'show_in_nav_menus' => false,
-        //                     'capability_type'   => 'post',
-        //                     'rewrite'           => array("slug" => "chapitre"),
-        //                     'hierarchical'      => false,
-        //                     'query_var'         => false,
-        //                     'supports'          => array('title','editor','thumbnail'),
-        //                     'menu_position'     => 20,
-        //                     //'taxonomies'      => array('category'),
-        //                 )
-        //             );
-
 
         /**
          * Static Singleton Factory Method
@@ -120,51 +73,6 @@ if ( ! class_exists( 'mp_structure' ) ) {
 
     
             function mp_create_custom_posts() {
-
-                // Edition
-                // register_post_type(
-                //     'edition',
-                //     array(
-                //         'label'             => __('Éditions'),
-                //         'singular_label'    => __('Edition'),
-                //         'public'            => true,
-                //         'show_ui'           => true,
-                //         'show_in_menu'      => 'multipublisher',
-                //         //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-                //         'menu_icon'         => 'dashicons-calendar',
-                //         'show_in_nav_menus' => false,
-                //         'capability_type'   => 'post',
-                //         'rewrite'           => array("slug" => "edition"),
-                //         'hierarchical'      => false,
-                //         'query_var'         => false,
-                //         'supports'          => array('title','editor','thumbnail'),
-                //         'menu_position'     => 20,
-                //         'taxonomies'        => array('auteur','sujet'),
-                //     )
-                // );  
-
-                // Chapitre
-                // register_post_type(
-                //     'chapitre',
-                //     array(
-                //         'label'             => __('Chapitres'),
-                //         'singular_label'    => __('Chapitre'),
-                //         'public'            => true,
-                //         'show_ui'           => true,
-                //         'show_in_menu'      => 'multipublisher',
-                //         //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-                //         'menu_icon'         => 'dashicons-media-spreadsheet',
-                //         'show_in_nav_menus' => false,
-                //         'capability_type'   => 'post',
-                //         'rewrite'           => array("slug" => "chapitre"),
-                //         'hierarchical'      => false,
-                //         'query_var'         => false,
-                //         'supports'          => array('title','editor','thumbnail'),
-                //         'menu_position'     => 20,
-                //         //'taxonomies'      => array('category'),
-                //     )
-                // );  
-
                 
                 // https://wordpress.org/support/topic/permalinks-404-with-custom-post-type/page/2
                 register_post_type(
@@ -257,11 +165,8 @@ if ( ! class_exists( 'mp_structure' ) ) {
             
             add_action( 'init', 'mp_create_custom_posts' );
             add_action( 'init', 'create_mp_taxonomies' );   
-
-
+            
         }
-
-
     }
 }
 

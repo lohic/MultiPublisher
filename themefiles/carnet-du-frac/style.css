@@ -43,6 +43,11 @@
 		max-width: 132mm;
 	}
 
+	a{
+		color: #00AAFF;
+		text-decoration: none;
+	}
+
 	hr.pagebreak{
 		border-top:0;
 	    border-bottom:dashed #00AAFF 1px;
@@ -402,10 +407,39 @@
 		content:']';
 	}
 
-	.footnote{
+
+	/**
+	 * FOOTNOTES
+	 **/
+
+	ol.footnotes{
+		page-break-before: always;
 		/*float: footnote;
 		background: -webkit-device-cmyk(1.0, 0.0, 0.0, 0.3);*/
+		line-height:1.15em;
+		color: device-cmyk(1.0, 0.0, 0.0, 0.5);
+		padding-left:13.2mm;
+		border-top: solid 1px;
+		font-size: 0.6em;
+		margin:1em 0 0;
+		padding-top:0.4em;
 	}
+
+	ol.footnotes:before{
+		position: absolute;
+		width: 9mm;
+		left:0mm;
+		content: "Notes et liens";
+		word-wrap: break-word;
+		display: block;
+		font-family: "ArialBlackRegular","Arial Black";
+		font-size: 4.8pt;
+		text-transform: uppercase;
+		line-height: 1.35em;
+		font-style: normal;
+		margin-top:-0.4em;
+	}
+
 
 
 
@@ -415,6 +449,29 @@
 		page-break-before: always;
 	}
 
+
+	/**
+	 * GALLERIE
+	 *
+	 */
+
+
+	table{
+		max-width: 100%;
+	}
+
+	table tr td{
+		vertical-align: top;
+	}
+
+	table tr td+td{
+		width:50%;
+	}
+
+	table img{
+		max-width: 100%;
+		height: auto;
+	}
 
 
 	/**

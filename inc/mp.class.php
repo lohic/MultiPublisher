@@ -249,6 +249,9 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
              */
             add_action( 'add_meta_boxes',						array( $this, 'add_meta_box_edition' ) );
             add_action( 'save_post',							array( $this, 'save' ) );
+            add_action( 'admin_menu' ,                          array( $this, 'mp_remove_publication_metabox' ) );
+ 
+
 
             /**
              * TEMPLATE REDIRECTION + HEADER
@@ -409,15 +412,21 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          */
         public static function list_notes($title = null){
 
-            $html = !empty($title) ? $title."\n" : '';
+            $html = '';
 
-            $html .= "<ol class=\"footnotes\">\n";
+            if( count( MultiPublisher::$notesArray ) > 0 ){
+                
+                $html = !empty($title) ? $title."\n" : '';
 
-            foreach (MultiPublisher::$notesArray as $key => $note) {
-                $html .= "<li>$note</li>\n";
+                $html .= "<ol class=\"footnotes\">\n";
+
+                foreach (MultiPublisher::$notesArray as $key => $note) {
+                    $html .= "<li>$note</li>\n";
+                }
+
+                $html .= "</ol>\n";
+
             }
-
-            $html .= "</ol>\n";
 
             return $html;
         }
@@ -558,7 +567,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
          * @return [type]          [description]
          */
         public function my_register_tinymce_button( $buttons ) {
-            array_push( $buttons, "button_eek", "button_green", "mp_tab" );
+            array_push( $buttons, "mp_gallery", "mp_note", "mp_xref" );
             return $buttons;
         }
 
@@ -570,11 +579,13 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
         public function mp_add_tinymce_plugins( $plugin_array ) {
 
 
-            $plugin_array['mp_button_script'] = plugins_url( '/tinymce_js/mp_tinymce_buttons.js', __FILE__ ) ;
-            $plugin_array['mp_xref']          = plugins_url( '/tinymce_js/mp_xref_plugin.js', __FILE__ ) ;
-            $plugin_array['mp_note']          = plugins_url( '/tinymce_js/mp_note_plugin.js', __FILE__ ) ;
-            $plugin_array['mp_gallery']       = plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ) ;
-
+            $plugin_array['mp_button_gallery_script'] = plugins_url( '/tinymce_js/mp_tinymce_buttons_gallery.js', __FILE__ ) ;
+            $plugin_array['mp_button_note_script']    = plugins_url( '/tinymce_js/mp_tinymce_buttons_xref.js', __FILE__ ) ;
+            $plugin_array['mp_button_xref_script']    = plugins_url( '/tinymce_js/mp_tinymce_buttons_note.js', __FILE__ ) ;
+  
+            $plugin_array['mp_gallery']               = plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ) ;
+            $plugin_array['mp_xref']                  = plugins_url( '/tinymce_js/mp_xref_plugin.js', __FILE__ ) ;
+            $plugin_array['mp_note']                  = plugins_url( '/tinymce_js/mp_note_plugin.js', __FILE__ ) ;
 
             wp_register_script( 'gallerie_handle', plugins_url( '/tinymce_js/mp_gallery_plugin.js', __FILE__ ));
 
@@ -963,6 +974,7 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             //wp_enqueue_style( 'mp_admin_css');
             wp_enqueue_style( 'wp-jquery-ui-dialog' );
             // wp_enqueue_style( 'wp-jquery-ui-tooltip' );
+            wp_enqueue_style( 'font-awesome', MultiPublisher::$pluginUrl .'vendor/fortawesome/font-awesome/css/font-awesome.min.css' );
         }
 
 
@@ -1053,12 +1065,12 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
 
 
                 	$publication_query = "SELECT p.ID, p.post_title, p.post_name, p.guid, p.post_parent, m.meta_value AS mp_main_parent_id_key, p.menu_order
-	                FROM wp_posts AS p, wp_postmeta AS m
-	                WHERE post_type='publication'
-	                AND m.meta_key = 'mp_main_parent_id_key'
-	                AND m.meta_value = $publication_ID
-	                AND m.post_id = p.ID
-	                ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
+    	                FROM wp_posts AS p, wp_postmeta AS m
+    	                WHERE post_type='publication'
+    	                AND m.meta_key = 'mp_main_parent_id_key'
+    	                AND m.meta_value = $publication_ID
+    	                AND m.post_id = p.ID
+    	                ORDER BY p.post_parent, p.menu_order, p.post_date_gmt";
 
 	                global $wpdb;
 
@@ -1396,6 +1408,23 @@ if ( ! class_exists( 'MultiPublisher' ) ) {
             $this->check_field( $post_id, 'structure_field', 		'mp_structure_key');
             $this->check_field( $post_id, 'main_parent_id_field', 	'mp_main_parent_id_key');
 
+        }
+
+        /**
+         * Remove the Excerpt meta box
+         * https://developer.wordpress.org/reference/functions/remove_meta_box/
+         */
+        public function mp_remove_publication_metabox() {
+
+            // echo "YO YO YO $main_parent_id"; -> variable non définie au moment où la fonction est appelée
+
+            // if( empty( $main_parent_id ) ){
+
+                // remove_meta_box( 'tagsdiv-sujet'  , 'publication' , 'side' );
+                // remove_meta_box( 'tagsdiv-auteur' , 'publication' , 'side' ); 
+                // remove_meta_box( 'postimagediv'   , 'publication' , 'side' );
+
+            // }
         }
 
         /**

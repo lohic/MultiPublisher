@@ -27,30 +27,110 @@ if ( ! defined( 'ABSPATH' ) ) {
         position: fixed !important;
         top:50px;
     }
+
+    #mp_structure h2+ul{
+        margin-top:30px;
+    }
+
+    #mp_structure h2+ul>li{
+        font-weight: bold;
+    }
+    #mp_structure h2+ul>li li{
+        font-weight: normal;
+    }
+
+    #mp_structure ul, #mp_structure li{
+        font-size: 0.9rem;
+        line-height: 1.15em;
+        margin: 0;
+        padding: 0;
+    }
+
+    #mp_structure li>ul{
+        margin-top: 5px;
+    }
+
+    #mp_structure li{
+        margin-bottom: 5px;
+    }
+
+    #mp_structure ul ul{
+        margin-left: 2em;
+    }
+
 </style>
 <div class="wrap" id="multi_publisher">
 
-    <h2>Super</h2>
+    <!-- <h2>Super</h2> -->
 
     <?php //MultiPublisher::wpb_list_child_pages(); ?>
+    <?php //print_r(MultiPublisher::publication_children()) ?>
+    <?php //print_r(MultiPublisher::mp_get_publication_json_struture( $main_parent_id!=0 ? $main_parent_id  : $post->ID )); ?>
 
-    ENFANTS :
-    <ul>
+    
+
     <?php 
-        wp_list_pages(
-            array(
-                'depth'=>-1,
-                'post_type'=>'publication',
-                'child_of'=>$post->ID,
-                'title_li'=>''
-            )
-        );
-    ?>
-    </ul>
 
-    <button id="generate_publication">Générer la publication</button>
+		// cf http://stackoverflow.com/questions/10309006/php-function-that-create-nested-ul-li-from-arrayobject
+		function mp_get_publication_html_structure($array, $first){
+			if(!is_array($array) || !isset($_GET['post'])) return '';
+
+			$output = '<ul>';
+			foreach($array as $item){  
+
+				if( $item['ID'] == $_GET['post'] ){
+					$output .= '<li>' . $item['post_title']  ;
+				}else{
+					$output .= '<li><a href="post.php?post='.$item['ID'].'&action=edit">' . $item['post_title'] . '</a>' ;      
+				}
+
+				if($first == false){
+					$output .= ' <a href="'.$item['guid'].'" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>'; 
+				}
+
+				if( isset($item['childs'] )) //property_exists($item, 'childs'))
+					$output .= mp_get_publication_html_structure($item['childs'], false);
+
+				$output .= '</li>';
+
+			}   
+			$output .= '</ul>';
+
+			return $output;
+		}
+
+
+     ?>
+
+    <!-- ENFANTS : -->
+    <!-- <ul> -->
+    <?php 
+        // wp_list_pages(
+        //     array(
+        //         'depth'=>-1,
+        //         'post_type'=>'publication',
+        //         'child_of'=>$post->ID,
+        //         'title_li'=>''
+        //     )
+        // );
+    ?>
+    <!-- </ul> -->
 
     <table class="form-table">
+        <tr>
+            <th style="width:20%">
+                <label>
+                    <?php _e( 'Structure', 'mp_field' ); ?>
+                </label>
+            </th>
+            <td>
+                <div id="mp_structure">
+                <?php echo mp_get_publication_html_structure(MultiPublisher::mp_get_publication_json_struture( $main_parent_id!=0 ? $main_parent_id  : $post->ID ), true); ?>
+                </div>
+            </td>
+        </tr>
+
+        <?php if( empty( $main_parent_id ) ){ ?>
         <tr>
             <th style="width:20%">
                 <label for="ISBN_field">
@@ -73,7 +153,17 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <option value="<?php echo $key; ?>"<?php echo $langue == $key ? ' selected="selected"' : ''?>><?php _e($value)  ?></option>
                     <?php } ?>
                 </select>
+            </td>
+        </tr>
+        <?php } ?>
 
+        <tr>
+            <th style="width:20%">
+                <label for="main_parent_id">
+                    <?php _e( 'Parent principal', 'mp_field' ); ?>
+                </label>
+            </th>
+            <td>
                 <input type="text" value="<?php echo esc_attr( $main_parent_id )?>" id="main_parent_id_field" name="main_parent_id_field"/><br>
 
             </td>
@@ -126,6 +216,15 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </form> -->
   <!--           </td>
         </tr> -->
+
+        <tr>
+            <th style="width:20%">
+                <button id="generate_publication" class="button button-primary button-large">Générer la publication</button>
+            </th>
+            <td>
+                
+            </td>
+        </tr>
 
     </table>
 

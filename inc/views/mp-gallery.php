@@ -21,14 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="gallery_container">
             </div>
 		</div>
-        <button id="g1" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_1.png" alt="" /></button>
+        
+        <button id="g1"  class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_1.png"  alt="" /></button>
         <button id="g21" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_21.png" alt="" /></button>
-        <button id="g22" class="mos"><img src="<?php echo self::$pluginUrl; ?>/inc/img/btn_22.png" alt="" /></button>
+        <button id="g22" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_22.png" alt="" /></button>
         <button id="g31" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_31.png" alt="" /></button>
         <button id="g32" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_32.png" alt="" /></button>
         <button id="g33" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_33.png" alt="" /></button>
         <button id="g34" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_34.png" alt="" /></button>
-		<button id="g4" class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_4.png" alt="" /></button>
+		<button id="g4"  class="mos"><img src="<?php echo self::$pluginUrl; ?>inc/img/btn_4.png"  alt="" /></button>
 
         <button id="submit">submit</button>
 

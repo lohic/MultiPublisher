@@ -96,16 +96,34 @@ if ( class_exists( 'MultiPublisher' ) ) {
 	 */
 	function get_mp_publication_cover(){
 
+		global $post;
+
+
+		$auteurs 		= "";
+		$auteur_list 	= wp_get_post_terms($post->ID, 'auteur', array("fields" => "names"));
+		$auteurs 		= implode(', ', $auteur_list);
+
 		$html = 
 		  "<div class=\"mp-cover\">"
 		. "\t<h1 class=\"mp-main-title\">".get_the_title()."</h1>"
-		. "\t<h4 class=\"auteurs\">Auteurs".get_the_tag_list()."</h4>"
+		. "\t<h4 class=\"auteurs\">". $auteurs ."</h4>"
 		. "\t<h4 class=\"artistes\">Artistes".''."</h4>"
 		. "\t<h4 class=\"commissaires\">Commissaires".''."</h4>"
 		. "</div>"
 		. "<mbp:pagebreak/>";
 
 		echo $html;
+
+	}
+
+	
+	/**
+	 * Description  fn + ctrl + space
+	 * @return type
+	 */
+	function get_mp_content(){
+
+		the_content();
 
 	}
 

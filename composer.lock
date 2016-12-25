@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "fortawesome/font-awesome",
-            "version": "v4.4.0",
+            "version": "v4.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+                "reference": "8e241f209faa1dd2182c9fdc9c352d8806504a4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/8e241f209faa1dd2182c9fdc9c352d8806504a4e",
+                "reference": "8e241f209faa1dd2182c9fdc9c352d8806504a4e",
                 "shasum": ""
             },
             "require-dev": {
@@ -28,7 +28,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "4.6.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -53,7 +53,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2015-07-28 21:55:03"
+            "time": "2016-05-13 15:42:25"
         },
         {
             "name": "grandt/binstring",
@@ -100,23 +100,23 @@
         },
         {
             "name": "grandt/phpepub",
-            "version": "4.0.3",
+            "version": "4.0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Grandt/PHPePub.git",
-                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca"
+                "reference": "ccb501e566358ac19a9fedb6eb8bf96665823452"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
-                "reference": "dee0c5549a8d2c6bf6a1ad5b4ee21d245b711fca",
+                "url": "https://api.github.com/repos/Grandt/PHPePub/zipball/ccb501e566358ac19a9fedb6eb8bf96665823452",
+                "reference": "ccb501e566358ac19a9fedb6eb8bf96665823452",
                 "shasum": ""
             },
             "require": {
-                "grandt/phpresizegif": ">=1.0.3",
-                "grandt/relativepath": ">=1.0.1",
+                "grandt/phpresizegif": "~1.0.3",
+                "grandt/relativepath": "~1.0.1",
                 "php": ">=5.3.0",
-                "phpzip/phpzip": ">=2.0.7"
+                "phpzip/phpzip": "~2.0.7"
             },
             "type": "library",
             "autoload": {
@@ -145,7 +145,7 @@
                 "e-book",
                 "epub"
             ],
-            "time": "2015-09-15 08:47:09"
+            "time": "2016-03-16 15:48:26"
         },
         {
             "name": "grandt/phpresizegif",
@@ -295,22 +295,22 @@
         },
         {
             "name": "phpzip/phpzip",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Grandt/PHPZip.git",
-                "reference": "a43a7ce8b2f21050f8b143876c5c1661b0d65306"
+                "reference": "936f93d656f68e29c231a39e19fd59a636fe7e47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Grandt/PHPZip/zipball/a43a7ce8b2f21050f8b143876c5c1661b0d65306",
-                "reference": "a43a7ce8b2f21050f8b143876c5c1661b0d65306",
+                "url": "https://api.github.com/repos/Grandt/PHPZip/zipball/936f93d656f68e29c231a39e19fd59a636fe7e47",
+                "reference": "936f93d656f68e29c231a39e19fd59a636fe7e47",
                 "shasum": ""
             },
             "require": {
-                "grandt/binstring": ">=0.2.0",
-                "grandt/phpzipmerge": ">=1.0.3",
-                "grandt/relativepath": ">=1.0.1",
+                "grandt/binstring": ">=1.0.0",
+                "grandt/phpzipmerge": ">=1.0.4",
+                "grandt/relativepath": ">=1.0.2",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -352,7 +352,7 @@
                 "stream",
                 "zip"
             ],
-            "time": "2015-04-30 06:45:53"
+            "time": "2015-11-16 16:30:51"
         },
         {
             "name": "tburry/pquery",

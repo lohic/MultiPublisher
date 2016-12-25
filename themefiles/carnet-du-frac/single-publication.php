@@ -7,10 +7,9 @@
 
 <?php get_mp_publication_cover(); ?>
 
-<?php the_content(); ?>
+<?php get_mp_content(); ?>
 
-
-<?php get_mp_notes("<h3>Notes :</h3>"); ?>
+<?php get_mp_notes(""); ?>
 
 <?php endwhile; ?>
 <?php endif; ?>

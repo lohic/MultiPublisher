@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	    <table class="form-table">
 			<tr valign="top">
 			<th scope="row"><?php _e('Url du serveur pour la génération des pdf') ?></th>
-			<td><input type="text" name="pdf_server_url" value="<?php echo esc_attr( get_option('pdf_server_url') ); ?>" /></td>
+			<td><input type="text" name="mp_pdf_server_url" value="<?php echo esc_attr( get_option('mp_pdf_server_url') ); ?>" /></td>
 			</tr>
 	    </table>
 	    

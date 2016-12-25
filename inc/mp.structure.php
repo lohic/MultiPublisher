@@ -122,48 +122,48 @@ if ( ! class_exists( 'mp_structure' ) ) {
             function mp_create_custom_posts() {
 
                 // Edition
-                register_post_type(
-                    'edition',
-                    array(
-                        'label'             => __('Éditions'),
-                        'singular_label'    => __('Edition'),
-                        'public'            => true,
-                        'show_ui'           => true,
-                        'show_in_menu'      => 'multipublisher',
-                        //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-                        'menu_icon'         => 'dashicons-calendar',
-                        'show_in_nav_menus' => false,
-                        'capability_type'   => 'post',
-                        'rewrite'           => array("slug" => "edition"),
-                        'hierarchical'      => false,
-                        'query_var'         => false,
-                        'supports'          => array('title','editor','thumbnail'),
-                        'menu_position'     => 20,
-                        'taxonomies'        => array('auteur','sujet'),
-                    )
-                );  
+                // register_post_type(
+                //     'edition',
+                //     array(
+                //         'label'             => __('Éditions'),
+                //         'singular_label'    => __('Edition'),
+                //         'public'            => true,
+                //         'show_ui'           => true,
+                //         'show_in_menu'      => 'multipublisher',
+                //         //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
+                //         'menu_icon'         => 'dashicons-calendar',
+                //         'show_in_nav_menus' => false,
+                //         'capability_type'   => 'post',
+                //         'rewrite'           => array("slug" => "edition"),
+                //         'hierarchical'      => false,
+                //         'query_var'         => false,
+                //         'supports'          => array('title','editor','thumbnail'),
+                //         'menu_position'     => 20,
+                //         'taxonomies'        => array('auteur','sujet'),
+                //     )
+                // );  
 
                 // Chapitre
-                register_post_type(
-                    'chapitre',
-                    array(
-                        'label'             => __('Chapitres'),
-                        'singular_label'    => __('Chapitre'),
-                        'public'            => true,
-                        'show_ui'           => true,
-                        'show_in_menu'      => 'multipublisher',
-                        //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
-                        'menu_icon'         => 'dashicons-media-spreadsheet',
-                        'show_in_nav_menus' => false,
-                        'capability_type'   => 'post',
-                        'rewrite'           => array("slug" => "chapitre"),
-                        'hierarchical'      => false,
-                        'query_var'         => false,
-                        'supports'          => array('title','editor','thumbnail'),
-                        'menu_position'     => 20,
-                        //'taxonomies'      => array('category'),
-                    )
-                );  
+                // register_post_type(
+                //     'chapitre',
+                //     array(
+                //         'label'             => __('Chapitres'),
+                //         'singular_label'    => __('Chapitre'),
+                //         'public'            => true,
+                //         'show_ui'           => true,
+                //         'show_in_menu'      => 'multipublisher',
+                //         //'menu_icon'       => get_bloginfo('template_directory') .'/images/favicon.png',
+                //         'menu_icon'         => 'dashicons-media-spreadsheet',
+                //         'show_in_nav_menus' => false,
+                //         'capability_type'   => 'post',
+                //         'rewrite'           => array("slug" => "chapitre"),
+                //         'hierarchical'      => false,
+                //         'query_var'         => false,
+                //         'supports'          => array('title','editor','thumbnail'),
+                //         'menu_position'     => 20,
+                //         //'taxonomies'      => array('category'),
+                //     )
+                // );  
 
                 
                 // https://wordpress.org/support/topic/permalinks-404-with-custom-post-type/page/2
@@ -220,7 +220,7 @@ if ( ! class_exists( 'mp_structure' ) ) {
                     'menu_name'         => __( 'Auteurs' )
                 ); 
             
-                register_taxonomy('auteur',array('edition','publication'),array(
+                register_taxonomy('auteur',array('publication'),array(
                     'hierarchical'      => false,
                     'labels'            => $labels_auteur,
                     'show_ui'           => true,
@@ -242,7 +242,7 @@ if ( ! class_exists( 'mp_structure' ) ) {
                     'menu_name'         => __( 'Sujets' )
                 ); 
             
-                register_taxonomy('sujet',array('edition','publication'),array(
+                register_taxonomy('sujet',array('publication'),array(
                     'hierarchical'      => false,
                     'labels'            => $labels_sujet,
                     'show_ui'           => true,

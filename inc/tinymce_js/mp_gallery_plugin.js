@@ -10,8 +10,15 @@ jQuery(document).ready(function($) {
 			t.url = url;
 			//replace shortcode before editor content set
 			ed.onBeforeSetContent.add(function(ed, o) {
+				o.content = t._get_spot(o.content);
 				o.content = t._do_spot(o.content);
 			});
+
+			// ed.on('BeforeSetcontent', function(event){
+			// 	console.log(event)
+
+			// 	event.content = t._do_spot(event.content);
+			// });
 
 
 			//replace shortcode as its inserted into editor (which uses the exec command)
@@ -33,6 +40,8 @@ jQuery(document).ready(function($) {
 				ed.onDblClick.add(function(ed, e) {
 
 					console.log("doubleclick");
+
+					if( e.target.classList.contains('mp_gallery')===true ){
 
 					//if( e.target.src !== undefined ){
 						var classOf = (e.target.dataset.abcd);
@@ -62,7 +71,8 @@ jQuery(document).ready(function($) {
 							console.log("data_set :", elem.dataset.ids);							
 						});
 						custom_uploader.open();
-					//}
+					
+					}
 
 				//OLD
 			    //if( e.target.classList.contains('mp_gallery')===true ){
@@ -105,7 +115,10 @@ jQuery(document).ready(function($) {
 
 		//launch when you click on "visuel tab in editor mode"
 		_do_spot : function(co) {	
-				return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
+
+			console.log("_do_spot");
+
+			return co.replace(/\[mp_gallery([^\]]*)\]/g, function(a,b){
 
 				var shortCodeObj = shortCode2Obj(b);
 
@@ -151,11 +164,11 @@ jQuery(document).ready(function($) {
 				var gal_img = gallerie_data[mp_gallery_id];
 				
 				var render = $(gal_type)
-				.addClass('mp_gallery')
-				.addClass('mceItem')
-				.attr("data-param",shortCodeObj.param)
-				.attr("data-type",shortCodeObj.type)
-				.attr("data-ids",shortCodeObj.ids);
+					.addClass('mp_gallery')
+					.addClass('mceItem')
+					.attr("data-param",shortCodeObj.param)
+					.attr("data-type",shortCodeObj.type)
+					.attr("data-ids",shortCodeObj.ids);
 
 				if(gal_img !== undefined){
 					 for( var i = 0; i < gal_img.length; i ++ ){
@@ -167,8 +180,10 @@ jQuery(document).ready(function($) {
 				return render.prop('outerHTML');
 			});
 
-	},
+		},
 		_get_spot : function(co) {
+			console.log("_get_spot");
+
 			function getAttr(s, n) {
 				n = new RegExp(n + '=\"([^\"]+)\"', 'g').exec(s);
 				return n ? tinymce.DOM.decode(n[1]) : '';
